@@ -253,10 +253,12 @@ function cpsTick() {
 
 function genUpgrade(number) {
     "use strict";
-    if (number === 1 && genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
+    if (number === 1 && !genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
         clickAmount = clickAmount - genUpgrade1Cost;
         genUpgrade1 = true;
         document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a seccond)</strike>";
+        document.getElementById('autoclickToggleDisplay').style.visibility = "visible";
+        document.getElementById('autoclickToggleDisplay').scrollIntoView();
     }
     updateDisplays();
     achievementTick();
