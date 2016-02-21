@@ -1,0 +1,44 @@
+<html>
+	<head>
+	    <script src="js.js"></script>
+		<script type="text/javascript">
+			document.title = clickAmount;
+            cpsTick();
+		</script>
+	</head>
+	<body>
+		<img src=cursor1.png style="cursor: pointer" onclick="regClick(1);tick();">
+		<br>
+		<span><span id='amountOf'>0</span> clicks!</span>
+		<br>
+		<br>
+        <span><span id='clickerAmountDisplay'>0</span> clickers: +<span id='clickerTotalCpsDisplay'>0</span> cps</span>
+        <br>
+        <span><span id='cursorAmountDisplay'>0</span> cursors: +<span id='cursorClickTotalIncreaseDisplay'>0</span> cpc</span>
+        <br>
+        <div id='clickerUpgrade1Display' style="visibility: hidden"><button onclick="clickerUpgrade(1);"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250c</span> - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
+        <div id='clickerUpgrade2Display' style="visibility: hidden"><button onclick="clickerUpgrade(2);"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointer (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
+        <div id='clickerUpgrade3Display' style="visibility: hidden"><button onclick="clickerUpgrade(3);"><span id='clickerUpgrade3DisplayText'><span id='clickerUpgrade3CostDisplay'>2500</span>c - Clicker Upgrade - <i>Plastic Tier</i> - Sheet Plastic Clickers (Clickers are <b>twice</b> as efficient)</span></button></div>
+        <br>
+        <div id='cursorUpgrade1Display' style="visibility: hidden"><button onclick="cursorUpgrade(1);"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
+        <div id='cursorUpgrade2Display' style="visibility: hidden"><button onclick="cursorUpgrade(2);"><span id='cursorUpgrade2DisplayText'><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</span></button></div>
+        <div id='cursorUpgrade3Display' style="visibility: hidden"><button onclick="cursorUpgrade(3);"><span id='cursorUpgrade3DisplayText'><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</span></button></div>
+		<br>
+		<br>
+        <div><button onclick="increaseClicker();">Buy a clicker for <span id='clickerCostDisplay'>50</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
+        <div><button onclick="increaseCursor();" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>100</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
+		<br>
+		<br>
+		<br>
+        <div id='achievementClickMoreTotalDisplay' style="visibility: hidden">Achievment: Hacked Clicking</div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <input type="text" value="Put load text here" id='saveLoadArea'>
+        <br>
+        <button onclick="saveDisplayWrite();">Get Save</button>
+        <br>
+        <textarea id='saveDisplayArea'></textarea>
+    </body>
+</html>
