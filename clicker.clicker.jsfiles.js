@@ -326,7 +326,13 @@ function ruinTheFun() {
     clickerPrice(0);
     cursorPrice(0);
     clickAmount = 999999999999999999999999;
+    clickAmountClicked = 999999999999999999999999;
+    clickAmountClickedAssist = 999999999999999999999999;
+    clickAmountTotal = 1000000000000000000000000;
+    clickerAmount = 999;
+    cursorAmount = 999;
     ruinTheFunToggle = true;
+    updateDisplays();
 }
 function achievementUnlockAll() {
     "use strict";
