@@ -70,6 +70,16 @@ function saveCookieSet() {
     document.cookie = "clickerclickerSaveCookie='clickAmount=100000;'; expires=Tue, 23 Feb 2016 10:10:10 UTC; path=/";
 }
 
+function saveCookieDetect() {
+    "use strict";
+    
+}
+
+function saveCookieRead() {
+    "use strict";
+    
+}
+
 function achievementTick() {
     "use strict";
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
