@@ -2,7 +2,7 @@ var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
 
 var autoclickEnabled = false;
-var autoclickTps = 4;
+var autoclickTps = 2;
 var autoclickTemp;
 
 var clickAmount = 0;
@@ -15,6 +15,8 @@ var achievementRuinedTheFun = false;
 
 var genUpgrade1Cost = 1000000;
 var genUpgrade1 = false;
+var genUpgrade2Cost = 2000000;
+var genUpgrade2 = false;
 
 var clickerAmount = 0;
 var clickerBaseCps = 1;
@@ -38,7 +40,7 @@ var cursorUpgrade1Cost = 2500;
 var cursorUpgrade1 = false;
 var cursorUpgrade2Cost = 10000;
 var cursorUpgrade2 = false;
-var cursorUpgrade2Modifier = 0;
+var cursorUpgrade2Modifier = 0;-/
 var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
@@ -63,6 +65,11 @@ function saveLoadRead() {
     return document.getElementById('saveLoadArea').value;
 }
 
+function saveCookieSet() {
+    "use strict";
+    document.cookie = "clickerclickerSaveCookie='clickAmount=100000;'; expires=Tue, 23 Feb 2016 10:10:10 UTC; path=/";
+}
+
 function achievementTick() {
     "use strict";
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
@@ -80,7 +87,7 @@ function achievementTick() {
 
 function updateDisplays() {
     "use strict";
-    document.title = clickAmount;
+    document.title = "Clicks: " + clickAmount;
     document.getElementById('amountOf').innerHTML = clickAmount;
     if (!cursorUpgrade2) {document.getElementById('cursorIncreaseDisplay').innerHTML = cursorClickIncrease; } else { document.getElementById('cursorIncreaseDisplay').innerHTML = Math.round(cursorClickTotalIncrease / cursorAmount); }
     document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount;
@@ -91,7 +98,8 @@ function updateDisplays() {
     document.getElementById('cursorAmountDisplay').innerHTML = cursorAmount;
     document.getElementById('cursorClickTotalIncreaseDisplay').innerHTML = cursorClickTotalIncrease;
     
-    if (clickAmount > 9999 && clickAmountClicked > 5000 && clickAmountTotal > 50000) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
+    if (clickAmount > 9999 && clickAmountClicked > 999 && clickAmountTotal > 50000) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
+    if (clickAmount > 99999 && clickAmountClicked > 1999 && clickAmountTotal > 75000) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
     
     if (clickerAmount > 0) { document.getElementById('clickerUpgrade1Display').style.visibility = "visible"; }
     if (clickerUpgrade1) { document.getElementById('clickerUpgrade2Display').style.visibility = "visible"; }
@@ -260,6 +268,17 @@ function genUpgrade(number) {
         document.getElementById('autoclickToggleDisplay').style.visibility = "visible";
         document.getElementById('autoclickToggleDisplay').scrollIntoView();
     }
+    if (number === 2 && !genUpgrade2 && clickAmount > genUpgrade2Cost - 1) {
+        clickAmount = clickAmount - genUpgrade2Cost;
+        genUpgrade2 = true;
+        document.getElementById('genUpgrade2DisplayText').innerHTML = "<strike><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick speed is <b>doubled</b>)</strike>";
+        autoclickTps = autoclickTps * 2;
+        if (autoclickEnabled) {
+            autoclickDisable();
+            autoclickEnable();
+        }
+        document.getElementById('autoclickToggleDisplay').scrollIntoView();
+    }
     updateDisplays();
     achievementTick();
 }
@@ -278,8 +297,7 @@ function autoclickDisable() {
 
 function autoclickToggle() {
     "use strict";
-    if (autoclickEnabled) { autoclickDisable(); }
-    else { autoclickEnable(); }
+    if (autoclickEnabled) { autoclickDisable(); } else { autoclickEnable(); }
 }
 
 function autoclickTick() {

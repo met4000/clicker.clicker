@@ -2,7 +2,7 @@
 	<head>
 	    <script src="clicker.clicker.jsfiles.js"></script>
 		<script type="text/javascript">
-			document.title = clickAmount;
+			document.title = "Clicks: "+clickAmount;
             cpsTick();
 		</script>
 	</head>
@@ -17,6 +17,7 @@
         <span><span id='cursorAmountDisplay'>0</span> cursors: +<span id='cursorClickTotalIncreaseDisplay'>0</span> cpc</span>
         <br>
         <div id='genUpgrade1Display' style="visibility: hidden"><button onclick="genUpgrade(1);"><span id='genUpgrade1DisplayText'><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a seccond)</span></button></div>
+        <div id='genUpgrade2Display' style="visibility: hidden"><button onclick="genUpgrade(2);"><span id='genUpgrade2DisplayText'><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick clicks <b>twice</b> a seccond)</span></button></div>
         <br>
         <div id='clickerUpgrade1Display' style="visibility: hidden"><button onclick="clickerUpgrade(1);"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250c</span> - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
         <div id='clickerUpgrade2Display' style="visibility: hidden"><button onclick="clickerUpgrade(2);"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointer (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
