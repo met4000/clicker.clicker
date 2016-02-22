@@ -40,7 +40,7 @@ var cursorUpgrade1Cost = 2500;
 var cursorUpgrade1 = false;
 var cursorUpgrade2Cost = 10000;
 var cursorUpgrade2 = false;
-var cursorUpgrade2Modifier = 0;-/
+var cursorUpgrade2Modifier = 0;
 var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
@@ -259,30 +259,6 @@ function cpsTick() {
     updateDisplays();
 }
 
-function genUpgrade(number) {
-    "use strict";
-    if (number === 1 && !genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
-        clickAmount = clickAmount - genUpgrade1Cost;
-        genUpgrade1 = true;
-        document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a seccond)</strike>";
-        document.getElementById('autoclickToggleDisplay').style.visibility = "visible";
-        document.getElementById('autoclickToggleDisplay').scrollIntoView();
-    }
-    if (number === 2 && !genUpgrade2 && clickAmount > genUpgrade2Cost - 1) {
-        clickAmount = clickAmount - genUpgrade2Cost;
-        genUpgrade2 = true;
-        document.getElementById('genUpgrade2DisplayText').innerHTML = "<strike><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick speed is <b>doubled</b>)</strike>";
-        autoclickTps = autoclickTps * 2;
-        if (autoclickEnabled) {
-            autoclickDisable();
-            autoclickEnable();
-        }
-        document.getElementById('autoclickToggleDisplay').scrollIntoView();
-    }
-    updateDisplays();
-    achievementTick();
-}
-
 function autoclickEnable() {
     "use strict";
     autoclickTemp = setInterval("autoclickTick()", 1000 / autoclickTps);
@@ -306,6 +282,30 @@ function autoclickTick() {
         regClick(1);
         achievementTick();
     }
+}
+
+function genUpgrade(number) {
+    "use strict";
+    if (number === 1 && !genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
+        clickAmount = clickAmount - genUpgrade1Cost;
+        genUpgrade1 = true;
+        document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a seccond)</strike>";
+        document.getElementById('autoclickToggleDisplay').style.visibility = "visible";
+        document.getElementById('autoclickToggleDisplay').scrollIntoView();
+    }
+    if (number === 2 && !genUpgrade2 && clickAmount > genUpgrade2Cost - 1) {
+        clickAmount = clickAmount - genUpgrade2Cost;
+        genUpgrade2 = true;
+        document.getElementById('genUpgrade2DisplayText').innerHTML = "<strike><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick speed is <b>doubled</b>)</strike>";
+        autoclickTps = autoclickTps * 2;
+        if (autoclickEnabled) {
+            autoclickDisable();
+            autoclickEnable();
+        }
+        document.getElementById('autoclickToggleDisplay').scrollIntoView();
+    }
+    updateDisplays();
+    achievementTick();
 }
 
 function upgradeCostTicker() {
