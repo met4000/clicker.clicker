@@ -46,9 +46,9 @@
         <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
         <br>
         <input type="submit" value="Save" onclick="setSaveCookie(this.form)">
-        <span> Autosave every 5 minutes:</span><input type="checkbox" onchange="toggleAutosave(300000)">
+        <span> Autosave every (10 sec) minutes:</span><input type="checkbox" onchange="autosaveToggle(10000)">
         <br>
-        <button id='saveDelete' onclick="document.getElementById('saveDelete').innerHTML='Are you sure? (Double click to continue)';" ondblclick="removeSaveCookie(save_cookie)">Reset Save</button></center>
+        <button id='saveDelete' onclick="removeSaveCookie(save_cookie)">Reset Save</button></center>
         <br>
         <br>
         <div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span>

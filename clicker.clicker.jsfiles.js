@@ -74,7 +74,7 @@ function saveDisplayWrite(input) {
 
 function saveCodeGet() {
     "use strict";
-    return "autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1 + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + ";";
+    return "autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1 + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + ";";
 }
 
 function saveCodeRun(input) {
@@ -301,6 +301,11 @@ function autoclickTick() {
     }
 }
 
+function autosave() {
+    "use strict";
+    setSaveCookie();
+}
+
 function autosaveEnable(time) {
     "use strict";
     autosaveTemp = setInterval("autosave()", time);
@@ -315,7 +320,7 @@ function autosaveDisable() {
 
 function autosaveToggle(time) {
     "use strict";
-    if (autosaveEnabled) { autosaveDisable(); } else { autoclickEnable(time); }
+    if (autosaveEnabled) { autosaveDisable(); } else { autosaveEnable(time); }
 }
 
 function genUpgrade(number) {
@@ -384,7 +389,7 @@ function achievementUnlockAll() {
 function loadCookie() {
     var save_cookie=getCookie("save_cookie");
     if (save_cookie!=null && save_cookie!="") {
-        eval(save_cookie);
+        saveCodeRun(save_cookie);
     } else {
         set_name("");
     }
