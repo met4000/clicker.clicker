@@ -1,9 +1,15 @@
+var clickerclickerInternalErrorPrefix = 11;
+var clickerclickerExternalErrorPrefix = 12;
+
 var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
 
 var autoclickEnabled = false;
 var autoclickTps = 2;
 var autoclickTemp;
+
+var autosaveEnabled = false;
+var autosaveTemp;
 
 var clickAmount = 0;
 var clickAmountClicked = 0;
@@ -45,6 +51,22 @@ var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
 
+function clickerclickerError(errorNumber, errorType) {
+    var errorMessage;
+    if (errorType == "internal"||errorType=="Internal") {
+        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber+": ";
+        if (errorNumber == 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
+        if (errorNumber == 2) { errorMessage = errorMessage + "Unable to read save code"; }
+        if (errorNumber == 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
+        if (errorNumber == 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+        errorMessage = errorMessage + ".";
+    }
+    else if (errorType == "external" || errorType == "External") {
+        
+    }
+    else { alert("ERROR " + clickerclickerInternalErrorPrefix + "01: " + errorType + " is not a valid Error Type."); }
+}
+
 function saveDisplayWrite(input) {
     "use strict";
     document.getElementById('saveDisplayArea').textContent = input;
@@ -62,22 +84,7 @@ function saveCodeRun(input) {
 
 function saveLoadRead() {
     "use strict";
-    return document.getElementById('saveLoadArea').value;
-}
-
-function saveCookieSet() {
-    "use strict";
-    document.cookie = "clickerclickerSaveCookie='clickAmount=100000;'; expires=Tue, 23 Feb 2016 10:10:10 UTC; path=/";
-}
-
-function saveCookieDetect() {
-    "use strict";
-    
-}
-
-function saveCookieRead() {
-    "use strict";
-    
+    return document.getElementById('saveDisplayArea').value;
 }
 
 function achievementTick() {
@@ -294,6 +301,23 @@ function autoclickTick() {
     }
 }
 
+function autosaveEnable(time) {
+    "use strict";
+    autosaveTemp = setInterval("autosave()", time);
+    autosaveEnabled = true;
+}
+
+function autosaveDisable() {
+    "use strict";
+    clearInterval(autosaveTemp);
+    autoclickEnabled = false;
+}
+
+function autosaveToggle(time) {
+    "use strict";
+    if (autosaveEnabled) { autosaveDisable(); } else { autoclickEnable(time); }
+}
+
 function genUpgrade(number) {
     "use strict";
     if (number === 1 && !genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
@@ -325,6 +349,10 @@ function upgradeCostTicker() {
     document.getElementById('cursorUpgrade3CostDisplay').innerHTML = cursorUpgrade3Cost;
 }
 
+function easterEggTick() {
+    "use strict";
+}
+
 function tick() {
     "use strict";
     achievementTick();
@@ -344,8 +372,49 @@ function ruinTheFun() {
     ruinTheFunToggle = true;
     updateDisplays();
 }
+
 function achievementUnlockAll() {
     "use strict";
     achievementClickMoreTotal = true;
     achievementRuinedTheFun = true;
+}
+
+
+//TESTING
+function loadCookie() {
+    var save_cookie=getCookie("save_cookie");
+    if (save_cookie!=null && save_cookie!="") {
+        eval(save_cookie);
+    } else {
+        set_name("");
+    }
+}
+
+function getCookie(c_name) {
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++) {
+        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+        x=x.replace(/^\s+|\s+$/g,"");
+        if (x==c_name) {
+            return unescape(y);
+        }
+    }
+}
+
+function setSaveCookieInternal(c_name,value,exdays) {
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    document.cookie=c_name + "=" + c_value;
+}
+
+function setSaveCookie(form) {
+    var save_cookie = saveCodeGet();
+    if (save_cookie != "") { setSaveCookieInternal("save_cookie", save_cookie, 365); }
+    else { clickerclickerError(02, internal); }
+}
+
+function removeSaveCookie(c_name) {
+    setSaveCookieInternal(c_name,0,-1);
 }
