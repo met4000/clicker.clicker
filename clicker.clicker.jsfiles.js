@@ -1,5 +1,9 @@
 var clickerclickerInternalErrorPrefix = 11;
 var clickerclickerExternalErrorPrefix = 12;
+var Internal = "Internal", internal = Internal;
+var External = "External", external = External;
+
+var encYc1 = "clickerclickerencryptcodeone"
 
 var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
@@ -8,7 +12,7 @@ var autoclickEnabled = false;
 var autoclickTps = 2;
 var autoclickTemp;
 
-var autosaveEnabled = false;
+var autosaveEnabled = true;
 var autosaveTemp;
 
 var clickAmount = 0;
@@ -18,6 +22,8 @@ var clickAmountTotal = 1;
 
 var achievementClickMoreTotal = false;
 var achievementRuinedTheFun = false;
+var achievementClickMoreTotalToggle = true;
+var achievementRuinedTheFunToggle = true;
 
 var genUpgrade1Cost = 1000000;
 var genUpgrade1 = false;
@@ -31,15 +37,12 @@ var clickerTotalCps = 0;
 var clickerCost = 50;
 var clickerUpgrade1Cost = 250;
 var clickerUpgrade1 = false;
-var clickerUpgrade1Temp = false;
 var clickerUpgrade2Cost = 1000;
 var clickerUpgrade2 = false;
 var clickerUpgrade2Modifier = 0;
-var clickerUpgrade2Temp = false;
 var clickerUpgrade3Cost = 2500;
 var clickerUpgrade3 = false;
 var clickerUpgrade3Modifier = 2;
-var clickerUpgrade3Temp = false;
 
 var cursorAmount = 0;
 var cursorClickIncrease = 1;
@@ -47,30 +50,45 @@ var cursorClickTotalIncrease = 0;
 var cursorCost = 400;
 var cursorUpgrade1Cost = 2500;
 var cursorUpgrade1 = false;
-var cursorUpgrade1Temp = false;
 var cursorUpgrade2Cost = 10000;
 var cursorUpgrade2 = false;
 var cursorUpgrade2Modifier = 0;
-var cursorUpgrade2Temp = false;
 var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
-var cursorUpgrade3Temp = false;
+
+function encrypt(input, key) {
+    "use strict";
+    CryptoJS.AES.encrypt(input, key);
+}
+
+function decrypt(input, key) {
+    "use strict";
+    CryptoJS.AES.decrypt(input, key);
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
 
 function clickerclickerError(errorNumber, errorType) {
+    "use strict";
     var errorMessage;
-    if (errorType == "internal"||errorType=="Internal") {
-        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber+": ";
-        if (errorNumber == 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
-        if (errorNumber == 2) { errorMessage = errorMessage + "Unable to read save code"; }
-        if (errorNumber == 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
-        if (errorNumber == 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+    if (errorType === "Internal") {
+        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
+        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
+        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber + ": ";
         errorMessage = errorMessage + ".";
-    }
-    else if (errorType == "external" || errorType == "External") {
-        
-    }
-    else { alert("ERROR " + clickerclickerInternalErrorPrefix + "01: " + errorType + " is not a valid Error Type."); }
+    } else if (errorType === "External") {
+        errorMessage = "ERROR " + clickerclickerExternalErrorPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + "Unused error"; }
+    } else { clickerclickerError(1, Internal); }
+    window.alert(errorMessage);
+    console.error(errorMessage);
 }
 
 function saveDisplayWrite(input) {
@@ -80,21 +98,38 @@ function saveDisplayWrite(input) {
 
 function saveCodeGet() {
     "use strict";
-    return "autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1Cost + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade1Temp = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade2Temp = " + clickerUpgrade2 + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; clickerUpgrade3Temp = " + clickerUpgrade3 + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade1Temp = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade2Temp = " + cursorUpgrade2 + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + "; cursorUpgrade3Temp = " + cursorUpgrade3 + ";";
+    return "autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1Cost + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + ";";
+}
+
+function saveCodeRun(input) {
+    "use strict";
+    eval(input);
+}
+
+function saveLoadRead() {
+    "use strict";
+    return document.getElementById('saveDisplayArea').value;
 }
 
 function achievementTick() {
     "use strict";
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
         achievementClickMoreTotal = true;
-        document.getElementById('achievementClickMoreTotalDisplay').style.visibility = "visible";
-        alert("Achievement Received: Hacked Clicking");
+        window.alert("Achievement Received: Hacked Clicking");
     }
     if (ruinTheFunToggle && !achievementRuinedTheFun) {
         ruinTheFunToggle = false;
         achievementRuinedTheFun = true;
+        window.alert("Achievement Received: Ruined The Fun");
+    }
+    
+    if (achievementClickMoreTotalToggle && achievementClickMoreTotal) {
+        achievementClickMoreTotalToggle = false;
+        document.getElementById('achievementClickMoreTotalDisplay').style.visibility = "visible";
+    }
+    if (achievementRuinedTheFunToggle && achievementRuinedTheFun) {
+        achievementRuinedTheFunToggle = false;
         document.getElementById('achievementRuinedTheFun').style.visibility = "visible";
-        alert("Achievement Received: Ruined The Fun");
     }
 }
 
@@ -112,7 +147,7 @@ function updateDisplays() {
     document.getElementById('cursorClickTotalIncreaseDisplay').innerHTML = cursorClickTotalIncrease;
     
     if (clickAmount > 9999 && clickAmountClicked > 999 && clickAmountTotal > 50000) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
-    if (clickAmount > 99999 && clickAmountClicked > 1999 && clickAmountTotal > 75000) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
+    if (genUpgrade1 && clickAmount > 99999 && clickAmountClicked > 1999 && clickAmountTotal > 75000) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
     
     if (clickerAmount > 0) { document.getElementById('clickerUpgrade1Display').style.visibility = "visible"; }
     if (clickerUpgrade1) { document.getElementById('clickerUpgrade2Display').style.visibility = "visible"; }
@@ -122,38 +157,6 @@ function updateDisplays() {
     if (cursorUpgrade1) { document.getElementById('cursorUpgrade2Display').style.visibility = "visible"; }
     if (clickAmountTotal > 3499 && cursorUpgrade2) { document.getElementById('cursorUpgrade3Display').style.visibility = "visible"; }
     achievementTick();
-}
-
-function updateUpgradeDisplays() {
-    "use strict";
-    
-    if (clickerUpgrade1Temp && clickerUpgrade1) { document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250c</span> - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>"; }
-    if (clickerUpgrade2Temp && clickerUpgrade2) { document.getElementById('clickerUpgrade2DisplayText').innerHTML = "<strike><span id='clickerUpgrade2CostDisplay'>1000</span>c - clicker Upgrade - Mythical Pointer (clickers get <b>+0.1 cpc</b> for each clicker owned)</strike>"; }
-    if (clickerUpgrade3Temp && clickerUpgrade3) { document.getElementById('clickerUpgrade3DisplayText').innerHTML = "<strike><span id='clickerUpgrade3CostDisplay'>2500</span>c - clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic clickers (clickers are <b>twice</b> as efficient)</strike>"; }
-    
-    if (cursorUpgrade1Temp && cursorUpgrade1) { document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>"; }
-    if (cursorUpgrade2Temp && cursorUpgrade2) { document.getElementById('cursorUpgrade2DisplayText').innerHTML = "<strike><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</strike>"; }
-    if (cursorUpgrade3Temp && cursorUpgrade3) { document.getElementById('cursorUpgrade3DisplayText').innerHTML = "<strike><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</strike>"; }
-    
-    
-    clickerUpgrade1Temp = false;
-    clickerUpgrade2Temp = false;
-    clickerUpgrade3Temp = false;
-    
-    cursorUpgrade1Temp = false;
-    cursorUpgrade2Temp = false;
-    cursorUpgrade3Temp = false;
-}
-
-function saveCodeRun(input) {
-    "use strict";
-    eval(input);
-    updateUpgradeDisplays();
-}
-
-function saveLoadRead() {
-    "use strict";
-    return document.getElementById('saveDisplayArea').value;
 }
 
 function setClicks(amount) {
@@ -212,22 +215,21 @@ function clickerUpgrade(number) {
     if (number === 1 && !clickerUpgrade1 && clickAmount > clickerUpgrade1Cost - 1) {
         clickAmount = clickAmount - clickerUpgrade1Cost;
         clickerUpgrade1 = true;
-        clickerUpgrade1Temp = true;
+        document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250c</span> - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>";
         clickerBaseCps = clickerBaseCps + 1;
     }
     if (number === 2 && !clickerUpgrade2 && clickAmount > clickerUpgrade2Cost - 1) {
         clickAmount = clickAmount - clickerUpgrade2Cost;
         clickerUpgrade2 = true;
-        clickerUpgrade2Temp = true;
+        document.getElementById('clickerUpgrade2DisplayText').innerHTML = "<strike><span id='clickerUpgrade2CostDisplay'>1000</span>c - clicker Upgrade - Mythical Pointer (clickers get <b>+0.1 cpc</b> for each clicker owned)</strike>";
     }
     if (number === 3 && !clickerUpgrade3 && clickAmount > clickerUpgrade3Cost - 1) {
         clickAmount = clickAmount - clickerUpgrade3Cost;
         clickerUpgrade3 = true;
-        clickerUpgrade3Temp = true;
+        document.getElementById('clickerUpgrade3DisplayText').innerHTML = "<strike><span id='clickerUpgrade3CostDisplay'>2500</span>c - clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic clickers (clickers are <b>twice</b> as efficient)</strike>";
     }
     updateClicker();
     updateDisplays();
-    updateUpgradeDisplays();
 }
 
 function clickerPrice(newCost) {
@@ -270,18 +272,18 @@ function cursorUpgrade(number) {
     if (number === 1 && !cursorUpgrade1 && clickAmount > cursorUpgrade1Cost - 1) {
         clickAmount = clickAmount - cursorUpgrade1Cost;
         cursorUpgrade1 = true;
-        cursorUpgrade1Temp = true;
+        document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>";
         cursorClickIncrease = cursorClickIncrease + 1;
     }
     if (number === 2 && !cursorUpgrade2 && clickAmount > cursorUpgrade2Cost - 1) {
         clickAmount = clickAmount - cursorUpgrade2Cost;
         cursorUpgrade2 = true;
-        cursorUpgrade2Temp = true;
+        document.getElementById('cursorUpgrade2DisplayText').innerHTML = "<strike><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</strike>";
     }
     if (number === 3 && !cursorUpgrade3 && clickAmount > cursorUpgrade3Cost - 1) {
         clickAmount = clickAmount - cursorUpgrade3Cost;
         cursorUpgrade3 = true;
-        cursorUpgrade3Temp = true;
+        document.getElementById('cursorUpgrade3DisplayText').innerHTML = "<strike><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</strike>";
     }
     updateCursor();
     updateDisplays();
@@ -295,14 +297,14 @@ function cursorPrice(newCost) {
 function cpsTick() {
     "use strict";
     if (!cpsTickIntervalToggle) {
+        cpsTickIntervalToggle = true;
         setInterval("cpsTick()", 1000);
     }
     updateClicker();
     clickAmountTotal = clickAmountTotal + clickerTotalCps;
     clickAmount = clickAmount + clickerTotalCps;
     updateClicker();
-    if (cpsTickIntervalToggle) { updateDisplays(); }
-    else { cpsTickIntervalToggle = false; }
+    updateDisplays();
 }
 
 function autoclickEnable() {
@@ -328,28 +330,6 @@ function autoclickTick() {
         regClick(1);
         achievementTick();
     }
-}
-
-function autosave() {
-    "use strict";
-    setSaveCookie();
-}
-
-function autosaveEnable(time) {
-    "use strict";
-    autosaveTemp = setInterval("autosave()", time);
-    autosaveEnabled = true;
-}
-
-function autosaveDisable() {
-    "use strict";
-    clearInterval(autosaveTemp);
-    autoclickEnabled = false;
-}
-
-function autosaveToggle(time) {
-    "use strict";
-    if (autosaveEnabled) { autosaveDisable(); } else { autosaveEnable(time); }
 }
 
 function genUpgrade(number) {
@@ -417,39 +397,73 @@ function achievementUnlockAll() {
 //TESTING
 
 function getCookie(c_name) {
-    var i,x,y,ARRcookies=document.cookie.split(";");
-    for (i=0;i<ARRcookies.length;i++) {
-        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-        x=x.replace(/^\s+|\s+$/g,"");
-        if (x==c_name) {
+    "use strict";
+    var i, x, y, ARRcookies = document.cookie.split(";");
+    for (i = 0; i < ARRcookies.length; i++) {
+        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+        x = x.replace(/^\s+|\s+$/g, "");
+        if (x === c_name) {
             return unescape(y);
         }
     }
 }
 
-function setSaveCookieInternal(c_name,value,exdays) {
-    var exdate=new Date();
+function setSaveCookieInternal(c_name, value, exdays) {
+    "use strict";
+    var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-    document.cookie=c_name + "=" + c_value;
+    var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString());
+    document.cookie = c_name + "=" + c_value;
 }
 
 function setSaveCookie(form) {
+    "use strict";
     var save_cookie = saveCodeGet();
-    if (save_cookie != "") { setSaveCookieInternal("save_cookie", save_cookie, 365); }
-    else { clickerclickerError(02, internal); }
-}
-
-function loadCookie() {
-    var save_cookie=getCookie("save_cookie");
-    if (save_cookie!=null && save_cookie!="") {
-        saveCodeRun(save_cookie);
-    } else {
-        setSaveCookieInternal("");
-    }
+    if (save_cookie !== "") { setSaveCookieInternal("save_cookie", save_cookie, 365); } else { clickerclickerError(2, Internal); }
 }
 
 function removeSaveCookie(c_name) {
-    setSaveCookieInternal(c_name,0,-1);
+    "use strict";
+    setSaveCookieInternal(c_name, 0, -1);
+}
+
+function loadCookie() {
+    "use strict";
+    var save_cookie = getCookie("save_cookie");
+    if (save_cookie !== null && save_cookie !== "") {
+        saveCodeRun(save_cookie);
+        if (genUpgrade1) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
+        if (genUpgrade2) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
+        if (clickerUpgrade1) { document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250c</span> - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>"; }
+        if (clickerUpgrade2) { document.getElementById('clickerUpgrade2DisplayText').innerHTML = "<strike><span id='clickerUpgrade2CostDisplay'>1000</span>c - clicker Upgrade - Mythical Pointer (clickers get <b>+0.1 cpc</b> for each clicker owned)</strike>"; }
+        if (clickerUpgrade3) { document.getElementById('clickerUpgrade3DisplayText').innerHTML = "<strike><span id='clickerUpgrade3CostDisplay'>2500</span>c - clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic clickers (clickers are <b>twice</b> as efficient)</strike>"; }
+        if (cursorUpgrade1) { document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>"; }
+        if (cursorUpgrade2) { document.getElementById('cursorUpgrade2DisplayText').innerHTML = "<strike><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</strike>"; }
+        if (cursorUpgrade3) { document.getElementById('cursorUpgrade3DisplayText').innerHTML = "<strike><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</strike>"; }
+    } else {
+        setSaveCookieInternal(save_cookie, "", 365);
+    }
+}
+
+function autosave() {
+    "use strict";
+    setSaveCookie();
+}
+
+function autosaveEnable(time) {
+    "use strict";
+    autosaveTemp = setInterval("autosave()", time);
+    autosaveEnabled = true;
+}
+
+function autosaveDisable() {
+    "use strict";
+    clearInterval(autosaveTemp);
+    autoclickEnabled = false;
+}
+
+function autosaveToggle(time) {
+    "use strict";
+    if (autosaveEnabled) { autosaveDisable(); } else { autosaveEnable(time); }
 }

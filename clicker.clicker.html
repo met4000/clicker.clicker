@@ -1,5 +1,6 @@
 <html>
 	<head>
+        <script src="CryptoJS.js"></script>
 	    <script src="clicker.clicker.jsfiles.js"></script>
 		<script type="text/javascript">
 			document.title = "Clicks: "+clickAmount;
@@ -30,7 +31,7 @@
 		<br>
 		<br>
         <div><button onclick="increaseClicker();">Buy a clicker for <span id='clickerCostDisplay'>50</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
-        <div><button onclick="increaseCursor();" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>100</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
+        <div><button onclick="increaseCursor();" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>400</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
 		<br>
 		<br>
 		<br>
@@ -46,7 +47,7 @@
         <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
         <br>
         <input type="submit" value="Save" onclick="setSaveCookie(this.form)">
-        <span> Autosave every minute:</span><input type="checkbox" onchange="autosaveToggle(60000)">
+        <span> Autosave every minute:</span><input type="checkbox" onchange="autosaveToggle(60000)" checked>
         <br>
         <button id='saveDelete' onclick="removeSaveCookie('save_cookie')">Reset Save</button></center>
         <br>
