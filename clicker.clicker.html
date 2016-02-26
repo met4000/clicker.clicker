@@ -1,12 +1,13 @@
 <html>
 	<head>
+        <script src="CryptoJS.js"></script>
 	    <script src="clicker.clicker.jsfiles.js"></script>
 		<script type="text/javascript">
 			document.title = "Clicks: "+clickAmount;
             cpsTick();
 		</script>
 	</head>
-	<body>
+	<body onload="loadCookie()">
 		<img src=cursor1.png style="cursor: pointer" onclick="mouseClick();tick();">
 		<br>
 		<span><span id='amountOf'>0</span> clicks!</span>
@@ -30,7 +31,7 @@
 		<br>
 		<br>
         <div><button onclick="increaseClicker();">Buy a clicker for <span id='clickerCostDisplay'>50</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
-        <div><button onclick="increaseCursor();" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>100</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
+        <div><button onclick="increaseCursor();" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>400</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
 		<br>
 		<br>
 		<br>
@@ -40,17 +41,19 @@
         <br>
         <br>
         <br>
-        <textarea id='saveDisplayArea' contenteditable="false" style="width: 1300px; height: 128px" draggable="false"></textarea>
+        <center><textarea id='saveDisplayArea' style="width: 1300px; height: 128px" draggable="false"></textarea>
         <br>
-        <center><button onclick="saveDisplayWrite(saveCodeGet());">Get save code</button></center>
+        <button onclick="saveDisplayWrite(saveCodeGet());">Get copyable save code</button>
+        <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
+        <br>
+        <input type="submit" value="Save" onclick="setSaveCookie(this.form)">
+        <span> Autosave every minute:</span><input type="checkbox" onchange="autosaveToggle(60000)" checked>
+        <br>
+        <button id='saveDelete' onclick="removeSaveCookie('save_cookie')">Reset Save</button></center>
         <br>
         <br>
-        <textarea id='saveLoadArea' style="width: 1300px; height: 128px" draggable="false"></textarea>
-        <br>
-        <center><button onclick="saveCodeRun(saveLoadRead());">Load save code</button></center>
-        <br>
-        <br>
-        <div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span><input type="checkbox" onchange="autoclickToggle();"></span></div>
+        <div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span>
+        <input type="checkbox" onchange="autoclickToggle();"></span></div>
         <br>
         <br>
         <br>
