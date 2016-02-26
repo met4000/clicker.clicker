@@ -3,6 +3,8 @@ var clickerclickerExternalErrorPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
+var encYc1 = "clickerclickerencryptcodeone"
+
 var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
 
@@ -54,6 +56,17 @@ var cursorUpgrade2Modifier = 0;
 var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
+
+function encrypt(input, key) {
+    "use strict";
+    CryptoJS.AES.encrypt(input, key);
+}
+
+function decrypt(input, key) {
+    "use strict";
+    CryptoJS.AES.decrypt(input, key);
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
 
 function clickerclickerError(errorNumber, errorType) {
     "use strict";
