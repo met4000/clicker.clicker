@@ -20,6 +20,8 @@ var clickAmountTotal = 1;
 
 var achievementClickMoreTotal = false;
 var achievementRuinedTheFun = false;
+var achievementClickMoreTotalToggle = true;
+var achievementRuinedTheFunToggle = true;
 
 var genUpgrade1Cost = 1000000;
 var genUpgrade1 = false;
@@ -100,14 +102,21 @@ function achievementTick() {
     "use strict";
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
         achievementClickMoreTotal = true;
-        document.getElementById('achievementClickMoreTotalDisplay').style.visibility = "visible";
         window.alert("Achievement Received: Hacked Clicking");
     }
     if (ruinTheFunToggle && !achievementRuinedTheFun) {
         ruinTheFunToggle = false;
         achievementRuinedTheFun = true;
-        document.getElementById('achievementRuinedTheFun').style.visibility = "visible";
         window.alert("Achievement Received: Ruined The Fun");
+    }
+    
+    if (achievementClickMoreTotalToggle && achievementClickMoreTotal) {
+        achievementClickMoreTotalToggle = false;
+        document.getElementById('achievementClickMoreTotalDisplay').style.visibility = "visible";
+    }
+    if (achievementRuinedTheFunToggle && achievementRuinedTheFun) {
+        achievementRuinedTheFunToggle = false;
+        document.getElementById('achievementRuinedTheFun').style.visibility = "visible";
     }
 }
 
@@ -411,6 +420,14 @@ function loadCookie() {
     var save_cookie = getCookie("save_cookie");
     if (save_cookie !== null && save_cookie !== "") {
         saveCodeRun(save_cookie);
+        if (genUpgrade1) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
+        if (genUpgrade2) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
+        if (clickerUpgrade1) { document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250c</span> - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>"; }
+        if (clickerUpgrade2) { document.getElementById('clickerUpgrade2DisplayText').innerHTML = "<strike><span id='clickerUpgrade2CostDisplay'>1000</span>c - clicker Upgrade - Mythical Pointer (clickers get <b>+0.1 cpc</b> for each clicker owned)</strike>"; }
+        if (clickerUpgrade3) { document.getElementById('clickerUpgrade3DisplayText').innerHTML = "<strike><span id='clickerUpgrade3CostDisplay'>2500</span>c - clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic clickers (clickers are <b>twice</b> as efficient)</strike>"; }
+        if (cursorUpgrade1) { document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>"; }
+        if (cursorUpgrade2) { document.getElementById('cursorUpgrade2DisplayText').innerHTML = "<strike><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</strike>"; }
+        if (cursorUpgrade3) { document.getElementById('cursorUpgrade3DisplayText').innerHTML = "<strike><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</strike>"; }
     } else {
         setSaveCookieInternal(save_cookie, "", 365);
     }
