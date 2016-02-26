@@ -8,7 +8,7 @@ var autoclickEnabled = false;
 var autoclickTps = 2;
 var autoclickTemp;
 
-var autosaveEnabled = true;
+var autosaveEnabled = false;
 var autosaveTemp;
 
 var clickAmount = 0;
