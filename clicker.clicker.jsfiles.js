@@ -1,5 +1,7 @@
 var clickerclickerInternalErrorPrefix = 11;
 var clickerclickerExternalErrorPrefix = 12;
+var Internal = "Internal", internal = Internal;
+var External = "External", external = External;
 
 var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
@@ -58,19 +60,21 @@ var cursorUpgrade3Modifier = 2;
 var cursorUpgrade3Temp = false;
 
 function clickerclickerError(errorNumber, errorType) {
+    "use strict";
     var errorMessage;
-    if (errorType == "internal"||errorType=="Internal") {
-        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber+": ";
-        if (errorNumber == 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
-        if (errorNumber == 2) { errorMessage = errorMessage + "Unable to read save code"; }
-        if (errorNumber == 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
-        if (errorNumber == 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+    if (errorType === "internal" || errorType === "Internal") {
+        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
+        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
+        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
         errorMessage = errorMessage + ".";
-    }
-    else if (errorType == "external" || errorType == "External") {
-        
-    }
-    else { alert("ERROR " + clickerclickerInternalErrorPrefix + "01: " + errorType + " is not a valid Error Type."); }
+    } else if (errorType === "external" || errorType === "External") {
+        errorMessage = "ERROR " + clickerclickerExternalErrorPrefix + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + "Invalid save input"; }
+        errorMessage = errorMessage + ".";
+    } else { window.alert("ERROR " + clickerclickerInternalErrorPrefix + "01: " + errorType + " is not a valid Error Type."); }
+    window.alert(errorMessage);
 }
 
 function saveDisplayWrite(input) {
@@ -88,13 +92,13 @@ function achievementTick() {
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
         achievementClickMoreTotal = true;
         document.getElementById('achievementClickMoreTotalDisplay').style.visibility = "visible";
-        alert("Achievement Received: Hacked Clicking");
+        window.alert("Achievement Received: Hacked Clicking");
     }
     if (ruinTheFunToggle && !achievementRuinedTheFun) {
         ruinTheFunToggle = false;
         achievementRuinedTheFun = true;
         document.getElementById('achievementRuinedTheFun').style.visibility = "visible";
-        alert("Achievement Received: Ruined The Fun");
+        window.alert("Achievement Received: Ruined The Fun");
     }
 }
 
@@ -228,6 +232,7 @@ function clickerUpgrade(number) {
     updateClicker();
     updateDisplays();
     updateUpgradeDisplays();
+    updateDisplays();
 }
 
 function clickerPrice(newCost) {
@@ -285,6 +290,8 @@ function cursorUpgrade(number) {
     }
     updateCursor();
     updateDisplays();
+    updateUpgradeDisplays();
+    updateDisplays();
 }
 
 function cursorPrice(newCost) {
@@ -301,8 +308,15 @@ function cpsTick() {
     clickAmountTotal = clickAmountTotal + clickerTotalCps;
     clickAmount = clickAmount + clickerTotalCps;
     updateClicker();
-    if (cpsTickIntervalToggle) { updateDisplays(); }
-    else { cpsTickIntervalToggle = false; }
+    if (cpsTickIntervalToggle) { updateDisplays(); } else { cpsTickIntervalToggle = false; }
+}
+
+function autoclickTick() {
+    "use strict";
+    if (autoclickEnabled) {
+        regClick(1);
+        achievementTick();
+    }
 }
 
 function autoclickEnable() {
@@ -320,36 +334,6 @@ function autoclickDisable() {
 function autoclickToggle() {
     "use strict";
     if (autoclickEnabled) { autoclickDisable(); } else { autoclickEnable(); }
-}
-
-function autoclickTick() {
-    "use strict";
-    if (autoclickEnabled) {
-        regClick(1);
-        achievementTick();
-    }
-}
-
-function autosave() {
-    "use strict";
-    setSaveCookie();
-}
-
-function autosaveEnable(time) {
-    "use strict";
-    autosaveTemp = setInterval("autosave()", time);
-    autosaveEnabled = true;
-}
-
-function autosaveDisable() {
-    "use strict";
-    clearInterval(autosaveTemp);
-    autoclickEnabled = false;
-}
-
-function autosaveToggle(time) {
-    "use strict";
-    if (autosaveEnabled) { autosaveDisable(); } else { autosaveEnable(time); }
 }
 
 function genUpgrade(number) {
@@ -417,33 +401,36 @@ function achievementUnlockAll() {
 //TESTING
 
 function getCookie(c_name) {
-    var i,x,y,ARRcookies=document.cookie.split(";");
-    for (i=0;i<ARRcookies.length;i++) {
-        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-        x=x.replace(/^\s+|\s+$/g,"");
-        if (x==c_name) {
+    "use strict";
+    var i, x, y, ARRcookies = document.cookie.split(";");
+    for (i = 0; i < ARRcookies.length; i = i + 1) {
+        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+        x = x.replace(/^\s+|\s+$/g, "");
+        if (x === c_name) {
             return unescape(y);
         }
     }
 }
 
-function setSaveCookieInternal(c_name,value,exdays) {
-    var exdate=new Date();
+function setSaveCookieInternal(c_name, value, exdays) {
+    "use strict";
+    var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-    document.cookie=c_name + "=" + c_value;
+    var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString());
+    document.cookie = c_name + "=" + c_value;
 }
 
 function setSaveCookie(form) {
+    "use strict";
     var save_cookie = saveCodeGet();
-    if (save_cookie != "") { setSaveCookieInternal("save_cookie", save_cookie, 365); }
-    else { clickerclickerError(02, internal); }
+    if (save_cookie !== "") { setSaveCookieInternal("save_cookie", save_cookie, 365); } else { clickerclickerError(2, internal); }
 }
 
 function loadCookie() {
-    var save_cookie=getCookie("save_cookie");
-    if (save_cookie!=null && save_cookie!="") {
+    "use strict";
+    var save_cookie = getCookie("save_cookie");
+    if (save_cookie !== null && save_cookie !== "") {
         saveCodeRun(save_cookie);
     } else {
         setSaveCookieInternal("");
@@ -451,5 +438,28 @@ function loadCookie() {
 }
 
 function removeSaveCookie(c_name) {
-    setSaveCookieInternal(c_name,0,-1);
+    "use strict";
+    setSaveCookieInternal(c_name, 0, -1);
+}
+
+function autosave() {
+    "use strict";
+    setSaveCookie();
+}
+
+function autosaveEnable(time) {
+    "use strict";
+    autosaveTemp = setInterval("autosave()", time);
+    autosaveEnabled = true;
+}
+
+function autosaveDisable() {
+    "use strict";
+    clearInterval(autosaveTemp);
+    autoclickEnabled = false;
+}
+
+function autosaveToggle(time) {
+    "use strict";
+    if (autosaveEnabled) { autosaveDisable(); } else { autosaveEnable(time); }
 }
