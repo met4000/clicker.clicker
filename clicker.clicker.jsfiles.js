@@ -4,6 +4,11 @@ var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
 var encYc1 = "clickerclickerencryptcodeone";
+var encYc2 = "ccectwocodencrypter";
+var encYc3 = "clickclickencrypt";
+var encYc4 = "clickclickencryptfour";
+var encYc5 = "clickerclickerencryptcode5";
+var encYc = ["", encYc1, encYc2, encYc3, encYc4, encYc5];
 
 var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
@@ -14,6 +19,8 @@ var autoclickTemp;
 
 var autosaveEnabled = true;
 var autosaveTemp;
+
+var firstTime = true;
 
 var clickAmount = 0;
 var clickAmountClicked = 0;
@@ -57,14 +64,34 @@ var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
 
-function encrypt(input, key) {
+function getRandomInt(min, max) {
     "use strict";
-    return CryptoJS.AES.encrypt(input, key);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function decrypt(input, key) {
+function encrypt(input/*, key*/) {
     "use strict";
-    return CryptoJS.AES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
+    var encryptKey, encryptNumber, encrypted;
+    /*if (key === undefined) {
+        encryptNumber = 0;
+        encryptKey = key;
+    } else {*/
+        encryptNumber = getRandomInt(1, 5);
+        encryptKey = encYc[encryptNumber];
+//    }
+    encrypted = encryptNumber + CryptoJS.AES.encrypt(input, encryptKey);
+    return encrypted;
+}
+
+function decrypt(input/*, key*/) {
+    "use strict";
+    var encryptKey, encryptNumber, encrypted;
+//    if (key === undefined) { encryptKey = key; } else {*/
+        encryptNumber = input.charAt(0);
+        encryptKey = encYc[encryptNumber];
+//    }
+    encrypted = input.substring(1);
+    return CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
 }
 
 function clickerclickerError(errorNumber, errorType) {
@@ -303,7 +330,7 @@ function cpsTick() {
     clickAmountTotal = clickAmountTotal + clickerTotalCps;
     clickAmount = clickAmount + clickerTotalCps;
     updateClicker();
-    updateDisplays();
+    if (!firstTime) { updateDisplays(); } else { firstTime = false; }
 }
 
 function autoclickEnable() {
@@ -414,17 +441,24 @@ function setSaveCookieInternal(c_name, value, exdays) {
     exdate.setDate(exdate.getDate() + exdays);
     var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
+    console.info("Editing cookie save...");
 }
 
-function setSaveCookie(form) {
+function setSaveCookie(display) {
     "use strict";
     var save_cookie = saveCodeGet();
-    if (save_cookie !== "") { setSaveCookieInternal("save_cookie", save_cookie, 365); } else { clickerclickerError(2, Internal); }
+    if (save_cookie !== "") {
+        setSaveCookieInternal("save_cookie", save_cookie, 365);
+        if (display === undefined) { console.info("Saved!"); }
+    } else { clickerclickerError(2, Internal); }
 }
 
 function removeSaveCookie(c_name) {
     "use strict";
-    setSaveCookieInternal(c_name, 0, -1);
+    if (confirm("Are you sure you want to delete the save?")) {
+        setSaveCookieInternal(c_name, 0, -1);
+        console.warn("Deleted!");
+    }
 }
 
 function loadCookie() {
@@ -440,14 +474,14 @@ function loadCookie() {
         if (cursorUpgrade1) { document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>"; }
         if (cursorUpgrade2) { document.getElementById('cursorUpgrade2DisplayText').innerHTML = "<strike><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</strike>"; }
         if (cursorUpgrade3) { document.getElementById('cursorUpgrade3DisplayText').innerHTML = "<strike><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</strike>"; }
-    } else {
-        setSaveCookieInternal(save_cookie, "", 365);
-    }
+    } else { setSaveCookieInternal(save_cookie, "", 365); }
+    if (autosaveEnabled) { autosaveEnable(60000); }
 }
 
 function autosave() {
     "use strict";
-    setSaveCookie();
+    setSaveCookie(false);
+    console.info("Autosaved!");
 }
 
 function autosaveEnable(time) {
