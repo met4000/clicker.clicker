@@ -2,6 +2,45 @@ var clickerclickerInternalErrorPrefix = 11;
 var clickerclickerExternalErrorPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
+var clickerclickerPassedInfo = "";
+
+function clickerclickerError(errorNumber, errorType) {
+    "use strict";
+    var errorMessage;
+    if (errorType === "Internal") {
+        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
+        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
+        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+        if (errorNumber === 5) { errorMessage = errorMessage + "Tier " + clickerclickerPassedInfo + " is not a valid tier (" + clickerclickerPassedInfo + " != 1 || 2 || 3)"; }
+        errorMessage = errorMessage + ".";
+    } else if (errorType === "External") {
+        errorMessage = "ERROR " + clickerclickerExternalErrorPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + "Illegal character for save: " + clickerclickerPassedInfo; }
+    } else { clickerclickerError(1, Internal); }
+    console.error(errorMessage);
+    window.alert(errorMessage);
+}
+
+var clickerclickerVersion = "1.0.2";
+
+function getCCVersion(tier) {
+    if (tier === undefined) { return clickerclickerVersion; } else {
+        var returner = 0, firstDot = 2, secondDot = 4;
+        firstDot = clickerclickerVersion.indexOf(".");
+        secondDot = clickerclickerVersion.lastIndexOf(".");
+        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
+            clickerclickerPassedInfo = tier;
+            clickerclickerError(5, internal);
+        }
+        return returner;
+    }
+}
 
 var encYc1 = "clickerclickerencryptcodeone";
 var encYc2 = "ccectwocodencrypter";
@@ -64,6 +103,11 @@ var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
 
+var blank = "";
+var space = " ";
+var dash = "-";
+var semcolon = ";", semicolon = semcolon;
+
 function getRandomInt(min, max) {
     "use strict";
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -85,36 +129,21 @@ function encrypt(input/*, key*/) {
 
 function decrypt(input/*, key*/) {
     "use strict";
-    var encryptKey, encryptNumber, encrypted;
+    var encryptKey, encryptNumber, encrypted, decrypted;
 //    if (key === undefined) { encryptKey = key; } else {*/
         encryptNumber = input.charAt(0);
         encryptKey = encYc[encryptNumber];
 //    }
     encrypted = input.substring(1);
-    return CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
-}
-
-function clickerclickerError(errorNumber, errorType) {
-    "use strict";
-    var errorMessage;
-    if (errorType === "Internal") {
-        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix;
-        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
-        errorMessage = errorMessage + errorNumber + ": ";
-        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
-        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
-        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
-        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
-        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber + ": ";
-        errorMessage = errorMessage + ".";
-    } else if (errorType === "External") {
-        errorMessage = "ERROR " + clickerclickerExternalErrorPrefix;
-        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
-        errorMessage = errorMessage + errorNumber + ": ";
-        if (errorNumber === 1) { errorMessage = errorMessage + "Unused error"; }
-    } else { clickerclickerError(1, Internal); }
-    window.alert(errorMessage);
-    console.error(errorMessage);
+    decrypted = CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
+    for (var f = 0; f < decrypted.length; f++) {
+        if (!(decrypted.charAt(f) === "a" || decrypted.charAt(f) === "b" || decrypted.charAt(f) === "c" || decrypted.charAt(f) === "d" || decrypted.charAt(f) === "e" || decrypted.charAt(f) === "f" || decrypted.charAt(f) === "g" || decrypted.charAt(f) === "h" || decrypted.charAt(f) === "i" || decrypted.charAt(f) === "j" || decrypted.charAt(f) === "k" || decrypted.charAt(f) === "l" || decrypted.charAt(f) === "m" || decrypted.charAt(f) === "n" || decrypted.charAt(f) === "o" || decrypted.charAt(f) === "p" || decrypted.charAt(f) === "q" || decrypted.charAt(f) === "r" || decrypted.charAt(f) === "s" || decrypted.charAt(f) === "t" || decrypted.charAt(f) === "u" || decrypted.charAt(f) === "v" || decrypted.charAt(f) === "w" || decrypted.charAt(f) === "x" || decrypted.charAt(f) === "y" || decrypted.charAt(f) === "z" || decrypted.charAt(f) === "A" || decrypted.charAt(f) === "B" || decrypted.charAt(f) === "C" || decrypted.charAt(f) === "D" || decrypted.charAt(f) === "E" || decrypted.charAt(f) === "F" || decrypted.charAt(f) === "G" || decrypted.charAt(f) === "H" || decrypted.charAt(f) === "I" || decrypted.charAt(f) === "J" || decrypted.charAt(f) === "K" || decrypted.charAt(f) === "L" || decrypted.charAt(f) === "M" || decrypted.charAt(f) === "N" || decrypted.charAt(f) === "O" || decrypted.charAt(f) === "P" || decrypted.charAt(f) === "Q" || decrypted.charAt(f) === "R" || decrypted.charAt(f) === "S" || decrypted.charAt(f) === "T" || decrypted.charAt(f) === "U" || decrypted.charAt(f) === "V" || decrypted.charAt(f) === "W" || decrypted.charAt(f) === "X" || decrypted.charAt(f) === "Y" || decrypted.charAt(f) === "Z" || decrypted.charAt(f) === " " || decrypted.charAt(f) === "1" || decrypted.charAt(f) === "2" || decrypted.charAt(f) === "3" || decrypted.charAt(f) === "4" || decrypted.charAt(f) === "5" || decrypted.charAt(f) === "6" || decrypted.charAt(f) === "7" || decrypted.charAt(f) === "8" || decrypted.charAt(f) === "9" || decrypted.charAt(f) === "0" || decrypted.charAt(f) === ";" || decrypted.charAt(f) === "=" || decrypted.charAt(f) === "")) {
+            clickerclickerPassedInfo = decrypted.charAt(f);
+            clickerclickerError(1, external);
+        }
+    }
+    decrypted = decrypted.replace(/([.*+?^!:${}()|\[\]\/\\&-\'\",<>~`])/g, "");
+    return decrypted;
 }
 
 function saveDisplayWrite(input) {
