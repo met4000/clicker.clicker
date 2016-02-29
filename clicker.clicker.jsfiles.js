@@ -30,6 +30,7 @@ function clickerclickerError(errorNumber, errorType) {
 var clickerclickerVersion = "1.0.2";
 
 function getCCVersion(tier) {
+    "use strict";
     if (tier === undefined) { return clickerclickerVersion; } else {
         var returner = 0, firstDot = 2, secondDot = 4;
         firstDot = clickerclickerVersion.indexOf(".");
@@ -127,13 +128,13 @@ function encrypt(input/*, key*/) {
     return encrypted;
 }
 
-function decrypt(input/*, key*/) {
+function decrypt(input, key) {
     "use strict";
-    var encryptKey, encryptNumber, encrypted, decrypted;
-//    if (key === undefined) { encryptKey = key; } else {*/
+    var encryptKey, encryptNumber = 0, encrypted, decrypted;
+    if (key !== undefined) {
         encryptNumber = input.charAt(0);
         encryptKey = encYc[encryptNumber];
-//    }
+    } else { encryptKey = key; }
     encrypted = input.substring(1);
     decrypted = CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
     for (var f = 0; f < decrypted.length; f++) {
