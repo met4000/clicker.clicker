@@ -35,6 +35,16 @@
 		<br>
 		<br>
 		<br>
+        <div id='achievementFClick' style="visibility: hidden">Achievement: First Click</div>
+        <div id='achievement10Click' style="visibility: hidden">Achievement: 10 Clicks</div>
+        <div id='achievement100Click' style="visibility: hidden">Achievement: 100 Clicks</div>
+        <div id='achievementTClick' style="visibility: hidden">Achievement: Thousand Clicks</div>
+        <div id='achievement10000Click' style="visibility: hidden">Achievement: 10000 Clicks</div>
+        <div id='achievement100000Click' style="visibility: hidden">Achievement: 100000 Clicks</div>
+        <div id='achievementMClick' style="visibility: hidden">Achievement: Million Clicks</div>
+        <div id='achievement10000000Click' style="visibility: hidden">Achievement: 10000000 Clicks</div>
+        <div id='achievement100000000Click' style="visibility: hidden">Achievement: 100000000 Clicks</div>
+        <div id='achievementBClick' style="visibility: hidden">Achievement: Billion Clicks</div>
         <div id='achievementClickMoreTotalDisplay' style="visibility: hidden">Achievment: Hacked Clicking</div>
         <div id='achievementRuinedTheFun' style="visibility: hidden">Achievment: Ruined The Fun</div>
         <br>
@@ -46,7 +56,7 @@
         <button onclick="saveDisplayWrite(saveCodeGet());">Get copyable save code</button>
         <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
         <br>
-        <input type="submit" value="Save" onclick="setSaveCookie(this.form)">
+        <input type="submit" value="Save" onclick="setSaveCookie()">
         <span> Autosave every minute:</span><input type="checkbox" onchange="autosaveToggle(60000)" checked>
         <br>
         <button id='saveDelete' onclick="removeSaveCookie('save_cookie')">Reset Save</button></center>

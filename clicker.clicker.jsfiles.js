@@ -67,6 +67,27 @@ var clickAmountClicked = 0;
 var clickAmountClickedAssist = 0;
 var clickAmountTotal = 1;
 
+var achievementFClick = false;
+var achievementFClickToggle = true;
+var achievement10Click = false;
+var achievement10ClickToggle = true;
+var achievement100Click = false;
+var achievement100ClickToggle = true;
+var achievementTClick = false;
+var achievementTClickToggle = true;
+var achievement10000Click = false;
+var achievement10000ClickToggle = true;
+var achievement100000Click = false;
+var achievement100000ClickToggle = true;
+var achievementMClick = false;
+var achievementMClickToggle = true;
+var achievement10000000Click = false;
+var achievement10000000ClickToggle = true;
+var achievement100000000Click = false;
+var achievement100000000ClickToggle = true;
+var achievementBClick = false;
+var achievementBClickToggle = true;
+
 var achievementClickMoreTotal = false;
 var achievementRuinedTheFun = false;
 var achievementClickMoreTotalToggle = true;
@@ -114,16 +135,13 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function encrypt(input/*, key*/) {
+function encrypt(input, key) {
     "use strict";
-    var encryptKey, encryptNumber, encrypted;
-    /*if (key === undefined) {
-        encryptNumber = 0;
-        encryptKey = key;
-    } else {*/
+    var encryptKey, encryptNumber = 0, encrypted;
+    if (key !== undefined) {
         encryptNumber = getRandomInt(1, 5);
         encryptKey = encYc[encryptNumber];
-//    }
+    } else { encryptKey = key; }
     encrypted = encryptNumber + CryptoJS.AES.encrypt(input, encryptKey);
     return encrypted;
 }
@@ -169,12 +187,23 @@ function saveLoadRead() {
 
 function achievementTick() {
     "use strict";
+    if (clickAmount >= 1 && !achievementFClick) {
+        achievementFClick = true;
+        window.alert("Achievement Received: First Click")
+    }
+    if (clickAmount >= 10 && !achievement10Click) {
+        achievement10Click = true;
+        window.alert("Achievement Received: 10 Clicks")
+    }
+    if (clickAmount >= 100 && !achievement100Click) {
+        achievement100Click = true;
+        window.alert("Achievement Received: 100 Clicks")
+    }
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
         achievementClickMoreTotal = true;
         window.alert("Achievement Received: Hacked Clicking");
     }
     if (ruinTheFunToggle && !achievementRuinedTheFun) {
-        ruinTheFunToggle = false;
         achievementRuinedTheFun = true;
         window.alert("Achievement Received: Ruined The Fun");
     }
@@ -445,6 +474,17 @@ function ruinTheFun() {
 
 function achievementUnlockAll() {
     "use strict";
+    achievementFClick = true;
+    achievement10Click = true;
+    achievement100Click = true;
+    achievementTClick = true;
+    achievement10000Click = true;
+    achievement100000Click = true;
+    achievementMClick = true;
+    achievement10000000Click = true;
+    achievement100000000Click = true;
+    achievementBClick = true;
+    
     achievementClickMoreTotal = true;
     achievementRuinedTheFun = true;
 }
