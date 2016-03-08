@@ -4,6 +4,22 @@ var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 var clickerclickerPassedInfo = "";
 
+/**
+* Returns a string with the char located at 'position' replaced with 'char'
+**/
+String.prototype.setCharAt = function (position, char) {
+    "use strict";
+    var internalCalc1 = String, internalCalc2 = "";
+    return internalCalc1;
+};
+
+/**
+* Returns the index of the 'occurance'th 'char'
+**/
+String.prototype.occurance = function (char, index) {
+    return 0;
+};
+
 function clickerclickerError(errorNumber, errorType) {
     "use strict";
     var errorMessage;
@@ -27,14 +43,15 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.0.2";
+var clickerclickerVersion = "1.0.2.3;
 
 function getCCVersion(tier) {
     "use strict";
     if (tier === undefined) { return clickerclickerVersion; } else {
-        var returner = 0, firstDot = 2, secondDot = 4;
+        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
         firstDot = clickerclickerVersion.indexOf(".");
         secondDot = clickerclickerVersion.lastIndexOf(".");
+//        thirdDot = clickerclickerVersion.occurance(".", 3);
         if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
             clickerclickerPassedInfo = tier;
             clickerclickerError(5, internal);
