@@ -50,7 +50,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.0.2.3;
+var clickerclickerVersion = "1.0.2.4";
 
 function getCCVersion(tier) {
     "use strict";
