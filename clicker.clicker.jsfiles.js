@@ -9,22 +9,46 @@ var clickerclickerPassedInfo = "";
 **/
 String.prototype.setCharAt = function (position, char) {
     "use strict";
-    var internalCalc1 = String, internalCalc2 = "";
+    var internalCalc1 = this, internalCalc2 = "";
     return internalCalc1;
 };
 
 /**
-* Returns the index of the 'occurance'th 'char'
+* Returns the index of the 'n'th 'char'
 **/
-String.prototype.nIndexOf = function (char, index) {
-    return 0;
+String.prototype.nIndexOf = function (char, n) {
+    "use strict";
+    var internalCalc = 0, index = 0, found = false;
+    for (; index < this.length && !found; index++) {
+        if (this.charAt(index) === char) {
+            internalCalc++;
+            if (internalCalc === n) {
+                found = true;
+            }
+        }
+    }
+    if (!found) { index = -1; console.error("ERROR: unable to find " + n + "'th occurance of '" + char + "' in " + this); window.alert("ERROR: unable to find " + n + "'th occurance of '" + char + "' in " + this); } else { index--; }
+    return index;
 };
 
 /**
-* Returns the index of the 'occurance'th last 'char'
+* Returns the index of the 'n'th last 'char'
+*
+* BUG: SEEMS TO BE UNABLE TO DETECT LAST CHARACTER AS CHAR
 **/
-String.prototype.nLastIndexOf = function (char, index) {
-    return 0;
+String.prototype.nLastIndexOf = function (char, n) {
+    "use strict";
+    var internalCalc = 0, index = this.length, found = false;
+    for (; index > 0 && !found; index--) {
+        if (this.charAt(index) === char) {
+            internalCalc++;
+            if (internalCalc === n) {
+                found = true;
+            }
+        }
+    }
+    if (!found) { index = -1; console.error("ERROR: unable to find " + n + "'th last occurance of '" + char + "' in " + this); window.alert("ERROR: unable to find " + n + "'th last occurance of '" + char + "' in " + this); } else { index--; }
+    return index;
 };
 
 function clickerclickerError(errorNumber, errorType) {
@@ -50,7 +74,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.0.2.4";
+var clickerclickerVersion = "1.0.2.5";
 
 function getCCVersion(tier) {
     "use strict";
