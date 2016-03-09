@@ -16,7 +16,14 @@ String.prototype.setCharAt = function (position, char) {
 /**
 * Returns the index of the 'occurance'th 'char'
 **/
-String.prototype.occurance = function (char, index) {
+String.prototype.nIndexOf = function (char, index) {
+    return 0;
+};
+
+/**
+* Returns the index of the 'occurance'th last 'char'
+**/
+String.prototype.nLastIndexOf = function (char, index) {
     return 0;
 };
 
