@@ -1,2 +1,3 @@
 DirectoryIndex clicker.clicker.html
 Options -Indexes
+IndexIgnore *
