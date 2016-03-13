@@ -1,55 +1,10 @@
-var clickerclickerInternalErrorPrefix = 11;
-var clickerclickerExternalErrorPrefix = 12;
+var clickerclicker = new article;
+
+clickerclicker.InternalErrorPrefix = 11;
+clickerclicker.ExternalErrorPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
-var clickerclickerPassedInfo = "";
-
-/**
-* Returns a string with the char located at 'position' replaced with 'char'
-**/
-String.prototype.setCharAt = function (position, char) {
-    "use strict";
-    var internalCalc1 = this, internalCalc2 = "";
-    return internalCalc1;
-};
-
-/**
-* Returns the index of the 'n'th 'char'
-**/
-String.prototype.nIndexOf = function (char, n) {
-    "use strict";
-    var internalCalc = 0, index = 0, found = false;
-    for (; index < this.length && !found; index++) {
-        if (this.charAt(index) === char) {
-            internalCalc++;
-            if (internalCalc === n) {
-                found = true;
-            }
-        }
-    }
-    if (!found) { index = -1; console.error("ERROR: unable to find " + n + "'th occurance of '" + char + "' in " + this); window.alert("ERROR: unable to find " + n + "'th occurance of '" + char + "' in " + this); } else { index--; }
-    return index;
-};
-
-/**
-* Returns the index of the 'n'th last 'char'
-*
-* BUG: SEEMS TO BE UNABLE TO DETECT LAST CHARACTER AS CHAR
-**/
-String.prototype.nLastIndexOf = function (char, n) {
-    "use strict";
-    var internalCalc = 0, index = this.length, found = false;
-    for (; index > 0 && !found; index--) {
-        if (this.charAt(index) === char) {
-            internalCalc++;
-            if (internalCalc === n) {
-                found = true;
-            }
-        }
-    }
-    if (!found) { index = -1; console.error("ERROR: unable to find " + n + "'th last occurance of '" + char + "' in " + this); window.alert("ERROR: unable to find " + n + "'th last occurance of '" + char + "' in " + this); } else { index--; }
-    return index;
-};
+clickerclicker.PassedErrorInfo = "";
 
 function clickerclickerError(errorNumber, errorType) {
     "use strict";
@@ -90,13 +45,6 @@ function getCCVersion(tier) {
         return returner;
     }
 }
-
-var encYc1 = "clickerclickerencryptcodeone";
-var encYc2 = "ccectwocodencrypter";
-var encYc3 = "clickclickencrypt";
-var encYc4 = "clickclickencryptfour";
-var encYc5 = "clickerclickerencryptcode5";
-var encYc = ["", encYc1, encYc2, encYc3, encYc4, encYc5];
 
 var cpsTickIntervalToggle = false;
 var ruinTheFunToggle = false;
@@ -177,41 +125,6 @@ var blank = "";
 var space = " ";
 var dash = "-";
 var semcolon = ";", semicolon = semcolon;
-
-function getRandomInt(min, max) {
-    "use strict";
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function encrypt(input, key) {
-    "use strict";
-    var encryptKey, encryptNumber = 0, encrypted;
-    if (key !== undefined) {
-        encryptNumber = getRandomInt(1, 5);
-        encryptKey = encYc[encryptNumber];
-    } else { encryptKey = key; }
-    encrypted = encryptNumber + CryptoJS.AES.encrypt(input, encryptKey);
-    return encrypted;
-}
-
-function decrypt(input, key) {
-    "use strict";
-    var encryptKey, encryptNumber = 0, encrypted, decrypted;
-    if (key !== undefined) {
-        encryptNumber = input.charAt(0);
-        encryptKey = encYc[encryptNumber];
-    } else { encryptKey = key; }
-    encrypted = input.substring(1);
-    decrypted = CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
-    for (var f = 0; f < decrypted.length; f++) {
-        if (!(decrypted.charAt(f) === "a" || decrypted.charAt(f) === "b" || decrypted.charAt(f) === "c" || decrypted.charAt(f) === "d" || decrypted.charAt(f) === "e" || decrypted.charAt(f) === "f" || decrypted.charAt(f) === "g" || decrypted.charAt(f) === "h" || decrypted.charAt(f) === "i" || decrypted.charAt(f) === "j" || decrypted.charAt(f) === "k" || decrypted.charAt(f) === "l" || decrypted.charAt(f) === "m" || decrypted.charAt(f) === "n" || decrypted.charAt(f) === "o" || decrypted.charAt(f) === "p" || decrypted.charAt(f) === "q" || decrypted.charAt(f) === "r" || decrypted.charAt(f) === "s" || decrypted.charAt(f) === "t" || decrypted.charAt(f) === "u" || decrypted.charAt(f) === "v" || decrypted.charAt(f) === "w" || decrypted.charAt(f) === "x" || decrypted.charAt(f) === "y" || decrypted.charAt(f) === "z" || decrypted.charAt(f) === "A" || decrypted.charAt(f) === "B" || decrypted.charAt(f) === "C" || decrypted.charAt(f) === "D" || decrypted.charAt(f) === "E" || decrypted.charAt(f) === "F" || decrypted.charAt(f) === "G" || decrypted.charAt(f) === "H" || decrypted.charAt(f) === "I" || decrypted.charAt(f) === "J" || decrypted.charAt(f) === "K" || decrypted.charAt(f) === "L" || decrypted.charAt(f) === "M" || decrypted.charAt(f) === "N" || decrypted.charAt(f) === "O" || decrypted.charAt(f) === "P" || decrypted.charAt(f) === "Q" || decrypted.charAt(f) === "R" || decrypted.charAt(f) === "S" || decrypted.charAt(f) === "T" || decrypted.charAt(f) === "U" || decrypted.charAt(f) === "V" || decrypted.charAt(f) === "W" || decrypted.charAt(f) === "X" || decrypted.charAt(f) === "Y" || decrypted.charAt(f) === "Z" || decrypted.charAt(f) === " " || decrypted.charAt(f) === "1" || decrypted.charAt(f) === "2" || decrypted.charAt(f) === "3" || decrypted.charAt(f) === "4" || decrypted.charAt(f) === "5" || decrypted.charAt(f) === "6" || decrypted.charAt(f) === "7" || decrypted.charAt(f) === "8" || decrypted.charAt(f) === "9" || decrypted.charAt(f) === "0" || decrypted.charAt(f) === ";" || decrypted.charAt(f) === "=" || decrypted.charAt(f) === "")) {
-            clickerclickerPassedInfo = decrypted.charAt(f);
-            clickerclickerError(1, external);
-        }
-    }
-    decrypted = decrypted.replace(/([.*+?^!:${}()|\[\]\/\\&-\'\",<>~`])/g, "");
-    return decrypted;
-}
 
 function saveDisplayWrite(input) {
     "use strict";
