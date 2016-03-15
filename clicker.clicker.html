@@ -72,115 +72,13 @@
         <br>
         <br>
         <div id="search" onclick='
-if (
-    this.innerHTML.substring(
-        0,
-        this.innerHTML.nIndexOf(
-            ">",
-            3
-        ) + 1
-    ).substring(
-        this.innerHTML.substring(
-            0,
-            this.innerHTML.nIndexOf(
-                ">",
-                3
-            ) + 1
-        ).nIndexOf(
-            "\"",
-            3
-        ) + 1,
-        this.innerHTML.substring(
-            0,
-            this.innerHTML.nIndexOf(
-                ">",
-                3
-            ) + 1
-        ).nIndexOf(
-            "\"",
-            4
-        )
-    )
 
-    <
+if (this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).substring(this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).nIndexOf("/"", 3) + 1, this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).nIndexOf("/"", 4))	<	this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).substring(this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).nIndexOf("/"", 3) + 1, this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).nIndexOf("/"", 4))) {
+	this.innerHTML = this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1) + this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1);
+} else {
+	this.innerHTML = this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1) + this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1);
+}
 
-    this.innerHTML.substring(
-        this.innerHTML.nIndexOf(
-            ">",
-            3
-        ) + 1,
-        this.innerHTML.nIndexOf(
-            ">",
-            6
-        ) + 1
-    ).substring(
-        this.innerHTML.substring(
-            this.innerHTML.nIndexOf(
-                ">",
-                3
-            ) + 1,
-            this.innerHTML.nIndexOf(
-                ">",
-                6
-            ) + 1
-        ).nIndexOf(
-            "\"",
-            3
-        ) + 1,
-        this.innerHTML.substring(
-            this.innerHTML.nIndexOf(
-                ">",
-                3
-            ) + 1,
-            this.innerHTML.nIndexOf(
-                ">",
-                6
-            ) + 1
-        ).nIndexOf(
-            "\"",
-            4
-        )
-    )
-) {
-    this.innerHTML = this.innerHTML.substring(
-        0,
-        this.innerHTML.nIndexOf(
-            ">",
-            3
-        ) + 1
-    ) + this.innerHTML.substring(
-        this.innerHTML.nIndexOf(
-            ">",
-            3
-        ) + 1,
-        this.innerHTML.nIndexOf(
-            ">",
-            6
-        ) + 1
-    );
-} else {
-    this.innerHTML = this.innerHTML.substring(
-        this.innerHTML.nIndexOf(
-            ">",
-            3
-        ) + 1,
-        this.innerHTML.nIndexOf(
-            ">",
-            6
-        ) + 1
-    ) + this.innerHTML.substring(
-        0,
-        this.innerHTML.nIndexOf(
-            ">",
-            3
-        ) + 1
-    );
-}
-if (this.innerHTML.substring(0, this.innerHTML.nIndexOf('>', 3) + 1).substring(this.innerHTML.substring(0, this.innerHTML.nIndexOf('>', 3) + 1).nIndexOf('"', 3) + 1, this.innerHTML.substring(0, this.innerHTML.nIndexOf('>', 3) + 1).nIndexOf('"', 4))	<	this.innerHTML.substring(this.innerHTML.nIndexOf('>', 3) + 1, this.innerHTML.nIndexOf('>', 6) + 1).substring(this.innerHTML.substring(this.innerHTML.nIndexOf('>', 3) + 1, this.innerHTML.nIndexOf('>', 6) + 1).nIndexOf('"', 3) + 1, this.innerHTML.substring(this.innerHTML.nIndexOf('>', 3) + 1, this.innerHTML.nIndexOf('>', 6) + 1).nIndexOf('"', 4))) {
-	this.innerHTML = this.innerHTML.substring(0, this.innerHTML.nIndexOf('>', 3) + 1) + this.innerHTML.substring(this.innerHTML.nIndexOf('>', 3) + 1, this.innerHTML.nIndexOf('>', 6) + 1);
-} else {
-	this.innerHTML = this.innerHTML.substring(this.innerHTML.nIndexOf('>', 3) + 1, this.innerHTML.nIndexOf('>', 6) + 1) + this.innerHTML.substring(0, this.innerHTML.nIndexOf('>', 3) + 1);
-}
         '><span id="2">HELLO<br></span><span id="1">TEST<br></span></div>
     </body>
 </html>
