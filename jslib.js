@@ -1,4 +1,16 @@
-function article() { "use strict"; }
+function Article() {
+    "use strict";
+    var internalErrorPrefix = 0;
+    var externalErrorPrefix = 0;
+}
+
+/**
+* Refreshes the page
+**/
+function refreshPage() {
+    "use strict";
+    window.location = window.location;
+};
 
 /**
 * Returns a string with the char located at 'position' replaced with 'char'

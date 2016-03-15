@@ -6,11 +6,11 @@
             <script src="clicker.clicker.jsfiles.js"></script>
         </span>
 		<script type="text/javascript">
-			document.title = "Clicks: " + clickAmount;
-            		cpsTick();
+			document.title = "Clicks: " + Math.floor(clickAmount);
+            cpsUpdate();
 		</script>
 	</head>
-	<body onload="loadCookie()">
+	<body onload="loadCookie()" id="body">
 		<img src=cursor1.png style="cursor: pointer" onclick="mouseClick(); tick();">
 		<br>
 		<span><span id='amountOf'>0</span> clicks!</span>
@@ -60,7 +60,8 @@
         <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
         <br>
         <input type="submit" value="Save" onclick="setSaveCookie()">
-        <span> Autosave every minute:</span><input type="checkbox" onchange="autosaveToggle(60000)" checked>
+        <span> Autosave every: </span><input type="checkbox" onchange="autosaveToggle(10000);uncheckAs(1)" id="as1">10 sec <input type="checkbox" onchange="autosaveToggle(30000);uncheckAs(2)" id="as2">30 sec <input type="checkbox" onchange="autosaveToggle(60000);uncheckAs(3)" checked id="as3">1 min <input type="checkbox" onchange="autosaveToggle(120000);uncheckAs(4)" id="as4">2 min <input type="checkbox" onchange="autosaveToggle(300000);uncheckAs(5)" id="as5">5 min
+        <!-- <input type="checkbox" onchange="autosaveToggle(document.getElementById('as6i').value * 1000);uncheckAs(6)" id="as6"> <input type="number" onchange="if(document.getElementById('as6').checked){autosaveToggle(this.value * 1000);}" id="as6i"> sec !-->
         <br>
         <button id='saveDelete' onclick="removeSaveCookie('save_cookie')">Reset Save</button></center>
         <br>
@@ -73,7 +74,9 @@
         <br>
         <div id="search" onclick='
 
-if (this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).substring(this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).nIndexOf("/"", 3) + 1, this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).nIndexOf("/"", 4))	<	this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).substring(this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).nIndexOf("/"", 3) + 1, this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).nIndexOf("/"", 4))) {
+if (this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).substring(this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).nIndexOf("\"", 3) + 1, this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1).nIndexOf("\"", 4))
+<
+this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).substring(this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).nIndexOf("\"", 3) + 1, this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1).nIndexOf("\"", 4))) {
 	this.innerHTML = this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1) + this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1);
 } else {
 	this.innerHTML = this.innerHTML.substring(this.innerHTML.nIndexOf(">", 3) + 1, this.innerHTML.nIndexOf(">", 6) + 1) + this.innerHTML.substring(0, this.innerHTML.nIndexOf(">", 3) + 1);
