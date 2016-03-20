@@ -1,5 +1,7 @@
 function Article() {
     "use strict";
+    var internalErrorPrefix = 0;
+    var externalErrorPrefix = 0;
 }
 
 Article.prototype.error = function () {
