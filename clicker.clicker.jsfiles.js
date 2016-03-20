@@ -1,5 +1,7 @@
 function Article() {
     "use strict";
+    var internalErrorPrefix = 0;
+    var externalErrorPrefix = 0;
 }
 
 Article.prototype.error = function () {
@@ -14,7 +16,7 @@ clickerclicker.error.externalPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
-Article.error.prototype.set = function (errorNumber, errorType) {
+function clickerclickerError(errorNumber, errorType) {
     "use strict";
     var errorMessage;
     if (errorType === "Internal") {
@@ -32,10 +34,10 @@ Article.error.prototype.set = function (errorNumber, errorType) {
         if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
         errorMessage = errorMessage + errorNumber + ": ";
         if (errorNumber === 1) { errorMessage = errorMessage + "Illegal character for save: " + clickerclicker.error.passedInfo; }
-    } else { clickerclicker.error.set(1, Internal); }
+    } else { clickerclickerError(1, Internal); }
     console.error(errorMessage);
     window.alert(errorMessage);
-};
+}
 
 var clickerclickerVersion = "1.0.3.1";
 
@@ -48,7 +50,7 @@ function getCCVersion(tier) {
 //        thirdDot = clickerclickerVersion.occurance(".", 3);
         if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
             clickerclicker.error.passedInfo = tier;
-            clickerclicker.error.set(5, internal);
+            clickerclickerError(5, internal);
         }
         return returner;
     }
@@ -123,7 +125,7 @@ var clickerUpgrade3Cost = 2500;
 var clickerUpgrade3 = false;
 var clickerUpgrade3Modifier = 2;
 var clickerCpsTemp;
-var clickerCpsClickAmount = 1;
+var clickerCpsClickAmount = 1
 
 var cursorAmount = 0;
 var cursorClickIncrease = 1;
@@ -518,7 +520,7 @@ function setSaveCookie(display) {
     if (save_cookie !== "") {
         setSaveCookieInternal("save_cookie", save_cookie, 365);
         if (display === undefined) { console.info("Saved!"); }
-    } else { clickerclicker.error.set(2, Internal); }
+    } else { clickerclickerError(2, Internal); }
 }
 
 function removeSaveCookie(c_name) {
