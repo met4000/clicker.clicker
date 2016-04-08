@@ -73,5 +73,5 @@ window.onload = function () {
             <input type="checkbox" onchange="autoclickToggle();"></span></div>
         </div>
     </body>
-</html>";
+</html>".slashify();
 };
