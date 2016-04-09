@@ -7,5 +7,5 @@ window.onload = function () {
 	document.getElementById('as4').addEventListener('click', function () { autosaveToggle(120000);uncheckAs(4); });
 	document.getElementById('as5').addEventListener('click', function () { autosaveToggle(300000);uncheckAs(5); });
 	document.getElementById('as6').addEventListener('click', function () { autosaveToggle(document.getElementById('as6i').value * 1000);uncheckAs(6) });
-	document.getElementById('as6i').addEventListener('click', function () { 'if(document.getElementById('as6').checked){autosaveToggle(document.getElementById('as6i').value * 1000); });
+	document.getElementById('as6i').addEventListener('click', function () { if(document.getElementById('as6').checked){autosaveToggle(document.getElementById('as6i').value * 1000); });
 };
