@@ -540,7 +540,7 @@ function removeSaveCookie(c_name) {
 function loadCookie() {
     "use strict";
     var save_cookie = getCookie("save_cookie");
-    if (save_cookie !== null && save_cookie !== "") {
+    if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
         if (genUpgrade1) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
         if (genUpgrade2) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
