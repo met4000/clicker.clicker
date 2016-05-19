@@ -32,6 +32,7 @@ function clickerclickerError(errorNumber, errorType) {
         if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
         errorMessage = errorMessage + errorNumber + ": ";
         if (errorNumber === 1) { errorMessage = errorMessage + "Illegal character for save: " + clickerclicker.error.passedInfo; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to load save cookie - Maybe cookies are disabled? :("; }
     } else { clickerclickerError(1, Internal); }
     console.error(errorMessage);
     window.alert(errorMessage);
@@ -492,14 +493,20 @@ function achievementUnlockAll() {
 
 function getCookie(c_name) {
     "use strict";
-    var i, x, y, ARRcookies = document.cookie.split(";");
-    for (i = 0; i < ARRcookies.length; i++) {
-        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-        x = x.replace(/^\s+|\s+$/g, "");
-        if (x === c_name) {
-            return unescape(y);
+    var i, x, y;
+    if (document.cookie != "") {
+        var ARRcookies = document.cookie.split(";")
+        for (i = 0; i < ARRcookies.length; i++) {
+            x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+            y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x === c_name) {
+                return unescape(y);
+            }
         }
+    } else {
+        clickerclickerError(2, External);
+        return false;
     }
 }
 
