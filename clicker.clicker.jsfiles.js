@@ -1,16 +1,60 @@
-var clickerclickerInternalErrorPrefix = 11;
-var clickerclickerExternalErrorPrefix = 12;
+function Article() {
+    "use strict";
+}
+
+Article.prototype.error = function () {
+    "use strict";
+    var internalPrefix = 0, externalPrefix = 0, passedInfo = "";
+};
+
+var clickerclicker = new Article();
+
+clickerclicker.error.internalPrefix = 11;
+clickerclicker.error.externalPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
-var encYc1 = "clickerclickerencryptcodeone";
-var encYc2 = "ccectwocodencrypter";
-var encYc3 = "clickclickencrypt";
-var encYc4 = "clickclickencryptfour";
-var encYc5 = "clickerclickerencryptcode5";
-var encYc = ["", encYc1, encYc2, encYc3, encYc4, encYc5];
+function clickerclickerError(errorNumber, errorType) {
+    "use strict";
+    var errorMessage;
+    if (errorType === "Internal") {
+        errorMessage = "ERROR " + clickerclicker.error.internalPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
+        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
+        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+        if (errorNumber === 5) { errorMessage = errorMessage + "Tier " + clickerclicker.error.passedInfo + " is not a valid tier (" + clickerclicker.error.passedInfo + " != 1 || 2 || 3)"; }
+        errorMessage = errorMessage + ".";
+    } else if (errorType === "External") {
+        errorMessage = "ERROR " + clickerclicker.error.externalPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + "Illegal character for save: " + clickerclicker.error.passedInfo; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to load save cookie - Maybe cookies are disabled? :("; }
+    } else { clickerclickerError(1, Internal); }
+    console.error(errorMessage);
+    window.alert(errorMessage);
+}
 
-var cpsTickIntervalToggle = false;
+var clickerclickerVersion = "1.1";
+
+function getCCVersion(tier) {
+    "use strict";
+    if (tier === undefined) { return clickerclickerVersion; } else {
+        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
+        firstDot = clickerclickerVersion.indexOf(".");
+        secondDot = clickerclickerVersion.lastIndexOf(".");
+//        thirdDot = clickerclickerVersion.occurance(".", 3);
+        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
+            clickerclicker.error.passedInfo = tier;
+            clickerclickerError(5, internal);
+        }
+        return returner;
+    }
+}
+
 var ruinTheFunToggle = false;
 
 var autoclickEnabled = false;
@@ -19,6 +63,9 @@ var autoclickTemp;
 
 var autosaveEnabled = true;
 var autosaveTemp;
+var autosaveTime = 60000;
+var autosaveTimeTemp;
+var autosaveTimeTick = 60000;
 
 var firstTime = true;
 
@@ -26,6 +73,32 @@ var clickAmount = 0;
 var clickAmountClicked = 0;
 var clickAmountClickedAssist = 0;
 var clickAmountTotal = 1;
+
+var eei = [];
+var fnaf = 1;
+
+eei[fnaf] = false;
+
+var achievementFClick = false;
+var achievementFClickToggle = true;
+var achievement10Click = false;
+var achievement10ClickToggle = true;
+var achievement100Click = false;
+var achievement100ClickToggle = true;
+var achievementTClick = false;
+var achievementTClickToggle = true;
+var achievement10000Click = false;
+var achievement10000ClickToggle = true;
+var achievement100000Click = false;
+var achievement100000ClickToggle = true;
+var achievementMClick = false;
+var achievementMClickToggle = true;
+var achievement10000000Click = false;
+var achievement10000000ClickToggle = true;
+var achievement100000000Click = false;
+var achievement100000000ClickToggle = true;
+var achievementBClick = false;
+var achievementBClickToggle = true;
 
 var achievementClickMoreTotal = false;
 var achievementRuinedTheFun = false;
@@ -50,6 +123,8 @@ var clickerUpgrade2Modifier = 0;
 var clickerUpgrade3Cost = 2500;
 var clickerUpgrade3 = false;
 var clickerUpgrade3Modifier = 2;
+var clickerCpsTemp;
+var clickerCpsClickAmount = 1
 
 var cursorAmount = 0;
 var cursorClickIncrease = 1;
@@ -64,58 +139,10 @@ var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
 
-function getRandomInt(min, max) {
-    "use strict";
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function encrypt(input/*, key*/) {
-    "use strict";
-    var encryptKey, encryptNumber, encrypted;
-    /*if (key === undefined) {
-        encryptNumber = 0;
-        encryptKey = key;
-    } else {*/
-        encryptNumber = getRandomInt(1, 5);
-        encryptKey = encYc[encryptNumber];
-//    }
-    encrypted = encryptNumber + CryptoJS.AES.encrypt(input, encryptKey);
-    return encrypted;
-}
-
-function decrypt(input/*, key*/) {
-    "use strict";
-    var encryptKey, encryptNumber, encrypted;
-//    if (key === undefined) { encryptKey = key; } else {*/
-        encryptNumber = input.charAt(0);
-        encryptKey = encYc[encryptNumber];
-//    }
-    encrypted = input.substring(1);
-    return CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
-}
-
-function clickerclickerError(errorNumber, errorType) {
-    "use strict";
-    var errorMessage;
-    if (errorType === "Internal") {
-        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix;
-        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
-        errorMessage = errorMessage + errorNumber + ": ";
-        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
-        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
-        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
-        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
-        errorMessage = "ERROR " + clickerclickerInternalErrorPrefix + errorNumber + ": ";
-        errorMessage = errorMessage + ".";
-    } else if (errorType === "External") {
-        errorMessage = "ERROR " + clickerclickerExternalErrorPrefix;
-        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
-        errorMessage = errorMessage + errorNumber + ": ";
-        if (errorNumber === 1) { errorMessage = errorMessage + "Unused error"; }
-    } else { clickerclickerError(1, Internal); }
-    window.alert(errorMessage);
-    console.error(errorMessage);
-}
+var blank = "";
+var space = " ";
+var dash = "-";
+var semcolon = ";", semicolon = semcolon;
 
 function saveDisplayWrite(input) {
     "use strict";
@@ -139,12 +166,23 @@ function saveLoadRead() {
 
 function achievementTick() {
     "use strict";
+    if (clickAmount >= 1 && !achievementFClick) {
+        achievementFClick = true;
+        window.alert("Achievement Received: First Click");
+    }
+    if (clickAmount >= 10 && !achievement10Click) {
+        achievement10Click = true;
+        window.alert("Achievement Received: 10 Clicks");
+    }
+    if (clickAmount >= 100 && !achievement100Click) {
+        achievement100Click = true;
+        window.alert("Achievement Received: 100 Clicks");
+    }
     if (clickAmount > clickAmountTotal && !achievementClickMoreTotal) {
         achievementClickMoreTotal = true;
         window.alert("Achievement Received: Hacked Clicking");
     }
     if (ruinTheFunToggle && !achievementRuinedTheFun) {
-        ruinTheFunToggle = false;
         achievementRuinedTheFun = true;
         window.alert("Achievement Received: Ruined The Fun");
     }
@@ -161,8 +199,9 @@ function achievementTick() {
 
 function updateDisplays() {
     "use strict";
-    document.title = "Clicks: " + clickAmount;
-    document.getElementById('amountOf').innerHTML = clickAmount;
+    cpsUpdate();
+    document.title = "Clicks: " + Math.floor(clickAmount);
+    document.getElementById('amountOf').innerHTML = Math.floor(clickAmount);
     if (!cursorUpgrade2) {document.getElementById('cursorIncreaseDisplay').innerHTML = cursorClickIncrease; } else { document.getElementById('cursorIncreaseDisplay').innerHTML = Math.round(cursorClickTotalIncrease / cursorAmount); }
     document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount;
     document.getElementById('clickerTotalCpsDisplay').innerHTML = clickerTotalCps;
@@ -202,6 +241,17 @@ function regClick(amount) {
     addClicks(amount + cursorClickTotalIncrease);
     clickAmountClicked = clickAmountClicked + 1;
     clickAmountClickedAssist = clickAmountClickedAssist + amount + cursorClickTotalIncrease;
+}
+
+function regAutoClick(amount) {
+    "use strict";
+    clickAmountTotal = clickAmountTotal + clickerTotalCps + amount;
+    addClicks(amount + clickerTotalCps);
+}
+
+function regIndvClick(amount) {
+    clickAmountTotal = clickAmountTotal + amount;
+    addClicks(amount);
 }
 
 function mouseClick() {
@@ -320,17 +370,19 @@ function cursorPrice(newCost) {
     cursorCost = newCost;
 }
 
-function cpsTick() {
+function cpsUpdate() {
     "use strict";
-    if (!cpsTickIntervalToggle) {
-        cpsTickIntervalToggle = true;
-        setInterval("cpsTick()", 1000);
+    var clickerCpsTime;
+    var clickerCpsActivated = true;
+    if (clickerTotalCps > 1000) {
+        clickerCpsClickAmount = clickerTotalCps / 1000;
+        clickerCpsTime = 1;
+    } else if (clickerTotalCps != 0) { clickerCpsTime = 1000 / clickerTotalCps; } else { clickerCpsActivated = false; }
+    
+    if (clickerCpsTemp !== undefined) {
+        clearInterval(clickerCpsTemp);
     }
-    updateClicker();
-    clickAmountTotal = clickAmountTotal + clickerTotalCps;
-    clickAmount = clickAmount + clickerTotalCps;
-    updateClicker();
-    if (!firstTime) { updateDisplays(); } else { firstTime = false; }
+    if (clickerCpsActivated) { clickerCpsTemp = setInterval("regIndvClick(clickerCpsClickAmount)", clickerCpsTime); }
 }
 
 function autoclickEnable() {
@@ -391,11 +443,20 @@ function upgradeCostTicker() {
 
 function easterEggTick() {
     "use strict";
+    //FNAF easter egg +
+    if (clickAmount === 1987 && clickAmountTotal >= 1987 && !eei[fnaf]) {
+        eei[fnaf] = true;
+        document.getElementById("body").background = "tfj.gif";
+        console.log("FNAF easter egg!");
+        eei[2] = setInterval('document.getElementById("body").background = ""; clearInterval(eei[2])', 1500);
+    }
+    //FNAF easter egg -
 }
 
 function tick() {
     "use strict";
     achievementTick();
+    easterEggTick();
 }
 
 
@@ -415,23 +476,38 @@ function ruinTheFun() {
 
 function achievementUnlockAll() {
     "use strict";
+    achievementFClick = true;
+    achievement10Click = true;
+    achievement100Click = true;
+    achievementTClick = true;
+    achievement10000Click = true;
+    achievement100000Click = true;
+    achievementMClick = true;
+    achievement10000000Click = true;
+    achievement100000000Click = true;
+    achievementBClick = true;
+    
     achievementClickMoreTotal = true;
     achievementRuinedTheFun = true;
 }
 
 
-//TESTING
-
 function getCookie(c_name) {
     "use strict";
-    var i, x, y, ARRcookies = document.cookie.split(";");
-    for (i = 0; i < ARRcookies.length; i++) {
-        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-        x = x.replace(/^\s+|\s+$/g, "");
-        if (x === c_name) {
-            return unescape(y);
+    var i, x, y;
+    if (document.cookie != "") {
+        var ARRcookies = document.cookie.split(";")
+        for (i = 0; i < ARRcookies.length; i++) {
+            x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+            y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x === c_name) {
+                return unescape(y);
+            }
         }
+    } else {
+        clickerclickerError(2, External);
+        return false;
     }
 }
 
@@ -458,13 +534,14 @@ function removeSaveCookie(c_name) {
     if (confirm("Are you sure you want to delete the save?")) {
         setSaveCookieInternal(c_name, 0, -1);
         console.warn("Deleted!");
+        refreshPage();
     }
 }
 
 function loadCookie() {
     "use strict";
     var save_cookie = getCookie("save_cookie");
-    if (save_cookie !== null && save_cookie !== "") {
+    if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
         if (genUpgrade1) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
         if (genUpgrade2) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
@@ -482,21 +559,43 @@ function autosave() {
     "use strict";
     setSaveCookie(false);
     console.info("Autosaved!");
+    autosaveTimeTick = autosaveTime;
+}
+
+function autosaveTimeTickTick() {
+    "use strict";
+    autosaveTimeTick--;
 }
 
 function autosaveEnable(time) {
     "use strict";
+    autosaveTime = time;
     autosaveTemp = setInterval("autosave()", time);
+    autosaveTimeTemp = setInterval("autosaveTimeTickTick()", 1);
     autosaveEnabled = true;
+    autosave();
 }
 
 function autosaveDisable() {
     "use strict";
+    autosaveTime = -1;
     clearInterval(autosaveTemp);
-    autoclickEnabled = false;
+    clearInterval(autosaveTimeTemp);
+    autosaveEnabled = false;
 }
 
 function autosaveToggle(time) {
     "use strict";
     if (autosaveEnabled) { autosaveDisable(); } else { autosaveEnable(time); }
+}
+
+
+function uncheckAs(stayChecked) {
+    "use strict";
+    for (var current = 1; current <= 6; current++) {
+        if (current != stayChecked) {
+            document.getElementById("as" + current).checked = false;
+        }
+    }
+    if (document.getElementById("as" + stayChecked).checked) { autosaveEnable(document.getElementById("as" + stayChecked).onchange.toString().substring(document.getElementById("as" + stayChecked).onchange.toString().nIndexOf("(", 2) + 1, document.getElementById("as" + stayChecked).onchange.toString().nIndexOf(")", 2))); }
 }

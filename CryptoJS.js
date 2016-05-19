@@ -33,3 +33,40 @@ b.keySize,b.ivSize);l.iv=d.iv;b=a.encrypt.call(this,b,c,d.key,l);b.mixIn(d);retu
 16,32,64,128,27,54],d=d.AES=p.extend({_doReset:function(){for(var a=this._key,c=a.words,d=a.sigBytes/4,a=4*((this._nRounds=d+6)+1),e=this._keySchedule=[],j=0;j<a;j++)if(j<d)e[j]=c[j];else{var k=e[j-1];j%d?6<d&&4==j%d&&(k=l[k>>>24]<<24|l[k>>>16&255]<<16|l[k>>>8&255]<<8|l[k&255]):(k=k<<8|k>>>24,k=l[k>>>24]<<24|l[k>>>16&255]<<16|l[k>>>8&255]<<8|l[k&255],k^=H[j/d|0]<<24);e[j]=e[j-d]^k}c=this._invKeySchedule=[];for(d=0;d<a;d++)j=a-d,k=d%4?e[j]:e[j-4],c[d]=4>d||4>=j?k:b[l[k>>>24]]^x[l[k>>>16&255]]^q[l[k>>>
 8&255]]^n[l[k&255]]},encryptBlock:function(a,b){this._doCryptBlock(a,b,this._keySchedule,t,r,w,v,l)},decryptBlock:function(a,c){var d=a[c+1];a[c+1]=a[c+3];a[c+3]=d;this._doCryptBlock(a,c,this._invKeySchedule,b,x,q,n,s);d=a[c+1];a[c+1]=a[c+3];a[c+3]=d},_doCryptBlock:function(a,b,c,d,e,j,l,f){for(var m=this._nRounds,g=a[b]^c[0],h=a[b+1]^c[1],k=a[b+2]^c[2],n=a[b+3]^c[3],p=4,r=1;r<m;r++)var q=d[g>>>24]^e[h>>>16&255]^j[k>>>8&255]^l[n&255]^c[p++],s=d[h>>>24]^e[k>>>16&255]^j[n>>>8&255]^l[g&255]^c[p++],t=
 d[k>>>24]^e[n>>>16&255]^j[g>>>8&255]^l[h&255]^c[p++],n=d[n>>>24]^e[g>>>16&255]^j[h>>>8&255]^l[k&255]^c[p++],g=q,h=s,k=t;q=(f[g>>>24]<<24|f[h>>>16&255]<<16|f[k>>>8&255]<<8|f[n&255])^c[p++];s=(f[h>>>24]<<24|f[k>>>16&255]<<16|f[n>>>8&255]<<8|f[g&255])^c[p++];t=(f[k>>>24]<<24|f[n>>>16&255]<<16|f[g>>>8&255]<<8|f[h&255])^c[p++];n=(f[n>>>24]<<24|f[g>>>16&255]<<16|f[h>>>8&255]<<8|f[k&255])^c[p++];a[b]=q;a[b+1]=s;a[b+2]=t;a[b+3]=n},keySize:8});u.AES=p._createHelper(d)})();
+
+var encYc1 = "clickerclickerencryptcodeone";
+var encYc2 = "ccectwocodencrypter";
+var encYc3 = "clickclickencrypt";
+var encYc4 = "clickclickencryptfour";
+var encYc5 = "clickerclickerencryptcode5";
+var encYc = ["", encYc1, encYc2, encYc3, encYc4, encYc5];
+
+function encrypt(input, key) {
+    "use strict";
+    var encryptKey, encryptNumber = 0, encrypted;
+    if (key !== undefined) {
+        encryptNumber = getRandomInt(1, 5);
+        encryptKey = encYc[encryptNumber];
+    } else { encryptKey = key; }
+    encrypted = encryptNumber + CryptoJS.AES.encrypt(input, encryptKey);
+    return encrypted;
+}
+
+function decrypt(input, key) {
+    "use strict";
+    var encryptKey, encryptNumber = 0, encrypted, decrypted;
+    if (key !== undefined) {
+        encryptNumber = input.charAt(0);
+        encryptKey = encYc[encryptNumber];
+    } else { encryptKey = key; }
+    encrypted = input.substring(1);
+    decrypted = CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
+    for (var f = 0; f < decrypted.length; f++) {
+        if (!(decrypted.charAt(f) === "a" || decrypted.charAt(f) === "b" || decrypted.charAt(f) === "c" || decrypted.charAt(f) === "d" || decrypted.charAt(f) === "e" || decrypted.charAt(f) === "f" || decrypted.charAt(f) === "g" || decrypted.charAt(f) === "h" || decrypted.charAt(f) === "i" || decrypted.charAt(f) === "j" || decrypted.charAt(f) === "k" || decrypted.charAt(f) === "l" || decrypted.charAt(f) === "m" || decrypted.charAt(f) === "n" || decrypted.charAt(f) === "o" || decrypted.charAt(f) === "p" || decrypted.charAt(f) === "q" || decrypted.charAt(f) === "r" || decrypted.charAt(f) === "s" || decrypted.charAt(f) === "t" || decrypted.charAt(f) === "u" || decrypted.charAt(f) === "v" || decrypted.charAt(f) === "w" || decrypted.charAt(f) === "x" || decrypted.charAt(f) === "y" || decrypted.charAt(f) === "z" || decrypted.charAt(f) === "A" || decrypted.charAt(f) === "B" || decrypted.charAt(f) === "C" || decrypted.charAt(f) === "D" || decrypted.charAt(f) === "E" || decrypted.charAt(f) === "F" || decrypted.charAt(f) === "G" || decrypted.charAt(f) === "H" || decrypted.charAt(f) === "I" || decrypted.charAt(f) === "J" || decrypted.charAt(f) === "K" || decrypted.charAt(f) === "L" || decrypted.charAt(f) === "M" || decrypted.charAt(f) === "N" || decrypted.charAt(f) === "O" || decrypted.charAt(f) === "P" || decrypted.charAt(f) === "Q" || decrypted.charAt(f) === "R" || decrypted.charAt(f) === "S" || decrypted.charAt(f) === "T" || decrypted.charAt(f) === "U" || decrypted.charAt(f) === "V" || decrypted.charAt(f) === "W" || decrypted.charAt(f) === "X" || decrypted.charAt(f) === "Y" || decrypted.charAt(f) === "Z" || decrypted.charAt(f) === " " || decrypted.charAt(f) === "1" || decrypted.charAt(f) === "2" || decrypted.charAt(f) === "3" || decrypted.charAt(f) === "4" || decrypted.charAt(f) === "5" || decrypted.charAt(f) === "6" || decrypted.charAt(f) === "7" || decrypted.charAt(f) === "8" || decrypted.charAt(f) === "9" || decrypted.charAt(f) === "0" || decrypted.charAt(f) === ";" || decrypted.charAt(f) === "=" || decrypted.charAt(f) === "")) {
+            clickerclickerPassedInfo = decrypted.charAt(f);
+            decrypted = decrypted.setCharAt(f, "");
+            clickerclickerError(1, external);
+        }
+    }
+    return decrypted;
+}

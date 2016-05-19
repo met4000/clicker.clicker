@@ -1,13 +1,16 @@
 <html>
 	<head>
-        <script src="CryptoJS.js"></script>
-	    <script src="clicker.clicker.jsfiles.js"></script>
+        <span id="includes">
+            <script src="jslib.js"></script>
+            <script src="CryptoJS.js"></script>
+            <script src="clicker.clicker.jsfiles.js"></script>
+        </span>
 		<script type="text/javascript">
-			document.title = "Clicks: " + clickAmount;
-            cpsTick();
+			document.title = "Clicks: " + Math.floor(clickAmount);
+            cpsUpdate();
 		</script>
 	</head>
-	<body onload="loadCookie()">
+	<body onload="loadCookie()" id="body">
 		<img src=cursor1.png style="cursor: pointer" onclick="mouseClick(); tick();">
 		<br>
 		<span><span id='amountOf'>0</span> clicks!</span>
@@ -35,6 +38,16 @@
 		<br>
 		<br>
 		<br>
+        <div id='achievementFClick' style="visibility: hidden">Achievement: First Click</div>
+        <div id='achievement10Click' style="visibility: hidden">Achievement: 10 Clicks</div>
+        <div id='achievement100Click' style="visibility: hidden">Achievement: 100 Clicks</div>
+        <div id='achievementTClick' style="visibility: hidden">Achievement: Thousand Clicks</div>
+        <div id='achievement10000Click' style="visibility: hidden">Achievement: 10000 Clicks</div>
+        <div id='achievement100000Click' style="visibility: hidden">Achievement: 100000 Clicks</div>
+        <div id='achievementMClick' style="visibility: hidden">Achievement: Million Clicks</div>
+        <div id='achievement10000000Click' style="visibility: hidden">Achievement: 10000000 Clicks</div>
+        <div id='achievement100000000Click' style="visibility: hidden">Achievement: 100000000 Clicks</div>
+        <div id='achievementBClick' style="visibility: hidden">Achievement: Billion Clicks</div>
         <div id='achievementClickMoreTotalDisplay' style="visibility: hidden">Achievment: Hacked Clicking</div>
         <div id='achievementRuinedTheFun' style="visibility: hidden">Achievment: Ruined The Fun</div>
         <br>
@@ -46,17 +59,14 @@
         <button onclick="saveDisplayWrite(saveCodeGet());">Get copyable save code</button>
         <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
         <br>
-        <input type="submit" value="Save" onclick="setSaveCookie(this.form)">
-        <span> Autosave every minute:</span><input type="checkbox" onchange="autosaveToggle(60000)" checked>
+        <input type="submit" value="Save" onclick="setSaveCookie()">
+        <span> Autosave every: </span><input type="checkbox" onchange="autosaveToggle(10000);uncheckAs(1)" id="as1">10 sec <input type="checkbox" onchange="autosaveToggle(30000);uncheckAs(2)" id="as2">30 sec <input type="checkbox" onchange="autosaveToggle(60000);uncheckAs(3)" checked id="as3">1 min <input type="checkbox" onchange="autosaveToggle(120000);uncheckAs(4)" id="as4">2 min <input type="checkbox" onchange="autosaveToggle(300000);uncheckAs(5)" id="as5">5 min
+        <!-- <input type="checkbox" onchange="autosaveToggle(document.getElementById('as6i').value * 1000);uncheckAs(6)" id="as6"> <input type="number" onchange="if(document.getElementById('as6').checked){autosaveToggle(this.value * 1000);}" id="as6i"> sec !-->
         <br>
         <button id='saveDelete' onclick="removeSaveCookie('save_cookie')">Reset Save</button></center>
         <br>
         <br>
         <div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span>
         <input type="checkbox" onchange="autoclickToggle();"></span></div>
-        <br>
-        <br>
-        <br>
-        <br>
     </body>
 </html>
