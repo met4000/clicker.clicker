@@ -373,15 +373,16 @@ function cursorPrice(newCost) {
 function cpsUpdate() {
     "use strict";
     var clickerCpsTime;
+    var clickerCpsActivated = true;
     if (clickerTotalCps > 1000) {
         clickerCpsClickAmount = clickerTotalCps / 1000;
         clickerCpsTime = 1;
-    } else { clickerCpsTime = 1000 / clickerTotalCps; }
+    } else if (clickerTotalCps != 0) { clickerCpsTime = 1000 / clickerTotalCps; } else { clickerCpsActivated = false; }
     
     if (clickerCpsTemp !== undefined) {
         clearInterval(clickerCpsTemp);
     }
-    clickerCpsTemp = setInterval("regIndvClick(clickerCpsClickAmount)", clickerCpsTime);
+    if (clickerCpsActivated) { clickerCpsTemp = setInterval("regIndvClick(clickerCpsClickAmount)", clickerCpsTime); }
 }
 
 function autoclickEnable() {
