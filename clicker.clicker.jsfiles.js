@@ -38,7 +38,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.0.3.1";
+var clickerclickerVersion = "1.1";
 
 function getCCVersion(tier) {
     "use strict";
