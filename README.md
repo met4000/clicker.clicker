@@ -1,2 +1,2 @@
 # clicker.clicker
-Cookie Clicker like and inspired game, but with computer "stuff"
+Graphics Dev Branch: Now graphics storage and development branch. Will be merged into Dev or Master as needed.
