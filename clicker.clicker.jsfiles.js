@@ -38,7 +38,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.1";
+var clickerclickerVersion = "1.2";
 
 function getCCVersion(tier) {
     "use strict";
@@ -114,7 +114,7 @@ var clickerAmount = 0;
 var clickerBaseCps = 1;
 var clickerModifiedCps = 1;
 var clickerTotalCps = 0;
-var clickerCost = 50;
+var clickerCost = 75;
 var clickerUpgrade1Cost = 250;
 var clickerUpgrade1 = false;
 var clickerUpgrade2Cost = 1000;
@@ -129,7 +129,7 @@ var clickerCpsClickAmount = 1
 var cursorAmount = 0;
 var cursorClickIncrease = 1;
 var cursorClickTotalIncrease = 0;
-var cursorCost = 400;
+var cursorCost = 750;
 var cursorUpgrade1Cost = 2500;
 var cursorUpgrade1 = false;
 var cursorUpgrade2Cost = 10000;
@@ -138,6 +138,15 @@ var cursorUpgrade2Modifier = 0;
 var cursorUpgrade3Cost = 50000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
+
+var clackerAmount = 0;
+var clackerBaseCpm = 1;
+var clackerModifiedCpm = 1;
+var clackerTotalCpm = 0;
+var clackerCost = 2000;
+var clackerMode = "clicker";
+var clackerCpmTemp;
+var clackerCpmAmount = 1;
 
 var blank = "";
 var space = " ";
@@ -151,7 +160,7 @@ function saveDisplayWrite(input) {
 
 function saveCodeGet() {
     "use strict";
-    return encrypt("autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1Cost + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + ";", encYc1);
+    return encrypt("autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1Cost + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + "; clackerAmount = " + clackerAmount + "; clackerBaseCpm = " + clackerBaseCpm + "; clackerCost = " + clackerCost + "; clackerCpmAmount = " + clackerCpmAmount + "; clackerCpmTemp = " + clackerCpmTemp + "; clackerMode = " + clackerMode + "; clackerModifiedCpm = " + clackerModifiedCpm + "; clackerTotalCpm = " + clackerTotalCpm + ";", encYc1);
 }
 
 function saveCodeRun(input) {
@@ -203,13 +212,21 @@ function updateDisplays() {
     document.title = "Clicks: " + Math.floor(clickAmount);
     document.getElementById('amountOf').innerHTML = Math.floor(clickAmount);
     if (!cursorUpgrade2) {document.getElementById('cursorIncreaseDisplay').innerHTML = cursorClickIncrease; } else { document.getElementById('cursorIncreaseDisplay').innerHTML = Math.round(cursorClickTotalIncrease / cursorAmount); }
+    
     document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount;
     document.getElementById('clickerTotalCpsDisplay').innerHTML = clickerTotalCps;
     document.getElementById('clickerCostDisplay').innerHTML = clickerCost;
     document.getElementById('clickerCpsDisplay').innerHTML = clickerModifiedCps;
+    
     document.getElementById('cursorCostDisplay').innerHTML = cursorCost;
     document.getElementById('cursorAmountDisplay').innerHTML = cursorAmount;
     document.getElementById('cursorClickTotalIncreaseDisplay').innerHTML = cursorClickTotalIncrease;
+    
+    document.getElementById('clackerAmountDisplay').innerHTML = clackerAmount;
+    document.getElementById('clackerTotalCpmDisplay').innerHTML = clackerTotalCpm;
+    document.getElementById('clackerCostDisplay').innerHTML = clackerCost;
+    document.getElementById('clackerCpmDisplay').innerHTML = clackerModifiedCpm;
+    document.getElementById('clackerModeDisplay').innerHTML = clackerMode;
     
     if (clickAmount > 9999 && clickAmountClicked > 999 && clickAmountTotal > 50000) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
     if (genUpgrade1 && clickAmount > 99999 && clickAmountClicked > 1999 && clickAmountTotal > 75000) { document.getElementById('genUpgrade2Display').style.visibility = "visible"; }
@@ -270,10 +287,9 @@ function updateClicker() {
     }
 }
 
-function addClicker(amount) {
+function addClicker() {
     "use strict";
-    clickerAmount = clickerAmount + amount;
-    clickerCost = Math.floor(clickerCost * 1.05);
+    clickerAmount++;
     updateClicker();
     updateDisplays();
 }
@@ -282,7 +298,8 @@ function increaseClicker() {
     "use strict";
     if (clickAmount > clickerCost - 1) {
         clickAmount = clickAmount - clickerCost;
-        addClicker(1);
+        clickerCost = Math.floor(clickerCost * 1.05);
+        addClicker();
     }
 }
 
@@ -368,6 +385,43 @@ function cursorUpgrade(number) {
 function cursorPrice(newCost) {
     "use strict";
     cursorCost = newCost;
+}
+
+function updateClacker() {
+    "use strict";
+    //FOR UPGRADES
+    clackerTotalCpm = clackerAmount * clackerBaseCpm;
+    var clackerCpmTime;
+    var clackerCpmActivated = true;
+    if (!clackerAmount) {
+        clackerCpmTemp = setInterval("addClicker(clackerTotalCpm)", clackerCpmTime);
+    }
+    
+    if (clackerTotalCpm > 1000) {
+        clackerCpmAmount = clackerTotalCpm / 1000;
+        clackerCpmTime = 1;
+    } else if (clackerTotalCpm != 0) { clackerCpmTime = 1000 / clackerTotalCpm; } else { clackerCpmActivated = false; }
+    
+    if (clackerCpmTime !== undefined) {
+        clearInterval(clackerCpmTemp);
+    }
+    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){addClicker();}", clackerCpmTime * 60); }
+}
+
+function addClacker() {
+    "use strict";
+    clackerAmount++;
+    updateClacker();
+    updateDisplays();
+}
+
+function increaseClacker() {
+    "use strict";
+    if (clickAmount > clackerCost - 1) {
+        clickAmount = clickAmount - clackerCost;
+        clackerCost = Math.floor(clackerCost * 1.05);
+        addClacker();
+    }
 }
 
 function cpsUpdate() {
