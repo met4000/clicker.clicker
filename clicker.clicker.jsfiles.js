@@ -38,7 +38,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.2";
+var clickerclickerVersion = "1.2.1";
 
 function getCCVersion(tier) {
     "use strict";
@@ -118,12 +118,12 @@ var clickerBaseCps = 1;
 var clickerModifiedCps = 1;
 var clickerTotalCps = 0;
 var clickerCost = 75;
-var clickerUpgrade1Cost = 250;
+var clickerUpgrade1Cost = 750;
 var clickerUpgrade1 = false;
-var clickerUpgrade2Cost = 1000;
+var clickerUpgrade2Cost = 3500;
 var clickerUpgrade2 = false;
 var clickerUpgrade2Modifier = 0;
-var clickerUpgrade3Cost = 2500;
+var clickerUpgrade3Cost = 10000;
 var clickerUpgrade3 = false;
 var clickerUpgrade3Modifier = 2;
 var clickerCpsTemp;
@@ -133,12 +133,12 @@ var cursorAmount = 0;
 var cursorClickIncrease = 1;
 var cursorClickTotalIncrease = 0;
 var cursorCost = 750;
-var cursorUpgrade1Cost = 2500;
+var cursorUpgrade1Cost = 7500;
 var cursorUpgrade1 = false;
-var cursorUpgrade2Cost = 10000;
+var cursorUpgrade2Cost = 25000;
 var cursorUpgrade2 = false;
 var cursorUpgrade2Modifier = 0;
-var cursorUpgrade3Cost = 50000;
+var cursorUpgrade3Cost = 75000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
 
@@ -636,6 +636,10 @@ function removeSaveCookie(c_name) {
         console.warn("Deleted!");
         refreshPage();
     }
+}
+
+function ht() {
+    includeJs("ht/HackTimer.js");
 }
 
 function loadCookie() {

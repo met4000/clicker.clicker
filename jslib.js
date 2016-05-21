@@ -97,3 +97,13 @@ function getRandomInt(min, max) {
     "use strict";
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+/**
+ * Includes the JavaScript file located at 'jsFilePath'
+**/
+function includeJs (jsFilePath) {
+    var js = document.createElement("script");
+    js.type = "text/javascript";
+    js.src = jsFilePath;
+    document.body.appendChild(js);
+}
