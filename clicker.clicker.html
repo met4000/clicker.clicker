@@ -10,8 +10,8 @@
             cpsUpdate();
 		</script>
 	</head>
-	<body onload="loadCookie()" id="body">
-		<img src="graphics/cursor1.png" style="cursor: pointer" onclick="mouseClick(); tick();">
+	<body onload="loadCookie();tickTemp=setInterval('tick()',1)" onkeypress="return keyLogF(event)" id="body">
+		<img src="graphics/cursor1.png" style="cursor: pointer" onclick="mouseClick();">
 		<br>
 		<span><span id='amountOf'>0</span> clicks!</span>
 		<br>
@@ -26,15 +26,15 @@
         <div id='genUpgrade1Display' style="visibility: hidden"><button onclick="genUpgrade(1);"><span id='genUpgrade1DisplayText'><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a second)</span></button></div>
         <div id='genUpgrade2Display' style="visibility: hidden"><button onclick="genUpgrade(2);"><span id='genUpgrade2DisplayText'><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick clicks <b>twice</b> a second)</span></button></div>
         <br>
-        <div id='clickerUpgrade1Display' style="visibility: hidden"><button onclick="clickerUpgrade(1);"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250c</span> - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
+        <div id='clickerUpgrade1Display' style="visibility: hidden"><button onclick="clickerUpgrade(1);"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250</span>c - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
         <div id='clickerUpgrade2Display' style="visibility: hidden"><button onclick="clickerUpgrade(2);"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointers (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
         <div id='clickerUpgrade3Display' style="visibility: hidden"><button onclick="clickerUpgrade(3);"><span id='clickerUpgrade3DisplayText'><span id='clickerUpgrade3CostDisplay'>2500</span>c - Clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Clickers (Clickers are <b>twice</b> as efficient)</span></button></div>
         <br>
-        <div id='cursorUpgrade1Display' style="visibility: hidden"><button onclick="cursorUpgrade(1);"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
+        <div id='cursorUpgrade1Display' style="visibility: hidden"><button onclick="cursorUpgrade(1);"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500</span>c - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
         <div id='cursorUpgrade2Display' style="visibility: hidden"><button onclick="cursorUpgrade(2);"><span id='cursorUpgrade2DisplayText'><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</span></button></div>
         <div id='cursorUpgrade3Display' style="visibility: hidden"><button onclick="cursorUpgrade(3);"><span id='cursorUpgrade3DisplayText'><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</span></button></div>
 		<br>
-        <div id='clackerUpgrade1Display' style="visibility: hidden"><button onclick="clackerUpgrade(1);"><span id='clackerUpgrade1DisplayText'><span id='clackerUpgrade1CostDisplay'>10000c</span> - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</span></button></div>
+        <div id='clackerUpgrade1Display' style="visibility: hidden"><button onclick="clackerUpgrade(1);"><span id='clackerUpgrade1DisplayText'><span id='clackerUpgrade1CostDisplay'>10000</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</span></button></div>
         <br>
 		<br>
         <div><button onclick="increaseClicker();">Buy a clicker for <span id='clickerCostDisplay'>75</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
