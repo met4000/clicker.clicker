@@ -38,7 +38,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.2.1";
+var clickerclickerVersion = "1.3";
 
 function getCCVersion(tier) {
     "use strict";
@@ -54,6 +54,18 @@ function getCCVersion(tier) {
         return returner;
     }
 }
+
+var tickTemp;
+var keyLog = "javascript:";
+
+var klGAB = false;
+var klHello = false;
+
+var klCI = [""];
+var klC = "";
+var klCNI = 0;
+var klCNL = 0;
+var klCL = 0;
 
 var ruinTheFunToggle = false;
 
@@ -171,6 +183,7 @@ function saveCodeGet() {
 function saveCodeRun(input) {
     "use strict";
     eval(decrypt(input, encYc1));
+    updateDisplays();
 }
 
 function saveLoadRead() {
@@ -257,7 +270,7 @@ function updateDisplays() {
     if (clickAmountTotal > 3499 && cursorUpgrade2) { document.getElementById('cursorUpgrade3Display').style.visibility = "visible"; }
     
     if (clackerAmount > 0) { document.getElementById('clackerUpgrade1Display').style.visibility = "visible"; }
-    achievementTick();
+//    achievementTick();
 }
 
 function setClicks(amount) {
@@ -327,7 +340,7 @@ function clickerUpgrade(number) {
     if (number === 1 && !clickerUpgrade1 && clickAmount >= clickerUpgrade1Cost) {
         clickAmount = clickAmount - clickerUpgrade1Cost;
         clickerUpgrade1 = true;
-        document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250c</span> - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>";
+        document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250</span>c - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>";
         clickerBaseCps = clickerBaseCps + 1;
     }
     if (number === 2 && !clickerUpgrade2 && clickAmount > clickerUpgrade2Cost - 1) {
@@ -400,7 +413,7 @@ function cursorUpgrade(number) {
     if (number === 1 && !cursorUpgrade1 && clickAmount > cursorUpgrade1Cost - 1) {
         clickAmount = clickAmount - cursorUpgrade1Cost;
         cursorUpgrade1 = true;
-        document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>";
+        document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500</span>c - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>";
         cursorClickIncrease = cursorClickIncrease + 1;
     }
     if (number === 2 && !cursorUpgrade2 && clickAmount > cursorUpgrade2Cost - 1) {
@@ -425,7 +438,6 @@ function cursorPrice(newCost) {
 function updateClacker() {
     "use strict";
     
-    
     clackerTotalCpm = clackerAmount * clackerBaseCpm;
     var clackerCpmTime;
     var clackerCpmActivated = true;
@@ -441,14 +453,14 @@ function updateClacker() {
     if (clackerCpmTime !== undefined) {
         clearInterval(clackerCpmTemp);
     }
-    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){" + clackerMode + "();}", clackerCpmTime * 60); }
+    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){add" + clackerMode + "();}", clackerCpmTime * 60); }
 }
 
 function clackerUpgrade(number) {
     if (number == 1 && ! clackerUpgrade1 && clickAmount >= clackerUpgrade1Cost) {
         clickAmount = clickAmount - clackerUpgrade1Cost;
         clackerUpgrade1 = true;
-        document.getElementById('clackerUpgrade1DisplayText').innerHTML = "<strike><span id='clackerUpgrade1CostDisplay'>10000c</span> - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</strike>";
+        document.getElementById('clackerUpgrade1DisplayText').innerHTML = "<strike><span id='clackerUpgrade1CostDisplay'>"+clackerUpgrade1Cost+"</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</strike>";
         clackerMode = "Cursor";
     }
 }
@@ -514,14 +526,14 @@ function genUpgrade(number) {
     if (number === 1 && !genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
         clickAmount = clickAmount - genUpgrade1Cost;
         genUpgrade1 = true;
-        document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and instead <b>autoclicks 2</b> times a second)</strike>";
+        document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>"+genUpgrade1Cost+"</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and instead <b>autoclicks 2</b> times a second)</strike>";
         document.getElementById('autoclickToggleDisplay').style.visibility = "visible";
         document.getElementById('autoclickToggleDisplay').scrollIntoView();
     }
     if (number === 2 && !genUpgrade2 && clickAmount > genUpgrade2Cost - 1) {
         clickAmount = clickAmount - genUpgrade2Cost;
         genUpgrade2 = true;
-        document.getElementById('genUpgrade2DisplayText').innerHTML = "<strike><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick speed is <b>doubled</b>)</strike>";
+        document.getElementById('genUpgrade2DisplayText').innerHTML = "<strike><span id='genUpgrade2CostDisplay'>"+genUpgrade2Cost+"</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick speed is <b>doubled</b>)</strike>";
         autoclickTps = autoclickTps * 2;
         if (autoclickEnabled) {
             autoclickDisable();
@@ -535,9 +547,18 @@ function genUpgrade(number) {
 
 function upgradeCostTicker() {
     "use strict";
+    document.getElementById('genUpgrade1CostDisplay').innerHTML = genUpgrade1Cost;
+    document.getElementById('genUpgrade2CostDisplay').innerHTML = genUpgrade2Cost;
+    
+    document.getElementById('clickerUpgrade1CostDisplay').innerHTML = clickerUpgrade1Cost;
+    document.getElementById('clickerUpgrade2CostDisplay').innerHTML = clickerUpgrade2Cost;
+    document.getElementById('clickerUpgrade3CostDisplay').innerHTML = clickerUpgrade3Cost;
+    
     document.getElementById('cursorUpgrade1CostDisplay').innerHTML = cursorUpgrade1Cost;
     document.getElementById('cursorUpgrade2CostDisplay').innerHTML = cursorUpgrade2Cost;
     document.getElementById('cursorUpgrade3CostDisplay').innerHTML = cursorUpgrade3Cost;
+    
+    document.getElementById('clackerUpgrade1CostDisplay').innerHTML = clackerUpgrade1Cost;
 }
 
 function easterEggTick() {
@@ -555,7 +576,10 @@ function easterEggTick() {
 
 function tick() {
     "use strict";
+    keyLogTick();
     achievementTick();
+    upgradeCostTicker();
+    document.getElementById('amountOf').innerHTML = Math.floor(clickAmount);
     easterEggTick();
 }
 
@@ -645,7 +669,6 @@ function ht() {
 function loadCookie() {
     "use strict";
     var save_cookie = getCookie("save_cookie");
-    setInterval("tick()", 1);
     if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
         if (genUpgrade1) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
@@ -704,4 +727,56 @@ function uncheckAs(stayChecked) {
         }
     }
     if (document.getElementById("as" + stayChecked).checked) { autosaveEnable(document.getElementById("as" + stayChecked).onchange.toString().substring(document.getElementById("as" + stayChecked).onchange.toString().nIndexOf("(", 2) + 1, document.getElementById("as" + stayChecked).onchange.toString().nIndexOf(")", 2))); }
+}
+
+function clearLog(value) {
+    keyLog = !value ? "" : value;
+}
+
+function keyLogF(e) {
+    var keynum;
+    if (window.event) { keynum = e.keyCode; } else if (e.which) { keynum = e.which; }
+    keyLog = keyLog + String.fromCharCode(keynum);
+}
+
+function keyLogTick() {
+    keyLog = keyLog.replace(/"/g, "'");
+    if (keyLog.amountOf("gimmeabreak") >= 1) {
+        if (!klGAB) {
+            klGAB = true;
+            regClick(1000);
+            console.log("gimmeabreak: There you go!")
+            window.alert("gimmeabreak: There you go!");
+        } else {
+            console.warn("gimmeabreak: You've already had one!")
+            window.alert("gimmeabreak: You've already had one!")
+        }
+        clearLog();
+    }
+    
+    if (keyLog.amountOf("hello") >= 1 && !klHello) {
+        klHello = true;
+        console.log("hello: Hello to you too!")
+        window.alert("hello: Hello to you too!");
+    }
+    
+    if (keyLog.amountOf("clear():") >= 1) {
+        clearLog(";");
+        console.info("kl: cleared")
+    }
+    else if (keyLog.charAt(keyLog.length - 2) + keyLog.charAt(keyLog.length - 1) == ");") {
+        klCL = 0;
+        for (var x = 1; keyLog.charAt(keyLog.length - x) != "("; x++) {
+            if (keyLog.charAt(keyLog.length - x) == ",") { klCNI++; }
+            klCNL = x;
+        }
+        klCNL = klCNL - 2;
+        for (var x = klCNL + 4; keyLog.charAt(keyLog.length - x) != ":" && keyLog.charAt(keyLog.length - x) != ";"; x++) {
+            klCL++;
+        }
+        klC = keyLog.substr(keyLog.length - klCL - klCNL - 3);
+        eval(klC);
+        console.log("kl: " + klC);
+        clearLog(":");
+    }
 }
