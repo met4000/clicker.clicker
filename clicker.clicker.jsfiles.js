@@ -38,7 +38,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.2";
+var clickerclickerVersion = "1.2.1";
 
 function getCCVersion(tier) {
     "use strict";
@@ -105,6 +105,9 @@ var achievementRuinedTheFun = false;
 var achievementClickMoreTotalToggle = true;
 var achievementRuinedTheFunToggle = true;
 
+var achievementFNAFToggle = false;
+var achievementFNAFToggled = true;
+
 var genUpgrade1Cost = 1000000;
 var genUpgrade1 = false;
 var genUpgrade2Cost = 2000000;
@@ -115,12 +118,12 @@ var clickerBaseCps = 1;
 var clickerModifiedCps = 1;
 var clickerTotalCps = 0;
 var clickerCost = 75;
-var clickerUpgrade1Cost = 250;
+var clickerUpgrade1Cost = 750;
 var clickerUpgrade1 = false;
-var clickerUpgrade2Cost = 1000;
+var clickerUpgrade2Cost = 3500;
 var clickerUpgrade2 = false;
 var clickerUpgrade2Modifier = 0;
-var clickerUpgrade3Cost = 2500;
+var clickerUpgrade3Cost = 10000;
 var clickerUpgrade3 = false;
 var clickerUpgrade3Modifier = 2;
 var clickerCpsTemp;
@@ -130,12 +133,12 @@ var cursorAmount = 0;
 var cursorClickIncrease = 1;
 var cursorClickTotalIncrease = 0;
 var cursorCost = 750;
-var cursorUpgrade1Cost = 2500;
+var cursorUpgrade1Cost = 7500;
 var cursorUpgrade1 = false;
-var cursorUpgrade2Cost = 10000;
+var cursorUpgrade2Cost = 25000;
 var cursorUpgrade2 = false;
 var cursorUpgrade2Modifier = 0;
-var cursorUpgrade3Cost = 50000;
+var cursorUpgrade3Cost = 75000;
 var cursorUpgrade3 = false;
 var cursorUpgrade3Modifier = 2;
 
@@ -144,9 +147,11 @@ var clackerBaseCpm = 1;
 var clackerModifiedCpm = 1;
 var clackerTotalCpm = 0;
 var clackerCost = 2000;
-var clackerMode = "clicker";
+var clackerMode = "Clicker";
 var clackerCpmTemp;
 var clackerCpmAmount = 1;
+var clackerUpgrade1 = false;
+var clackerUpgrade1Cost = 10000;
 
 var blank = "";
 var space = " ";
@@ -204,6 +209,18 @@ function achievementTick() {
         achievementRuinedTheFunToggle = false;
         document.getElementById('achievementRuinedTheFun').style.visibility = "visible";
     }
+    
+    
+    if (eei[fnaf] && !achievementFNAFToggled) {
+        achievementFNAFToggle = true;
+        achievementFNAFToggled = true;
+        window.alert("Achievement Received: Bite of '87");
+    }
+    
+    if (eei[fnaf] && achievementFNAFToggle) {
+        achievementFNAFToggle = false;
+        document.getElementById('achievementFNAF').style.visibility = "visible";
+    }
 }
 
 function updateDisplays() {
@@ -238,6 +255,8 @@ function updateDisplays() {
     if (cursorAmount > 0) { document.getElementById('cursorUpgrade1Display').style.visibility = "visible"; }
     if (cursorUpgrade1) { document.getElementById('cursorUpgrade2Display').style.visibility = "visible"; }
     if (clickAmountTotal > 3499 && cursorUpgrade2) { document.getElementById('cursorUpgrade3Display').style.visibility = "visible"; }
+    
+    if (clackerAmount > 0) { document.getElementById('clackerUpgrade1Display').style.visibility = "visible"; }
     achievementTick();
 }
 
@@ -305,7 +324,7 @@ function increaseClicker() {
 
 function clickerUpgrade(number) {
     "use strict";
-    if (number === 1 && !clickerUpgrade1 && clickAmount > clickerUpgrade1Cost - 1) {
+    if (number === 1 && !clickerUpgrade1 && clickAmount >= clickerUpgrade1Cost) {
         clickAmount = clickAmount - clickerUpgrade1Cost;
         clickerUpgrade1 = true;
         document.getElementById('clickerUpgrade1DisplayText').innerHTML = "<strike><span id='clickerUpgrade1CostDisplay'>250c</span> - clicker Upgrade - Fatter Fingers (clickers get <b>+1 cpc</b>)</strike>";
@@ -353,6 +372,22 @@ function increaseCursor() {
     }
 }
 
+function addCursor() {
+    "use strict";
+    cursorAmount++;
+    updateCursor();
+    updateDisplays();
+}
+
+function increaseCursor() {
+    "use strict";
+    if (clickAmount > cursorCost - 1) {
+        clickAmount = clickAmount - cursorCost;
+        cursorCost = Math.floor(cursorCost * 1.05);
+        addCursor();
+    }
+}
+
 function setCursor(amount) {
     "use strict";
     cursorAmount = amount;
@@ -389,12 +424,13 @@ function cursorPrice(newCost) {
 
 function updateClacker() {
     "use strict";
-    //FOR UPGRADES
+    
+    
     clackerTotalCpm = clackerAmount * clackerBaseCpm;
     var clackerCpmTime;
     var clackerCpmActivated = true;
     if (!clackerAmount) {
-        clackerCpmTemp = setInterval("addClicker(clackerTotalCpm)", clackerCpmTime);
+        clackerCpmTemp = setInterval("add" + clackerMode + "(clackerTotalCpm)", clackerCpmTime);
     }
     
     if (clackerTotalCpm > 1000) {
@@ -405,7 +441,16 @@ function updateClacker() {
     if (clackerCpmTime !== undefined) {
         clearInterval(clackerCpmTemp);
     }
-    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){addClicker();}", clackerCpmTime * 60); }
+    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){" + clackerMode + "();}", clackerCpmTime * 60); }
+}
+
+function clackerUpgrade(number) {
+    if (number == 1 && ! clackerUpgrade1 && clickAmount >= clackerUpgrade1Cost) {
+        clickAmount = clickAmount - clackerUpgrade1Cost;
+        clackerUpgrade1 = true;
+        document.getElementById('clackerUpgrade1DisplayText').innerHTML = "<strike><span id='clackerUpgrade1CostDisplay'>10000c</span> - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</strike>";
+        clackerMode = "Cursor";
+    }
 }
 
 function addClacker() {
@@ -469,7 +514,7 @@ function genUpgrade(number) {
     if (number === 1 && !genUpgrade1 && clickAmount > genUpgrade1Cost - 1) {
         clickAmount = clickAmount - genUpgrade1Cost;
         genUpgrade1 = true;
-        document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a seccond)</strike>";
+        document.getElementById('genUpgrade1DisplayText').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and instead <b>autoclicks 2</b> times a second)</strike>";
         document.getElementById('autoclickToggleDisplay').style.visibility = "visible";
         document.getElementById('autoclickToggleDisplay').scrollIntoView();
     }
@@ -500,7 +545,8 @@ function easterEggTick() {
     //FNAF easter egg +
     if (clickAmount === 1987 && clickAmountTotal >= 1987 && !eei[fnaf]) {
         eei[fnaf] = true;
-        document.getElementById("body").background = "tfj.gif";
+        achievementFNAFToggled = false;
+        document.getElementById("body").background = "grpahics\tfj.gif";
         console.log("FNAF easter egg!");
         eei[2] = setInterval('document.getElementById("body").background = ""; clearInterval(eei[2])', 1500);
     }
@@ -592,9 +638,14 @@ function removeSaveCookie(c_name) {
     }
 }
 
+function ht() {
+    includeJs("ht/HackTimer.js");
+}
+
 function loadCookie() {
     "use strict";
     var save_cookie = getCookie("save_cookie");
+    setInterval("tick()", 1);
     if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
         if (genUpgrade1) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
@@ -605,6 +656,7 @@ function loadCookie() {
         if (cursorUpgrade1) { document.getElementById('cursorUpgrade1DisplayText').innerHTML = "<strike><span id='cursorUpgrade1CostDisplay'>2500c</span> - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</strike>"; }
         if (cursorUpgrade2) { document.getElementById('cursorUpgrade2DisplayText').innerHTML = "<strike><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</strike>"; }
         if (cursorUpgrade3) { document.getElementById('cursorUpgrade3DisplayText').innerHTML = "<strike><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</strike>"; }
+        if (clackerUpgrade1) { document.getElementById('clackerUpgrade1DisplayText').innerHTML = "<strike><span id='clackerUpgrade1CostDisplay'>10000c</span> - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</strike>"; }
     } else { setSaveCookieInternal(save_cookie, "", 365); }
     if (autosaveEnabled) { autosaveEnable(60000); }
 }
