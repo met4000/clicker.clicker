@@ -546,7 +546,7 @@ function easterEggTick() {
     if (clickAmount === 1987 && clickAmountTotal >= 1987 && !eei[fnaf]) {
         eei[fnaf] = true;
         achievementFNAFToggled = false;
-        document.getElementById("body").background = "tfj.gif";
+        document.getElementById("body").background = "grpahics\tfj.gif";
         console.log("FNAF easter egg!");
         eei[2] = setInterval('document.getElementById("body").background = ""; clearInterval(eei[2])', 1500);
     }
