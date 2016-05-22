@@ -1,59 +1,20 @@
 function Article() {
     "use strict";
 }
-
 Article.prototype.error = function () {
     "use strict";
     var internalPrefix = 0, externalPrefix = 0, passedInfo = "";
 };
-
 var clickerclicker = new Article();
+
+
 
 clickerclicker.error.internalPrefix = 11;
 clickerclicker.error.externalPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
-function clickerclickerError(errorNumber, errorType) {
-    "use strict";
-    var errorMessage;
-    if (errorType === "Internal") {
-        errorMessage = "ERROR " + clickerclicker.error.internalPrefix;
-        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
-        errorMessage = errorMessage + errorNumber + ": ";
-        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
-        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
-        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
-        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
-        if (errorNumber === 5) { errorMessage = errorMessage + "Tier " + clickerclicker.error.passedInfo + " is not a valid tier (" + clickerclicker.error.passedInfo + " != 1 || 2 || 3)"; }
-        errorMessage = errorMessage + ".";
-    } else if (errorType === "External") {
-        errorMessage = "ERROR " + clickerclicker.error.externalPrefix;
-        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
-        errorMessage = errorMessage + errorNumber + ": ";
-        if (errorNumber === 1) { errorMessage = errorMessage + "Illegal character for save: " + clickerclicker.error.passedInfo; }
-        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to load save cookie - Maybe cookies are disabled? :("; }
-    } else { clickerclickerError(1, Internal); }
-    console.error(errorMessage);
-    window.alert(errorMessage);
-}
-
-var clickerclickerVersion = "1.3.0.1";
-
-function getCCVersion(tier) {
-    "use strict";
-    if (tier === undefined) { return clickerclickerVersion; } else {
-        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
-        firstDot = clickerclickerVersion.indexOf(".");
-        secondDot = clickerclickerVersion.lastIndexOf(".");
-//        thirdDot = clickerclickerVersion.occurance(".", 3);
-        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
-            clickerclicker.error.passedInfo = tier;
-            clickerclickerError(5, internal);
-        }
-        return returner;
-    }
-}
+var clickerclickerVersion = "1.4";              //----------VERSION NUMBER--------------------------------------------
 
 var tickTemp;
 var keyLog = "javascript:";
@@ -160,6 +121,7 @@ var clackerModifiedCpm = 1;
 var clackerTotalCpm = 0;
 var clackerCost = 2000;
 var clackerMode = "Clicker";
+var clackerProductionCost = 35;
 var clackerCpmTemp;
 var clackerCpmAmount = 1;
 var clackerUpgrade1 = false;
@@ -169,6 +131,47 @@ var blank = "";
 var space = " ";
 var dash = "-";
 var semcolon = ";", semicolon = semcolon;
+
+
+function clickerclickerError(errorNumber, errorType) {
+    "use strict";
+    var errorMessage;
+    if (errorType === "Internal") {
+        errorMessage = "ERROR " + clickerclicker.error.internalPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + errorType + " is not a valid Error Type"; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to read save code"; }
+        if (errorNumber === 3) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does not exist)"; }
+        if (errorNumber === 4) { errorMessage = errorMessage + "Unable to load save cookie (save_cookie does exist)"; }
+        if (errorNumber === 5) { errorMessage = errorMessage + "Tier " + clickerclicker.error.passedInfo + " is not a valid tier (" + clickerclicker.error.passedInfo + " != 1 || 2 || 3)"; }
+        errorMessage = errorMessage + ".";
+    } else if (errorType === "External") {
+        errorMessage = "ERROR " + clickerclicker.error.externalPrefix;
+        if (errorNumber < 10) { errorMessage = errorMessage + "0"; }
+        errorMessage = errorMessage + errorNumber + ": ";
+        if (errorNumber === 1) { errorMessage = errorMessage + "Illegal character for save: " + clickerclicker.error.passedInfo; }
+        if (errorNumber === 2) { errorMessage = errorMessage + "Unable to load save cookie - Maybe cookies are disabled? :("; }
+    } else { clickerclickerError(1, Internal); }
+    console.error(errorMessage);
+    window.alert(errorMessage);
+}
+
+function getCCVersion(tier) {
+    "use strict";
+    if (tier === undefined) { return clickerclickerVersion; } else {
+        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
+        firstDot = clickerclickerVersion.indexOf(".");
+        secondDot = clickerclickerVersion.lastIndexOf(".");
+//        thirdDot = clickerclickerVersion.occurance(".", 3);
+        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
+            clickerclicker.error.passedInfo = tier;
+            clickerclickerError(5, internal);
+        }
+        return returner;
+    }
+}
+
 
 function saveDisplayWrite(input) {
     "use strict";
@@ -369,10 +372,9 @@ function updateCursor() {
     if (cursorUpgrade3) { cursorClickTotalIncrease = cursorClickTotalIncrease * cursorUpgrade3Modifier; }
 }
 
-function addCursor(amount) {
+function addCursor() {
     "use strict";
-    cursorAmount = cursorAmount + amount;
-    cursorCost = Math.floor(cursorCost * 1.05);
+    cursorAmount++;
     updateCursor();
     updateDisplays();
 }
@@ -381,15 +383,8 @@ function increaseCursor() {
     "use strict";
     if (clickAmount > cursorCost - 1) {
         clickAmount = clickAmount - cursorCost;
-        addCursor(1);
+        addCursor();
     }
-}
-
-function addCursor() {
-    "use strict";
-    cursorAmount++;
-    updateCursor();
-    updateDisplays();
 }
 
 function increaseCursor() {
@@ -442,18 +437,18 @@ function updateClacker() {
     var clackerCpmTime;
     var clackerCpmActivated = true;
     if (!clackerAmount) {
-        clackerCpmTemp = setInterval("add" + clackerMode + "(clackerTotalCpm)", clackerCpmTime);
+        clackerCpmTemp = setInterval("clackerAdd" + clackerMode + "(clackerTotalCpm)", clackerCpmTime);
     }
     
-    if (clackerTotalCpm > 1000) {
-        clackerCpmAmount = clackerTotalCpm / 1000;
-        clackerCpmTime = 1;
+    if (clackerTotalCpm > 15000) {
+        clackerCpmAmount = clackerTotalCpm / 15000;
+        clackerCpmTime = 1000 / (clackerTotalCpm / clackerCpmAmount);
     } else if (clackerTotalCpm != 0) { clackerCpmTime = 1000 / clackerTotalCpm; } else { clackerCpmActivated = false; }
     
     if (clackerCpmTime !== undefined) {
         clearInterval(clackerCpmTemp);
     }
-    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){add" + clackerMode + "();}", clackerCpmTime * 60); }
+    if (clackerCpmActivated) { clackerCpmTemp = setInterval("for(var x = 0; x < clackerCpmAmount; x++){clackerAdd" + clackerMode + "();}", clackerCpmTime * 60); }
 }
 
 function clackerUpgrade(number) {
@@ -486,15 +481,16 @@ function cpsUpdate() {
     "use strict";
     var clickerCpsTime;
     var clickerCpsActivated = true;
-    if (clickerTotalCps > 1000) {
-        clickerCpsClickAmount = clickerTotalCps / 1000;
-        clickerCpsTime = 1;
+    var clickerCpsClickAmount = 1;
+    if (clickerTotalCps > 250) {
+        clickerCpsClickAmount = clickerTotalCps / 250;
+        clickerCpsTime = 1000 / (clickerTotalCps / clickerCpsClickAmount);
     } else if (clickerTotalCps != 0) { clickerCpsTime = 1000 / clickerTotalCps; } else { clickerCpsActivated = false; }
     
     if (clickerCpsTemp !== undefined) {
         clearInterval(clickerCpsTemp);
     }
-    if (clickerCpsActivated) { clickerCpsTemp = setInterval("regIndvClick(clickerCpsClickAmount)", clickerCpsTime); }
+    if (clickerCpsActivated) { clickerCpsTemp = setInterval("for(var i=0;i<"+clickerCpsClickAmount+";i++){regIndvClick(1);}", clickerCpsTime); }
 }
 
 function autoclickEnable() {
@@ -729,6 +725,38 @@ function uncheckAs(stayChecked) {
     }
     if (document.getElementById("as" + stayChecked).checked) { autosaveEnable(document.getElementById("as" + stayChecked).onchange.toString().substring(document.getElementById("as" + stayChecked).onchange.toString().nIndexOf("(", 2) + 1, document.getElementById("as" + stayChecked).onchange.toString().nIndexOf(")", 2))); }
 }
+
+
+function clackerAddClicker() {
+    "use strict";
+    if (clickAmount >= clackerProductionCost) {
+        clickAmount = clickAmount - clackerProductionCost;
+        clickerAmount++;
+        updateClicker();
+        updateDisplays();
+    } else { setTimeout("clackerAddClicker()", 1); }
+}
+
+function clackerAddCursor() {
+    "use strict";
+    if (clickAmount >= clackerProductionCost) {
+        clickAmount = clickAmount - clackerProductionCost;
+        cursorAmount++;
+        updateCursor();
+        updateDisplays();
+    } else { setTimeout("clackerAddCursor()", 1); }
+}
+
+function clackerAddClacker() {
+    "use strict";
+    if (clickAmount >= clackerProductionCost) {
+        clickAmount = clickAmount - clackerProductionCost;
+        clackerAmount++;
+        updateClacker();
+        updateDisplays();
+    } else { setTimeout("clackerAddClacker()", 1); }
+}
+
 
 function clearLog(value) {
     keyLog = !value ? "" : value;
