@@ -10,4 +10,4 @@ Clicker Clicker uses cookies to save game progress, and will automatically do so
 For any questions, suggestions, bugs, or non 12** errors, please create an issue at the github page (https://github.com/met4000/clicker.clicker/issues). For gameplay questions see the [wiki](https://github.com/met4000/clicker.clicker/wiki/home). If you can't find something, tell us in the issues.
 
 ***
-Clicker Clicker is primarily developed by (met4000)[https://github.com/met4000] and (MasterKitsune)[https://github.com/MasterKitsune).
+Clicker Clicker is primarily developed by [met4000](https://github.com/met4000) and [MasterKitsune](https://github.com/MasterKitsune).
