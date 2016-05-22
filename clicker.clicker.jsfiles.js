@@ -38,7 +38,7 @@ function clickerclickerError(errorNumber, errorType) {
     window.alert(errorMessage);
 }
 
-var clickerclickerVersion = "1.3";
+var clickerclickerVersion = "1.3.0.1";
 
 function getCCVersion(tier) {
     "use strict";
@@ -462,6 +462,7 @@ function clackerUpgrade(number) {
         clackerUpgrade1 = true;
         document.getElementById('clackerUpgrade1DisplayText').innerHTML = "<strike><span id='clackerUpgrade1CostDisplay'>"+clackerUpgrade1Cost+"</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</strike>";
         clackerMode = "Cursor";
+        updateClacker();
     }
 }
 
@@ -567,7 +568,7 @@ function easterEggTick() {
     if (clickAmount === 1987 && clickAmountTotal >= 1987 && !eei[fnaf]) {
         eei[fnaf] = true;
         achievementFNAFToggled = false;
-        document.getElementById("body").background = "grpahics\tfj.gif";
+        document.getElementById("body").background = "graphics\tfj.gif";
         console.log("FNAF easter egg!");
         eei[2] = setInterval('document.getElementById("body").background = ""; clearInterval(eei[2])', 1500);
     }
@@ -751,13 +752,14 @@ function keyLogTick() {
             console.warn("gimmeabreak: You've already had one!")
             window.alert("gimmeabreak: You've already had one!")
         }
-        clearLog();
+        clearLog(";");
     }
     
     if (keyLog.amountOf("hello") >= 1 && !klHello) {
         klHello = true;
         console.log("hello: Hello to you too!")
         window.alert("hello: Hello to you too!");
+        clearLog(";");
     }
     
     if (keyLog.amountOf("clear():") >= 1) {
