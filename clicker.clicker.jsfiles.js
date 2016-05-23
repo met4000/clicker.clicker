@@ -159,12 +159,23 @@ function clickerclickerError(errorNumber, errorType) {
 
 function getCCVersion(tier) {
     "use strict";
-    if (tier === undefined) { return clickerclickerVersion; } else {
+    if (tier == undefined) { return clickerclickerVersion; } else if (tier.toLowerCase() == "latest") {
+        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
+        includeJS("https://rawgit.com/met4000/clicker.clicker/master/cc.version.js");
+        firstDot = ccVersion.indexOf(".");
+        secondDot = ccVersion.lastIndexOf(".");
+//        thirdDot = clickerclickerVersion.occurance(".", 3);
+        if (tier == 1) { returner = ccVersion.substring(0, firstDot); } else if (tier == 2) { returner = ccVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = ccVersion.substring(secondDot + 1); } else {
+            clickerclicker.error.passedInfo = tier;
+            clickerclickerError(5, internal);
+        }
+        return returner;
+    } else {
         var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
         firstDot = clickerclickerVersion.indexOf(".");
         secondDot = clickerclickerVersion.lastIndexOf(".");
 //        thirdDot = clickerclickerVersion.occurance(".", 3);
-        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
+        if (tier == 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier == 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
             clickerclicker.error.passedInfo = tier;
             clickerclickerError(5, internal);
         }
