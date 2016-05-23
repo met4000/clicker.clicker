@@ -1,1 +1,1 @@
-var ccVersion = 1.4.1;
+var ccVersion = "v1.4.1";
