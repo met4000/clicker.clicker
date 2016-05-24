@@ -676,6 +676,7 @@ function ht() {
 
 function loadCookie() {
     "use strict";
+    tick();
     var save_cookie = getCookie("save_cookie");
     if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
