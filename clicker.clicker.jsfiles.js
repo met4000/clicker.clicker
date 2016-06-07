@@ -159,29 +159,25 @@ function clickerclickerError(errorNumber, errorType) {
 
 function getCCVersion(tier) {
     "use strict";
-    if (tier == undefined) { return clickerclickerVersion; } else if (tier.toLowerCase() == "latest") {
-        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
-        includeJS("https://rawgit.com/met4000/clicker.clicker/master/cc.version.js");
-        firstDot = ccVersion.indexOf(".");
-        secondDot = ccVersion.lastIndexOf(".");
-//        thirdDot = clickerclickerVersion.occurance(".", 3);
-        if (tier == 1) { returner = ccVersion.substring(0, firstDot); } else if (tier == 2) { returner = ccVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = ccVersion.substring(secondDot + 1); } else {
-            clickerclicker.error.passedInfo = tier;
-            clickerclickerError(5, internal);
-        }
-        return returner;
-    } else {
+    if (tier === undefined) { return clickerclickerVersion; } else {
         var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
         firstDot = clickerclickerVersion.indexOf(".");
         secondDot = clickerclickerVersion.lastIndexOf(".");
 //        thirdDot = clickerclickerVersion.occurance(".", 3);
-        if (tier == 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier == 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
+        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
             clickerclicker.error.passedInfo = tier;
             clickerclickerError(5, internal);
         }
         return returner;
     }
 }
+
+
+
+function htmlPageFunctions() {
+	document.getElementById("largeCursor").ondragstart = function() { return false; };
+}
+
 
 
 function saveDisplayWrite(input) {
@@ -575,7 +571,7 @@ function easterEggTick() {
     if (clickAmount === 1987 && clickAmountTotal >= 1987 && !eei[fnaf]) {
         eei[fnaf] = true;
         achievementFNAFToggled = false;
-        document.getElementById("body").background = "graphics\tfj.gif";
+        document.getElementById("body").background = "graphics/tfj.gif";
         console.log("FNAF easter egg!");
         eei[2] = setInterval('document.getElementById("body").background = ""; clearInterval(eei[2])', 1500);
     }
@@ -676,7 +672,8 @@ function ht() {
 
 function loadCookie() {
     "use strict";
-    tick();
+	_();
+	htmlPageFunctions();
     var save_cookie = getCookie("save_cookie");
     if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
@@ -821,4 +818,41 @@ function keyLogTick() {
         console.log("kl: " + klC);
         clearLog(":");
     }
+}
+
+function _() {
+	document.onmousedown = function(){};
+	status = "Right Click Disabled";
+	document.body.setAttribute("oncontextmenu", "return false");
+	/*
+	document.onkeydown = overrideKeyboardEvent;
+	document.onkeyup = overrideKeyboardEvent;
+	var keyIsDown = {};
+	function overrideKeyboardEvent(e) {
+	  switch (e.type) {
+		case "keydown":
+		  if (!keyIsDown[e.keyCode]) {
+			keyIsDown[e.keyCode] = true;
+			keyLog = keyLog + String.fromCharCode(e.keyCode).toLowerCase();
+		  }
+		break;
+		case "keyup":
+		  delete (keyIsDown[e.keyCode]);
+		  // do key up stuff here
+		break;
+	  }
+	  disabledEventPropagation(e);
+	  e.preventDefault();
+	  return false;
+	}
+	function disabledEventPropagation(e) {
+	  if (e) {
+		if (e.stopPropagation) {
+		  e.stopPropagation();
+		} else if (window.event) {
+		  window.event.cancelBubble = true;
+		}
+	  }
+	}
+	*/
 }
