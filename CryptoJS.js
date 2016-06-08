@@ -44,7 +44,7 @@ var encYc = ["", encYc1, encYc2, encYc3, encYc4, encYc5];
 function encrypt(input, key) {
     "use strict";
     var encryptKey, encryptNumber = 0, encrypted;
-    if (key !== undefined) {
+    if (key == undefined) {
         encryptNumber = getRandomInt(1, 5);
         encryptKey = encYc[encryptNumber];
     } else { encryptKey = key; }
@@ -55,15 +55,15 @@ function encrypt(input, key) {
 function decrypt(input, key) {
     "use strict";
     var encryptKey, encryptNumber = 0, encrypted, decrypted;
-    if (key !== undefined) {
+    if (key == undefined) {
         encryptNumber = input.charAt(0);
         encryptKey = encYc[encryptNumber];
     } else { encryptKey = key; }
     encrypted = input.substring(1);
     decrypted = CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
     for (var f = 0; f < decrypted.length; f++) {
-        if (!(decrypted.charAt(f) === "a" || decrypted.charAt(f) === "b" || decrypted.charAt(f) === "c" || decrypted.charAt(f) === "d" || decrypted.charAt(f) === "e" || decrypted.charAt(f) === "f" || decrypted.charAt(f) === "g" || decrypted.charAt(f) === "h" || decrypted.charAt(f) === "i" || decrypted.charAt(f) === "j" || decrypted.charAt(f) === "k" || decrypted.charAt(f) === "l" || decrypted.charAt(f) === "m" || decrypted.charAt(f) === "n" || decrypted.charAt(f) === "o" || decrypted.charAt(f) === "p" || decrypted.charAt(f) === "q" || decrypted.charAt(f) === "r" || decrypted.charAt(f) === "s" || decrypted.charAt(f) === "t" || decrypted.charAt(f) === "u" || decrypted.charAt(f) === "v" || decrypted.charAt(f) === "w" || decrypted.charAt(f) === "x" || decrypted.charAt(f) === "y" || decrypted.charAt(f) === "z" || decrypted.charAt(f) === "A" || decrypted.charAt(f) === "B" || decrypted.charAt(f) === "C" || decrypted.charAt(f) === "D" || decrypted.charAt(f) === "E" || decrypted.charAt(f) === "F" || decrypted.charAt(f) === "G" || decrypted.charAt(f) === "H" || decrypted.charAt(f) === "I" || decrypted.charAt(f) === "J" || decrypted.charAt(f) === "K" || decrypted.charAt(f) === "L" || decrypted.charAt(f) === "M" || decrypted.charAt(f) === "N" || decrypted.charAt(f) === "O" || decrypted.charAt(f) === "P" || decrypted.charAt(f) === "Q" || decrypted.charAt(f) === "R" || decrypted.charAt(f) === "S" || decrypted.charAt(f) === "T" || decrypted.charAt(f) === "U" || decrypted.charAt(f) === "V" || decrypted.charAt(f) === "W" || decrypted.charAt(f) === "X" || decrypted.charAt(f) === "Y" || decrypted.charAt(f) === "Z" || decrypted.charAt(f) === " " || decrypted.charAt(f) === "1" || decrypted.charAt(f) === "2" || decrypted.charAt(f) === "3" || decrypted.charAt(f) === "4" || decrypted.charAt(f) === "5" || decrypted.charAt(f) === "6" || decrypted.charAt(f) === "7" || decrypted.charAt(f) === "8" || decrypted.charAt(f) === "9" || decrypted.charAt(f) === "0" || decrypted.charAt(f) === ";" || decrypted.charAt(f) === "=" || decrypted.charAt(f) === "")) {
-            clickerclickerPassedInfo = decrypted.charAt(f);
+        if (!(decrypted.charAt(f) === "a" || decrypted.charAt(f) === "b" || decrypted.charAt(f) === "c" || decrypted.charAt(f) === "d" || decrypted.charAt(f) === "e" || decrypted.charAt(f) === "f" || decrypted.charAt(f) === "g" || decrypted.charAt(f) === "h" || decrypted.charAt(f) === "i" || decrypted.charAt(f) === "j" || decrypted.charAt(f) === "k" || decrypted.charAt(f) === "l" || decrypted.charAt(f) === "m" || decrypted.charAt(f) === "n" || decrypted.charAt(f) === "o" || decrypted.charAt(f) === "p" || decrypted.charAt(f) === "q" || decrypted.charAt(f) === "r" || decrypted.charAt(f) === "s" || decrypted.charAt(f) === "t" || decrypted.charAt(f) === "u" || decrypted.charAt(f) === "v" || decrypted.charAt(f) === "w" || decrypted.charAt(f) === "x" || decrypted.charAt(f) === "y" || decrypted.charAt(f) === "z" || decrypted.charAt(f) === "A" || decrypted.charAt(f) === "B" || decrypted.charAt(f) === "C" || decrypted.charAt(f) === "D" || decrypted.charAt(f) === "E" || decrypted.charAt(f) === "F" || decrypted.charAt(f) === "G" || decrypted.charAt(f) === "H" || decrypted.charAt(f) === "I" || decrypted.charAt(f) === "J" || decrypted.charAt(f) === "K" || decrypted.charAt(f) === "L" || decrypted.charAt(f) === "M" || decrypted.charAt(f) === "N" || decrypted.charAt(f) === "O" || decrypted.charAt(f) === "P" || decrypted.charAt(f) === "Q" || decrypted.charAt(f) === "R" || decrypted.charAt(f) === "S" || decrypted.charAt(f) === "T" || decrypted.charAt(f) === "U" || decrypted.charAt(f) === "V" || decrypted.charAt(f) === "W" || decrypted.charAt(f) === "X" || decrypted.charAt(f) === "Y" || decrypted.charAt(f) === "Z" || decrypted.charAt(f) === " " || decrypted.charAt(f) === "1" || decrypted.charAt(f) === "2" || decrypted.charAt(f) === "3" || decrypted.charAt(f) === "4" || decrypted.charAt(f) === "5" || decrypted.charAt(f) === "6" || decrypted.charAt(f) === "7" || decrypted.charAt(f) === "8" || decrypted.charAt(f) === "9" || decrypted.charAt(f) === "0" || decrypted.charAt(f) === ";" || decrypted.charAt(f) === "=" || decrypted.charAt(f) === "[" || decrypted.charAt(f) === "]" || decrypted.charAt(f) === "_" || decrypted.charAt(f) === "")) {
+            clickerclicker.error.passedInfo = decrypted.charAt(f);
             decrypted = decrypted.setCharAt(f, "");
             clickerclickerError(1, external);
         }
