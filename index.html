@@ -10,8 +10,8 @@
             cpsUpdate();
 		</script>
 	</head>
-	<body onload="loadCookie();tickTemp=setInterval('tick()',1)" onkeypress="return keyLogF(event)" id="body">
-		<img src="graphics/cursor1.png" style="cursor: pointer" onclick="mouseClick();">
+	<body onload="tickTemp=setInterval('tick()',1);loadCookie()" onkeypress="return keyLogF(event)" id="body">
+		<img id="largeCursor" src="graphics/cursor1.png" style="cursor: pointer" onclick="mouseClick();">
 		<br>
 		<span><span id='amountOf'>0</span> clicks!</span>
 		<br>
@@ -60,9 +60,9 @@
         <br>
         <br>
         <br>
-        <center><textarea id='saveDisplayArea' style="width: 1300px; height: 128px" draggable="false"></textarea>
+        <center><textarea id='saveDisplayArea'></textarea>
         <br>
-        <button onclick="saveDisplayWrite(saveCodeGet());">Get copyable save code</button>
+        <button onclick="saveDisplayWrite(getSaveCode());">Get copyable save code</button>
         <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
         <br>
         <input type="submit" value="Save" onclick="setSaveCookie()">
@@ -77,6 +77,6 @@
         <br>
         <br>
         <br>
-        <span id="info">Check out the <a href="http://github.com/met4000/clicker.clicker/wiki/home" target="_blank">clicker clicker wiki</a> for more info, including downloads (e.g. the <a href="http://github.com/met4000/clicker.clicker/releases/latest">latest version</a>).</span>
+        <span id="info">Check out the <a href="http://github.com/met4000/clicker.clicker/wiki/home" target="_blank">clicker clicker wiki</a> for more info, including downloads (e.g. the <a href="http://github.com/met4000/clicker.clicker/releases/latest" target="_blank">latest version</a>).</span>
     </body>
 </html>

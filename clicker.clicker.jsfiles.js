@@ -14,7 +14,8 @@ clickerclicker.error.externalPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
-var clickerclickerVersion = "1.4";              //----------VERSION NUMBER--------------------------------------------
+var clickerclickerVersion = "2.0.0";              //----------VERSION NUMBER--------------------------------------------
+var saveVersion = "";
 
 var tickTemp;
 var keyLog = "javascript:";
@@ -78,8 +79,7 @@ var achievementRuinedTheFun = false;
 var achievementClickMoreTotalToggle = true;
 var achievementRuinedTheFunToggle = true;
 
-var achievementFNAFToggle = false;
-var achievementFNAFToggled = true;
+var achievementFNAFToggle = true;
 
 var genUpgrade1Cost = 1000000;
 var genUpgrade1 = false;
@@ -127,10 +127,91 @@ var clackerCpmAmount = 1;
 var clackerUpgrade1 = false;
 var clackerUpgrade1Cost = 10000;
 
+var saveCodeOrder = [
+	"saveVersion",
+	"klGAB",
+	"klHello",
+	"ruinTheFunToggle",
+	"autoclickEnabled",
+	"autoclickTps",
+	
+	"autosaveEnabled",
+	"autosaveTime",
+	"autosaveTimeTick",
+	
+	"clickAmount",
+	"clickAmountClicked",
+	"clickAmountClickedAssist",
+	"clickAmountTotal",
+	
+	"eei[fnaf]",
+	
+	"achievementFClick",
+	"achievement10Click",
+	"achievement100Click",
+	"achievementTClick",
+	"achievement10000Click",
+	"achievement100000Click",
+	"achievementMClick",
+	"achievement10000000Click",
+	"achievement100000000Click",
+	"achievementBClick",
+	
+	"achievementClickMoreTotal",
+	"achievementRuinedTheFun",
+	
+	"genUpgrade1Cost",
+	"genUpgrade1",
+	"genUpgrade2Cost",
+	"genUpgrade2",
+	
+	"clickerAmount",
+	"clickerBaseCps",
+	"clickerModifiedCps",
+	"clickerTotalCps",
+	"clickerCost",
+	"clickerUpgrade1Cost",
+	"clickerUpgrade1",
+	"clickerUpgrade2Cost",
+	"clickerUpgrade2",
+	"clickerUpgrade2Modifier",
+	"clickerUpgrade3Cost",
+	"clickerUpgrade3",
+	"clickerUpgrade3Modifier",
+	"clickerCpsClickAmount",
+	
+	"cursorAmount",
+	"cursorClickIncrease",
+	"cursorClickTotalIncrease",
+	"cursorCost",
+	"cursorUpgrade1Cost",
+	"cursorUpgrade1",
+	"cursorUpgrade2Cost",
+	"cursorUpgrade2",
+	"cursorUpgrade2Modifier",
+	"cursorUpgrade3Cost",
+	"cursorUpgrade3",
+	"cursorUpgrade3Modifier",
+	
+	"clackerAmount",
+	"clackerBaseCpm",
+	"clackerModifiedCpm",
+	"clackerTotalCpm",
+	"clackerCost",
+	"clackerMode",
+	"clackerProductionCost",
+	"clackerCpmAmount",
+	"clackerUpgrade1",
+	"clackerUpgrade1Cost"
+];
+
 var blank = "";
 var space = " ";
 var dash = "-";
 var semcolon = ";", semicolon = semcolon;
+var Clicker = "Clicker";
+var Cursor = "Cursor";
+var Clacker = "Clacker";
 
 
 function clickerclickerError(errorNumber, errorType) {
@@ -159,12 +240,25 @@ function clickerclickerError(errorNumber, errorType) {
 
 function getCCVersion(tier) {
     "use strict";
-    if (tier === undefined) { return clickerclickerVersion; } else {
+    if (tier == undefined) { return clickerclickerVersion; } else if (tier.toLowerCase() == "latest") {
+        var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
+        includeJS("https://rawgit.com/met4000/clicker.clicker/master/cc.version.js");
+        firstDot = ccVersion.indexOf(".");
+        secondDot = ccVersion.lastIndexOf(".");
+//        thirdDot = clickerclickerVersion.occurance(".", 3);
+        if (tier == 1) { returner = ccVersion.substring(0, firstDot); } else if (tier == 2) { returner = ccVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = ccVersion.substring(secondDot + 1); } else {
+            clickerclicker.error.passedInfo = tier;
+            clickerclickerError(5, internal);
+        }
+        return returner;
+    } else if (tier.toLowerCase() == "save") {
+		return saveVersion;
+	} else {
         var returner = 0, firstDot = 2, secondDot = 4, thirdDot = 6;
         firstDot = clickerclickerVersion.indexOf(".");
         secondDot = clickerclickerVersion.lastIndexOf(".");
 //        thirdDot = clickerclickerVersion.occurance(".", 3);
-        if (tier === 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier === 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
+        if (tier == 1) { returner = clickerclickerVersion.substring(0, firstDot); } else if (tier == 2) { returner = clickerclickerVersion.substring(firstDot + 1, secondDot); } else if (tier === 3) { returner = clickerclickerVersion.substring(secondDot + 1); } else {
             clickerclicker.error.passedInfo = tier;
             clickerclickerError(5, internal);
         }
@@ -173,19 +267,45 @@ function getCCVersion(tier) {
 }
 
 
-function saveDisplayWrite(input) {
-    "use strict";
-    document.getElementById('saveDisplayArea').textContent = input;
+
+function htmlPageFunctions() {
+	document.getElementById("largeCursor").ondragstart = function() { return false; };
+	document.getElementById("saveDisplayArea").style = "width: 1300px; height: 128px; resize: none";
 }
 
+
+
+function saveDisplayWrite(input) {
+    "use strict";
+    document.getElementById('saveDisplayArea').value = input;
+}
+
+/*
 function saveCodeGet() {
     "use strict";
     return encrypt("autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1Cost + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + "; clackerAmount = " + clackerAmount + "; clackerBaseCpm = " + clackerBaseCpm + "; clackerCost = " + clackerCost + "; clackerCpmAmount = " + clackerCpmAmount + "; clackerCpmTemp = " + clackerCpmTemp + "; clackerMode = " + clackerMode + "; clackerModifiedCpm = " + clackerModifiedCpm + "; clackerTotalCpm = " + clackerTotalCpm + ";", encYc1);
 }
+*/
+
+function getSaveCode() {
+	"use strict";
+	var saveCode = "";
+	saveVersion = clickerclickerVersion.replace(/\./g, "_");
+	for (var x = 0; x < saveCodeOrder.length; x++) {
+		saveCode += (eval(saveCodeOrder[x]) != "" ? eval(saveCodeOrder[x]) : 0) + (x == saveCodeOrder.length - 1 ? "" : ",");
+	}
+	return encrypt(saveCode);
+}
 
 function saveCodeRun(input) {
     "use strict";
-    eval(decrypt(input, encYc1));
+	var saveCode = decrypt(input).split(",");
+	var reSaveCode = "";
+	saveVersion = saveCode[0].replace(/\_/g, ".");
+	for (var x = 1; x < saveCode.length; x++) {
+		reSaveCode += saveCodeOrder[x] + "=" + saveCode[x] + ";";
+	}
+    eval(reSaveCode);
     updateDisplays();
 }
 
@@ -227,12 +347,6 @@ function achievementTick() {
     }
     
     
-    if (eei[fnaf] && !achievementFNAFToggled) {
-        achievementFNAFToggle = true;
-        achievementFNAFToggled = true;
-        window.alert("Achievement Received: Bite of '87");
-    }
-    
     if (eei[fnaf] && achievementFNAFToggle) {
         achievementFNAFToggle = false;
         document.getElementById('achievementFNAF').style.visibility = "visible";
@@ -246,19 +360,19 @@ function updateDisplays() {
     document.getElementById('amountOf').innerHTML = Math.floor(clickAmount);
     if (!cursorUpgrade2) {document.getElementById('cursorIncreaseDisplay').innerHTML = cursorClickIncrease; } else { document.getElementById('cursorIncreaseDisplay').innerHTML = Math.round(cursorClickTotalIncrease / cursorAmount); }
     
-    document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount;
-    document.getElementById('clickerTotalCpsDisplay').innerHTML = clickerTotalCps;
+    document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount === false ? 0 : clickAmount;
+    document.getElementById('clickerTotalCpsDisplay').innerHTML = clickerTotalCps === false ? 0 : clickerTotalCps;
     document.getElementById('clickerCostDisplay').innerHTML = clickerCost;
-    document.getElementById('clickerCpsDisplay').innerHTML = clickerModifiedCps;
+    document.getElementById('clickerCpsDisplay').innerHTML = clickerModifiedCps === false ? 0 : clickerModifiedCps;
     
     document.getElementById('cursorCostDisplay').innerHTML = cursorCost;
-    document.getElementById('cursorAmountDisplay').innerHTML = cursorAmount;
-    document.getElementById('cursorClickTotalIncreaseDisplay').innerHTML = cursorClickTotalIncrease;
+    document.getElementById('cursorAmountDisplay').innerHTML = cursorAmount === false ? 0 : cursorAmount;
+    document.getElementById('cursorClickTotalIncreaseDisplay').innerHTML = cursorClickTotalIncrease === false ? 0 : cursorClickTotalIncrease;
     
-    document.getElementById('clackerAmountDisplay').innerHTML = clackerAmount;
-    document.getElementById('clackerTotalCpmDisplay').innerHTML = clackerTotalCpm;
+    document.getElementById('clackerAmountDisplay').innerHTML = clackerAmount === false ? 0 : clackerAmount;
+    document.getElementById('clackerTotalCpmDisplay').innerHTML = clackerTotalCpm === false ? 0 : clackerTotalCpm;
     document.getElementById('clackerCostDisplay').innerHTML = clackerCost;
-    document.getElementById('clackerCpmDisplay').innerHTML = clackerModifiedCpm;
+    document.getElementById('clackerCpmDisplay').innerHTML = clackerModifiedCpm === false ? 0 : clackerModifiedCpm;
     document.getElementById('clackerModeDisplay').innerHTML = clackerMode;
     
     if (clickAmount > 9999 && clickAmountClicked > 999 && clickAmountTotal > 50000) { document.getElementById('genUpgrade1Display').style.visibility = "visible"; }
@@ -563,8 +677,7 @@ function easterEggTick() {
     //FNAF easter egg +
     if (clickAmount === 1987 && clickAmountTotal >= 1987 && !eei[fnaf]) {
         eei[fnaf] = true;
-        achievementFNAFToggled = false;
-        document.getElementById("body").background = "graphics\tfj.gif";
+        document.getElementById("body").background = "graphics/tfj.gif";
         console.log("FNAF easter egg!");
         eei[2] = setInterval('document.getElementById("body").background = ""; clearInterval(eei[2])', 1500);
     }
@@ -643,7 +756,7 @@ function setSaveCookieInternal(c_name, value, exdays) {
 
 function setSaveCookie(display) {
     "use strict";
-    var save_cookie = saveCodeGet();
+    var save_cookie = getSaveCode();
     if (save_cookie !== "") {
         setSaveCookieInternal("save_cookie", save_cookie, 365);
         if (display === undefined) { console.info("Saved!"); }
@@ -665,6 +778,8 @@ function ht() {
 
 function loadCookie() {
     "use strict";
+	_();
+	htmlPageFunctions();
     var save_cookie = getCookie("save_cookie");
     if (save_cookie !== null && save_cookie != "") {
         saveCodeRun(save_cookie);
@@ -809,4 +924,41 @@ function keyLogTick() {
         console.log("kl: " + klC);
         clearLog(":");
     }
+}
+
+function _() {
+	document.onmousedown = function(){};
+	status = "Right Click Disabled";
+	document.body.setAttribute("oncontextmenu", "return false");
+	/*
+	document.onkeydown = overrideKeyboardEvent;
+	document.onkeyup = overrideKeyboardEvent;
+	var keyIsDown = {};
+	function overrideKeyboardEvent(e) {
+	  switch (e.type) {
+		case "keydown":
+		  if (!keyIsDown[e.keyCode]) {
+			keyIsDown[e.keyCode] = true;
+			keyLog = keyLog + String.fromCharCode(e.keyCode).toLowerCase();
+		  }
+		break;
+		case "keyup":
+		  delete (keyIsDown[e.keyCode]);
+		  // do key up stuff here
+		break;
+	  }
+	  disabledEventPropagation(e);
+	  e.preventDefault();
+	  return false;
+	}
+	function disabledEventPropagation(e) {
+	  if (e) {
+		if (e.stopPropagation) {
+		  e.stopPropagation();
+		} else if (window.event) {
+		  window.event.cancelBubble = true;
+		}
+	  }
+	}
+	*/
 }
