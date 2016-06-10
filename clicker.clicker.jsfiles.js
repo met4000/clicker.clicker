@@ -287,19 +287,25 @@ function saveCodeGet() {
 }
 */
 
-function saveCodeGet() {
+function getSaveCode() {
 	"use strict";
 	var saveCode = "";
-	saveVersion = clickerclickerVersion;
+	saveVersion = clickerclickerVersion.replace(/\./g, "_");
 	for (var x = 0; x < saveCodeOrder.length; x++) {
-		saveCode += saveCodeOrder[x] + "=" + (eval(saveCodeOrder[x]) != "" ? eval(saveCodeOrder[x]) : "false") + ";";
+		saveCode += (eval(saveCodeOrder[x]) != "" ? eval(saveCodeOrder[x]) : 0) + (x == saveCodeOrder.length - 1 ? "" : ",");
 	}
 	return encrypt(saveCode);
 }
 
 function saveCodeRun(input) {
     "use strict";
-    eval(decrypt(input));
+	var saveCode = decrypt(input).split(",");
+	var reSaveCode = "";
+	saveVersion = saveCode[0].replace(/\_/g, ".");
+	for (var x = 1; x < saveCode.length; x++) {
+		reSaveCode += saveCodeOrder[x] + "=" + saveCode[x] + ";";
+	}
+    eval(reSaveCode);
     updateDisplays();
 }
 
@@ -750,7 +756,7 @@ function setSaveCookieInternal(c_name, value, exdays) {
 
 function setSaveCookie(display) {
     "use strict";
-    var save_cookie = saveCodeGet();
+    var save_cookie = getSaveCode();
     if (save_cookie !== "") {
         setSaveCookieInternal("save_cookie", save_cookie, 365);
         if (display === undefined) { console.info("Saved!"); }
