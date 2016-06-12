@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    
+      "name": "Clicker Clicker Extension",
+      "description": "Clicker Clicker in a popup",
+      "version": "1.0.6",
+    
+    "browser_action": {
+        "default_icon": "graphics/cc_icon.png",
+        "default_popup": "cc_popup.html"
+    },
+    
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "*://*/*"
+    ],
+	
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

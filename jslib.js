@@ -80,6 +80,24 @@ String.prototype.amountOf = function (char) {
 }
 
 /**
+* Returns the number of times 'string' is found in the array
+* If 'string' is *, then will return the number of non " " indexes
+**/
+Array.prototype.amountOf = function (string) {
+    var stringAmount = 0;
+    if (string === "*") {
+        for (var index = 0; index < this.length; index++) {
+            if (this[index] !== " ") { stringAmount++; }
+        }
+    } else {
+        for (var index = 0; index < this.length; index++) {
+            if (this[index] === string) { stringAmount++; }
+        }
+    }
+    return stringAmount;
+}
+
+/**
 * Creates a linebreak 'amount' long (use with span/div and onload)
 **/
 HTMLObjectElement.prototype.br = function (amount) {
