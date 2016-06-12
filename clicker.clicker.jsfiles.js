@@ -14,7 +14,7 @@ clickerclicker.error.externalPrefix = 12;
 var Internal = "Internal", internal = Internal;
 var External = "External", external = External;
 
-var clickerclickerVersion = "2.0.0";              //----------VERSION NUMBER--------------------------------------------
+var clickerclickerVersion = "2.1.0";              //----------VERSION NUMBER--------------------------------------------
 var saveVersion = "";
 
 var tickTemp;
@@ -271,6 +271,36 @@ function getCCVersion(tier) {
 function htmlPageFunctions() {
 	document.getElementById("largeCursor").ondragstart = function() { return false; };
 	document.getElementById("saveDisplayArea").style = "width: 1300px; height: 128px; resize: none";
+	
+	document.getElementById("largeCursor").addEventListener("mousedown", function(){mouseClick();}, false);
+	document.getElementById("gu1").addEventListener("mousedown", function(){genUpgrade(1);}, false);
+	document.getElementById("gu2").addEventListener("mousedown", function(){genUpgrade(2);}, false);
+	document.getElementById("cu1").addEventListener("mousedown", function(){clickerUpgrade(1);}, false);
+	document.getElementById("cu2").addEventListener("mousedown", function(){clickerUpgrade(2);}, false);
+	document.getElementById("cu3").addEventListener("mousedown", function(){clickerUpgrade(3);}, false);
+	document.getElementById("cuu1").addEventListener("mousedown", function(){cursorUpgrade(1);}, false);
+	document.getElementById("cuu2").addEventListener("mousedown", function(){cursorUpgrade(2);}, false);
+	document.getElementById("cuu3").addEventListener("mousedown", function(){cursorUpgrade(3);}, false);
+	document.getElementById("ca1").addEventListener("mousedown", function(){clackerUpgrade(1);}, false);
+	
+	document.getElementById("bcl").addEventListener("mousedown", function(){increaseClicker();}, false);
+	document.getElementById("bcu").addEventListener("mousedown", function(){increaseCursor();}, false);
+	document.getElementById("bca").addEventListener("mousedown", function(){increaseClacker();}, false);
+	
+	document.getElementById("gsc").addEventListener("mousedown", function(){saveDisplayWrite(getSaveCode());}, false);
+	document.getElementById("lsc").addEventListener("mousedown", function(){saveCodeRun(saveLoadRead());}, false);
+	
+	document.getElementById("ssc").addEventListener("mousedown", function(){setSaveCookie();}, false);
+	document.getElementById("saveDelete").addEventListener("mousedown", function(){removeSaveCookie("save_cookie");}, false);
+	
+	document.getElementById('gsc').addEventListener('click', function(event) {
+		document.getElementById('saveDisplayArea').select();
+		try {
+			document.execCommand('copy');
+			if (document.selection) { document.selection.empty(); }
+			else if (window.getSelection) { window.getSelection().removeAllRanges(); }
+		} catch (err) { console.log('Oops, unable to copy'); }
+	});
 }
 
 
@@ -279,13 +309,6 @@ function saveDisplayWrite(input) {
     "use strict";
     document.getElementById('saveDisplayArea').value = input;
 }
-
-/*
-function saveCodeGet() {
-    "use strict";
-    return encrypt("autoclickEnabled = " + autoclickEnabled + "; autoclickTps = " + autoclickTps + "; autoclickTemp = " + autoclickTemp + "; autosaveEnabled = " + autosaveEnabled + "; autosaveTemp = " + autosaveTemp + "; clickAmount = " + clickAmount + "; clickAmountClicked = " + clickAmountClicked + "; clickAmountClickedAssist = " + clickAmountClickedAssist + "; clickAmountTotal = " + clickAmountTotal + "; achievementClickMoreTotal = " + achievementClickMoreTotal + "; achievementRuinedTheFun = " + achievementRuinedTheFun + "; genUpgrade1Cost = " + genUpgrade1Cost + "; genUpgrade1 = " + genUpgrade1 + "; genUpgrade2Cost = " + genUpgrade2Cost + "; genUpgrade2 = " + genUpgrade2 + "; clickerAmount = " + clickerAmount + "; clickerBaseCps = " + clickerBaseCps + "; clickerModifiedCps = " + clickerModifiedCps + "; clickerTotalCps = " + clickerTotalCps + "; clickerCost = " + clickerCost + "; clickerUpgrade1Cost = " + clickerUpgrade1Cost + "; clickerUpgrade1 = " + clickerUpgrade1 + "; clickerUpgrade2Cost = " + clickerUpgrade2Cost + "; clickerUpgrade2 = " + clickerUpgrade2 + "; clickerUpgrade2Modifier = " + clickerUpgrade2Modifier + "; clickerUpgrade3Cost = " + clickerUpgrade3Cost + "; clickerUpgrade3 = " + clickerUpgrade3 + "; clickerUpgrade3Modifier = " + clickerUpgrade3Modifier + "; cursorAmount = " + cursorAmount + "; cursorClickIncrease = " + cursorClickIncrease + "; cursorClickTotalIncrease = " + cursorClickTotalIncrease + "; cursorCost = " + cursorCost + "; cursorUpgrade1Cost = " + cursorUpgrade1Cost + "; cursorUpgrade1 = " + cursorUpgrade1 + "; cursorUpgrade2Cost = " + cursorUpgrade2Cost + "; cursorUpgrade2 = " + cursorUpgrade2 + "; cursorUpgrade2Modifier = " + cursorUpgrade2Modifier + "; cursorUpgrade3Cost = " + cursorUpgrade3Cost + "; cursorUpgrade3 = " + cursorUpgrade3 + "; cursorUpgrade3Modifier = " + cursorUpgrade3Modifier + "; clackerAmount = " + clackerAmount + "; clackerBaseCpm = " + clackerBaseCpm + "; clackerCost = " + clackerCost + "; clackerCpmAmount = " + clackerCpmAmount + "; clackerCpmTemp = " + clackerCpmTemp + "; clackerMode = " + clackerMode + "; clackerModifiedCpm = " + clackerModifiedCpm + "; clackerTotalCpm = " + clackerTotalCpm + ";", encYc1);
-}
-*/
 
 function getSaveCode() {
 	"use strict";
@@ -316,6 +339,8 @@ function saveLoadRead() {
 
 function achievementTick() {
     "use strict";
+	var achDis = document.getElementById("achievementDisplay");
+	
     if (clickAmount >= 1 && !achievementFClick) {
         achievementFClick = true;
         window.alert("Achievement Received: First Click");
@@ -336,20 +361,73 @@ function achievementTick() {
         achievementRuinedTheFun = true;
         window.alert("Achievement Received: Ruined The Fun");
     }
+	
+	
+	
+	if (achievementFClick && achievementFClickToggle) {
+		achievementFClickToggle = false;
+		achDis.innerHTML += "<div id='achievementFClick'>Achievement: First Click</div>";
+	}
+	
+	if (achievement10Click && achievement10ClickToggle) {
+		achievement10ClickToggle = false;
+		achDis.innerHTML += "<div id='achievement10Click'>Achievement: 10 Clicks</div>";
+	}
+	
+	if (achievement100Click && achievement100ClickToggle) {
+		achievement100ClickToggle = false;
+		achDis.innerHTML += "<div id='achievement100Click'>Achievement: 100 Clicks</div>";
+	}
+	
+	if (achievementTClick && achievementTClickToggle) {
+		achievementTClickToggle = false;
+		achDis.innerHTML += "<div id='achievementTClick'>Achievement: Thousand Clicks</div>";
+	}
+	
+	if (achievement10000Click && achievement10000ClickToggle) {
+		achievement10000ClickToggle = false;
+		achDis.innerHTML += "<div id='achievement10000Click'>Achievement: 10000 Clicks</div>";
+	}
+	
+	if (achievement100000Click && achievement100000ClickToggle) {
+		achievement100000ClickToggle = false;
+		achDis.innerHTML += "<div id='achievement100000Click'>Achievement: 100000 Clicks</div>";
+	}
+	
+	if (achievementMClick && achievementMClickToggle) {
+		achievementMClickToggle = false;
+		achDis.innerHTML += "<div id='achievementMClick'>Achievement: Million Clicks</div>";
+	}
+	
+	if (achievement10000000Click && achievement10000000ClickToggle) {
+		achievement10000000ClickToggle = false;
+		achDis.innerHTML += "<div id='achievement10000000Click'>Achievement: 10000000 Clicks</div>";
+	}
+	
+	if (achievement100000000Click && achievement100000000ClickToggle) {
+		achievement100000000ClickToggle = false;
+		achDis.innerHTML += "<div id='achievement100000000Click'>Achievement: 100000000 Clicks</div>";
+	}
+	
+	if (achievementBClick && achievementBClickToggle) {
+		achievementBClickToggle = false;
+		achDis.innerHTML += "<div id='achievementBClick'>Achievement: Billion Clicks</div>";
+	}
     
     if (achievementClickMoreTotalToggle && achievementClickMoreTotal) {
         achievementClickMoreTotalToggle = false;
-        document.getElementById('achievementClickMoreTotalDisplay').style.visibility = "visible";
+        achDis.innerHTML += "<div id='achievementClickMoreTotalDisplay'>Achievment: Hacked Clicking</div>";
     }
+	
     if (achievementRuinedTheFunToggle && achievementRuinedTheFun) {
         achievementRuinedTheFunToggle = false;
-        document.getElementById('achievementRuinedTheFun').style.visibility = "visible";
+        achDis.innerHTML += "<div id='achievementRuinedTheFun'>Achievment: Ruined The Fun</div>";
     }
     
     
     if (eei[fnaf] && achievementFNAFToggle) {
         achievementFNAFToggle = false;
-        document.getElementById('achievementFNAF').style.visibility = "visible";
+        achDis.innerHTML += "<div id='achievementFNAF'>Achievement: Bite of '87</div>";
     }
 }
 
@@ -360,7 +438,7 @@ function updateDisplays() {
     document.getElementById('amountOf').innerHTML = Math.floor(clickAmount);
     if (!cursorUpgrade2) {document.getElementById('cursorIncreaseDisplay').innerHTML = cursorClickIncrease; } else { document.getElementById('cursorIncreaseDisplay').innerHTML = Math.round(cursorClickTotalIncrease / cursorAmount); }
     
-    document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount === false ? 0 : clickAmount;
+    document.getElementById('clickerAmountDisplay').innerHTML = clickerAmount === false ? 0 : clickerAmount;
     document.getElementById('clickerTotalCpsDisplay').innerHTML = clickerTotalCps === false ? 0 : clickerTotalCps;
     document.getElementById('clickerCostDisplay').innerHTML = clickerCost;
     document.getElementById('clickerCpsDisplay').innerHTML = clickerModifiedCps === false ? 0 : clickerModifiedCps;
@@ -833,12 +911,12 @@ function autosaveToggle(time) {
 
 function uncheckAs(stayChecked) {
     "use strict";
-    for (var current = 1; current <= 6; current++) {
+    for (var current = 1; current < 7; current++) {
         if (current != stayChecked) {
             document.getElementById("as" + current).checked = false;
         }
     }
-    if (document.getElementById("as" + stayChecked).checked) { autosaveEnable(document.getElementById("as" + stayChecked).onchange.toString().substring(document.getElementById("as" + stayChecked).onchange.toString().nIndexOf("(", 2) + 1, document.getElementById("as" + stayChecked).onchange.toString().nIndexOf(")", 2))); }
+    if (document.getElementById("as" + stayChecked).checked && stayChecked != 6) { autosaveEnable(document.getElementById("as" + stayChecked).onchange.toString().substring(document.getElementById("as" + stayChecked).onchange.toString().nIndexOf("(", 2) + 1, document.getElementById("as" + stayChecked).onchange.toString().nIndexOf(")", 2))); } else if (document.getElementById("as" + stayChecked).checked && stayChecked == 6) { autosaveEnable(document.getElementById('as6i').value * 1000); }
 }
 
 

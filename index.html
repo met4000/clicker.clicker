@@ -1,6 +1,9 @@
 <html>
 	<head>
         <span id="includes">
+			<script src="jquery-3.0.0/dist/jquery.js"></script>
+			<script src="vex-2.3.3/js/vex.js"></script>
+			<script src="vex-2.3.3/js/vex.dialog.js"></script>
             <script src="jslib.js"></script>
             <script src="CryptoJS.js"></script>
             <script src="clicker.clicker.jsfiles.js"></script>
@@ -11,7 +14,7 @@
 		</script>
 	</head>
 	<body onload="tickTemp=setInterval('tick()',1);loadCookie()" onkeypress="return keyLogF(event)" id="body">
-		<img id="largeCursor" src="graphics/cursor1.png" style="cursor: pointer" onclick="mouseClick();">
+		<img id="largeCursor" src="graphics/cursor1.png" style="cursor: pointer">
 		<br>
 		<span><span id='amountOf'>0</span> clicks!</span>
 		<br>
@@ -23,53 +26,39 @@
         <span><span id='clackerAmountDisplay'>0</span> clackers: +<span id='clackerTotalCpmDisplay'>0</span> cpm</span>
         <br>
         <br>
-        <div id='genUpgrade1Display' style="visibility: hidden"><button onclick="genUpgrade(1);"><span id='genUpgrade1DisplayText'><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a second)</span></button></div>
-        <div id='genUpgrade2Display' style="visibility: hidden"><button onclick="genUpgrade(2);"><span id='genUpgrade2DisplayText'><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick clicks <b>twice</b> a second)</span></button></div>
+        <div id='genUpgrade1Display' style="visibility: hidden"><button id="gu1"><span id='genUpgrade1DisplayText'><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a second)</span></button></div>
+        <div id='genUpgrade2Display' style="visibility: hidden"><button id="gu2"><span id='genUpgrade2DisplayText'><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick clicks <b>twice</b> a second)</span></button></div>
         <br>
-        <div id='clickerUpgrade1Display' style="visibility: hidden"><button onclick="clickerUpgrade(1);"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250</span>c - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
-        <div id='clickerUpgrade2Display' style="visibility: hidden"><button onclick="clickerUpgrade(2);"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointers (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
-        <div id='clickerUpgrade3Display' style="visibility: hidden"><button onclick="clickerUpgrade(3);"><span id='clickerUpgrade3DisplayText'><span id='clickerUpgrade3CostDisplay'>2500</span>c - Clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Clickers (Clickers are <b>twice</b> as efficient)</span></button></div>
+        <div id='clickerUpgrade1Display' style="visibility: hidden"><button id="cu1"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250</span>c - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
+        <div id='clickerUpgrade2Display' style="visibility: hidden"><button id="cu2"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointers (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
+        <div id='clickerUpgrade3Display' style="visibility: hidden"><button id="cu3"><span id='clickerUpgrade3DisplayText'><span id='clickerUpgrade3CostDisplay'>2500</span>c - Clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Clickers (Clickers are <b>twice</b> as efficient)</span></button></div>
         <br>
-        <div id='cursorUpgrade1Display' style="visibility: hidden"><button onclick="cursorUpgrade(1);"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500</span>c - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
-        <div id='cursorUpgrade2Display' style="visibility: hidden"><button onclick="cursorUpgrade(2);"><span id='cursorUpgrade2DisplayText'><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</span></button></div>
-        <div id='cursorUpgrade3Display' style="visibility: hidden"><button onclick="cursorUpgrade(3);"><span id='cursorUpgrade3DisplayText'><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</span></button></div>
+        <div id='cursorUpgrade1Display' style="visibility: hidden"><button id="cuu1"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500</span>c - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
+        <div id='cursorUpgrade2Display' style="visibility: hidden"><button id="cuu2"><span id='cursorUpgrade2DisplayText'><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</span></button></div>
+        <div id='cursorUpgrade3Display' style="visibility: hidden"><button id="cuu3"><span id='cursorUpgrade3DisplayText'><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</span></button></div>
 		<br>
-        <div id='clackerUpgrade1Display' style="visibility: hidden"><button onclick="clackerUpgrade(1);"><span id='clackerUpgrade1DisplayText'><span id='clackerUpgrade1CostDisplay'>10000</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</span></button></div>
+        <div id='clackerUpgrade1Display' style="visibility: hidden"><button id="ca1"><span id='clackerUpgrade1DisplayText'><span id='clackerUpgrade1CostDisplay'>10000</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</span></button></div>
         <br>
 		<br>
-        <div><button onclick="increaseClicker();">Buy a clicker for <span id='clickerCostDisplay'>75</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
-        <div><button onclick="increaseCursor();" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>750</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
-        <div><button onclick="increaseClacker();">Buy a clacker for <span id='clackerCostDisplay'>2000</span>c (<b>+<span id='clackerCpmDisplay'>1</span> <span id='clackerModeDisplay'>clicker</span> cpm</b>)</button></div>
+        <div><button id="bcl">Buy a clicker for <span id='clickerCostDisplay'>75</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
+        <div><button id="bcu" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>750</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
+        <div><button id="bca">Buy a clacker for <span id='clackerCostDisplay'>2000</span>c (<b>+<span id='clackerCpmDisplay'>1</span> <span id='clackerModeDisplay'>clicker</span> cpm</b>)</button></div>
 		<br>
+		<div id="achievementDisplay"></div>
 		<br>
-		<br>
-        <div id='achievementFClick' style="visibility: hidden">Achievement: First Click</div>
-        <div id='achievement10Click' style="visibility: hidden">Achievement: 10 Clicks</div>
-        <div id='achievement100Click' style="visibility: hidden">Achievement: 100 Clicks</div>
-        <div id='achievementTClick' style="visibility: hidden">Achievement: Thousand Clicks</div>
-        <div id='achievement10000Click' style="visibility: hidden">Achievement: 10000 Clicks</div>
-        <div id='achievement100000Click' style="visibility: hidden">Achievement: 100000 Clicks</div>
-        <div id='achievementMClick' style="visibility: hidden">Achievement: Million Clicks</div>
-        <div id='achievement10000000Click' style="visibility: hidden">Achievement: 10000000 Clicks</div>
-        <div id='achievement100000000Click' style="visibility: hidden">Achievement: 100000000 Clicks</div>
-        <div id='achievementBClick' style="visibility: hidden">Achievement: Billion Clicks</div>
-        <div id='achievementClickMoreTotalDisplay' style="visibility: hidden">Achievment: Hacked Clicking</div>
-        <div id='achievementRuinedTheFun' style="visibility: hidden">Achievment: Ruined The Fun</div>
-        <div id='achievementFNAF' style="visibility: hidden">Achievement: Bite of '87</div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <center><textarea id='saveDisplayArea'></textarea>
-        <br>
-        <button onclick="saveDisplayWrite(getSaveCode());">Get copyable save code</button>
-        <button onclick="saveCodeRun(saveLoadRead());">Load copyable save code</button>
-        <br>
-        <input type="submit" value="Save" onclick="setSaveCookie()">
-        <span> Autosave every: </span><input type="checkbox" onchange="autosaveToggle(10000);uncheckAs(1)" id="as1">10 sec <input type="checkbox" onchange="autosaveToggle(30000);uncheckAs(2)" id="as2">30 sec <input type="checkbox" onchange="autosaveToggle(60000);uncheckAs(3)" checked id="as3">1 min <input type="checkbox" onchange="autosaveToggle(120000);uncheckAs(4)" id="as4">2 min <input type="checkbox" onchange="autosaveToggle(300000);uncheckAs(5)" id="as5">5 min
-        <!-- <input type="checkbox" onchange="autosaveToggle(document.getElementById('as6i').value * 1000);uncheckAs(6)" id="as6"> <input type="number" onchange="if(document.getElementById('as6').checked){autosaveToggle(this.value * 1000);}" id="as6i"> sec !-->
-        <br>
-        <button id='saveDelete' onclick="removeSaveCookie('save_cookie')">Reset Save</button></center>
+        <center>
+			<textarea id='saveDisplayArea'></textarea>
+			<br>
+			<button id="gsc">Get copyable save code</button>
+			<button id="lsc">Load copyable save code</button>
+			<br>
+			<span> Autosave every: </span><input type="checkbox" onchange="autosaveToggle(10000);uncheckAs(1)" id="as1">10 sec <input type="checkbox" onchange="autosaveToggle(30000);uncheckAs(2)" id="as2">30 sec <input type="checkbox" onchange="autosaveToggle(60000);uncheckAs(3)" checked id="as3">1 min <input type="checkbox" onchange="autosaveToggle(120000);uncheckAs(4)" id="as4">2 min <input type="checkbox" onchange="autosaveToggle(300000);uncheckAs(5)" id="as5">5 min
+			<input type="checkbox" onchange="autosaveToggle(document.getElementById('as6i').value * 1000);uncheckAs(6)" id="as6">
+			<span><input type="number" style="height: 24px; width: 64px" value="1" oninput="if(this.value<1){this.value=1;}if(document.getElementById('as6').checked){autosaveToggle(document.getElementById('as6i').value * 1000);uncheckAs(6);}" id="as6i"> sec</span>
+			<br>
+			<input type="submit" value="Save" id="ssc">
+			<button id="saveDelete">Reset Save</button>
+		</center>
         <br>
         <br>
         <div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span>
