@@ -863,7 +863,7 @@ function loadCookie() {
         saveCodeRun(save_cookie);
         if (genUpgrade1) {
         	document.getElementById('genUpgrade1Display').style.visibility = "visible";
-        	document.getElementById('genUpgrade1Display').innerHTML = "<strike><span id="'genUpgrade1CostDisplay'>"+genUpgrade1Cost+"</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and instead <b>autoclicks 2</b> times a second)</strike>";
+        	document.getElementById('genUpgrade1Display').innerHTML = "<strike><span id='genUpgrade1CostDisplay'>"+genUpgrade1Cost+"</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and instead <b>autoclicks 2</b> times a second)</strike>";
         }
         if (genUpgrade2) {
         	document.getElementById('genUpgrade2Display').style.visibility = "visible";
