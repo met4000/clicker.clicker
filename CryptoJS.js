@@ -70,3 +70,14 @@ function decrypt(input, key) {
     }
     return decrypted;
 }
+
+function decryptRaw(input, key) {
+    "use strict";
+    var encryptKey, encryptNumber = 0, encrypted, decrypted;
+    if (key == undefined) {
+        encryptNumber = input.charAt(0);
+        encryptKey = encYc[encryptNumber];
+    } else { encryptKey = key; }
+    encrypted = input.substring(1);
+    return CryptoJS.AES.decrypt(encrypted, encYc[encryptNumber]).toString(CryptoJS.enc.Utf8);
+}
