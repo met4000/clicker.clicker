@@ -1,14 +1,18 @@
 <html>
 	<head>
-        <span id="includes">
+        <span id="scripts">
             <script src="jslib.js"></script>
             <script src="CryptoJS.js"></script>
-            <script src="clicker.clicker.jsfiles.js"></script>
+            <script src="cc.js"></script>
+            <script type="text/javascript">document.getElementById("scripts").innerHTML=""</script>
         </span>
-		<script type="text/javascript">
-			document.title = "Clicks: " + Math.floor(clickAmount);
-            cpsUpdate();
-		</script>
+	<script type="text/javascript">
+		document.title = "Clicks: " + Math.floor(clickAmount);
+		cpsUpdate();
+	</script>
+	<span id="metadata">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">.
+	</span>
 	</head>
 	<body onload="tickTemp=setInterval('tick()',1);loadCookie()" onkeypress="return keyLogF(event)" id="body">
 		<img id="largeCursor" src="graphics/cursor1.png" style="cursor: pointer">
