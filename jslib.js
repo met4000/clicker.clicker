@@ -101,3 +101,21 @@ function includeJs (jsFilePath) {
     js.src = jsFilePath;
     document.body.appendChild(js);
 }
+
+/**
+*  Searches through 'this'. Returns true if only characters in 'charList' are used, and false if not
+**/
+String.prototype.whitelist=function(charList){
+	for(var x=0;x<this.length;x++){
+		var done=false;
+		for(var y=0;y<charList.length&&!done;y++){
+			if(this.charAt(x).amountOf(charList.charAt(y))>0){
+				done=true;
+			}
+		}
+		if(!done){
+			return false;
+		}
+	}
+	return true;
+}
