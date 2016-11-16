@@ -1,13 +1,14 @@
 <html>
 	<head>
-        <span id="includes">
-            <script src="jslib.js"></script>
-            <script src="CryptoJS.js"></script>
-            <script src="clicker.clicker.jsfiles.js"></script>
-        </span>
+		<span id="includes">
+		    <script src="jslib.js"></script>
+		    <script src="CryptoJS.js"></script>
+		    <script src="clicker.clicker.jsfiles.js"></script>
+		</span>
 		<script type="text/javascript">
 			document.title = "Clicks: " + Math.floor(clickAmount);
-            cpsUpdate();
+			cpsUpdate();
+			document.body.style.fontFamily = "Comic Sans MS";
 		</script>
 	</head>
 	<body onload="tickTemp=setInterval('tick()',1);loadCookie()" onkeypress="return keyLogF(event)" id="body">
@@ -16,34 +17,34 @@
 		<span><span id='amountOf'>0</span> clicks!</span>
 		<br>
 		<br>
-        <span><span id='clickerAmountDisplay'>0</span> clickers: +<span id='clickerTotalCpsDisplay'>0</span> cps</span>
-        <br>
-        <span><span id='cursorAmountDisplay'>0</span> cursors: +<span id='cursorClickTotalIncreaseDisplay'>0</span> cpc</span>
-        <br>
-        <span><span id='clackerAmountDisplay'>0</span> clackers: +<span id='clackerTotalCpmDisplay'>0</span> cpm</span>
-        <br>
-        <br>
-        <div id='genUpgrade1Display' style="visibility: hidden"><button id="gu1"><span id='genUpgrade1DisplayText'><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a second)</span></button></div>
-        <div id='genUpgrade2Display' style="visibility: hidden"><button id="gu2"><span id='genUpgrade2DisplayText'><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick clicks <b>twice</b> a second)</span></button></div>
-        <br>
-        <div id='clickerUpgrade1Display' style="visibility: hidden"><button id="cu1"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250</span>c - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
-        <div id='clickerUpgrade2Display' style="visibility: hidden"><button id="cu2"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointers (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
-        <div id='clickerUpgrade3Display' style="visibility: hidden"><button id="cu3"><span id='clickerUpgrade3DisplayText'><span id='clickerUpgrade3CostDisplay'>2500</span>c - Clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Clickers (Clickers are <b>twice</b> as efficient)</span></button></div>
-        <br>
-        <div id='cursorUpgrade1Display' style="visibility: hidden"><button id="cuu1"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500</span>c - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
-        <div id='cursorUpgrade2Display' style="visibility: hidden"><button id="cuu2"><span id='cursorUpgrade2DisplayText'><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</span></button></div>
-        <div id='cursorUpgrade3Display' style="visibility: hidden"><button id="cuu3"><span id='cursorUpgrade3DisplayText'><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</span></button></div>
+	<span><span id='clickerAmountDisplay'>0</span> clickers: +<span id='clickerTotalCpsDisplay'>0</span> cps</span>
+	<br>
+	<span><span id='cursorAmountDisplay'>0</span> cursors: +<span id='cursorClickTotalIncreaseDisplay'>0</span> cpc</span>
+	<br>
+	<span><span id='clackerAmountDisplay'>0</span> clackers: +<span id='clackerTotalCpmDisplay'>0</span> cpm</span>
+	<br>
+	<br>
+	<div id='genUpgrade1Display' style="visibility: hidden"><button id="gu1"><span id='genUpgrade1DisplayText'><span id='genUpgrade1CostDisplay'>1000000</span>c - Generic Upgrade - <i>Plastic Tier</i> 1 - Autoclick (Your click is disabled and <b>autoclicks 2</b> times a second)</span></button></div>
+	<div id='genUpgrade2Display' style="visibility: hidden"><button id="gu2"><span id='genUpgrade2DisplayText'><span id='genUpgrade2CostDisplay'>2000000</span>c - Generic Upgrade - <i>Wood Tier</i> 2 - Wooden Mouse (Autoclick clicks <b>twice</b> a second)</span></button></div>
+	<br>
+	<div id='clickerUpgrade1Display' style="visibility: hidden"><button id="cu1"><span id='clickerUpgrade1DisplayText'><span id='clickerUpgrade1CostDisplay'>250</span>c - Clicker Upgrade - Fatter Fingers (Clickers get <b>+1 cpc</b>)</span></button></div>
+	<div id='clickerUpgrade2Display' style="visibility: hidden"><button id="cu2"><span id='clickerUpgrade2DisplayText'><span id='clickerUpgrade2CostDisplay'>1000</span>c - Clicker Upgrade - Mythical Pointers (Clickers get <b>+0.1 cpc</b> for each clicker owned)</span></button></div>
+	<div id='clickerUpgrade3Display' style="visibility: hidden"><button id="cu3"><span id='clickerUpgrade3DisplayText'><span id='clickerUpgrade3CostDisplay'>2500</span>c - Clicker Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Clickers (Clickers are <b>twice</b> as efficient)</span></button></div>
+	<br>
+	<div id='cursorUpgrade1Display' style="visibility: hidden"><button id="cuu1"><span id='cursorUpgrade1DisplayText'><span id='cursorUpgrade1CostDisplay'>2500</span>c - Cursor Upgrade - Fatter Fingers (Cursors get <b>+1 cpc</b>)</span></button></div>
+	<div id='cursorUpgrade2Display' style="visibility: hidden"><button id="cuu2"><span id='cursorUpgrade2DisplayText'><span id='cursorUpgrade2CostDisplay'>10000</span>c - Cursor Upgrade - Mythical Pointer (Cursors get <b>+0.1 cpc</b> for each cursor owned)</span></button></div>
+	<div id='cursorUpgrade3Display' style="visibility: hidden"><button id="cuu3"><span id='cursorUpgrade3DisplayText'><span id='cursorUpgrade3CostDisplay'>50000</span>c - Cursor Upgrade - <i>Plastic Tier</i> 1 - Sheet Plastic Cursors (Cursors are <b>twice</b> as efficient)</span></button></div>
 		<br>
-        <div id='clackerUpgrade1Display' style="visibility: hidden"><button id="ca1"><span id='clackerUpgrade1DisplayText'><span id='clackerUpgrade1CostDisplay'>10000</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</span></button></div>
-        <br>
+	<div id='clackerUpgrade1Display' style="visibility: hidden"><button id="ca1"><span id='clackerUpgrade1DisplayText'><span id='clackerUpgrade1CostDisplay'>10000</span>c - Clacker Upgrade - Who needs help? (<b>0</b> clicker cpm, <b>+1</b> cursor cpm)</span></button></div>
+	<br>
 		<br>
-        <div><button id="bcl">Buy a clicker for <span id='clickerCostDisplay'>75</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
-        <div><button id="bcu" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>750</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
-        <div><button id="bca">Buy a clacker for <span id='clackerCostDisplay'>2000</span>c (<b>+<span id='clackerCpmDisplay'>1</span> <span id='clackerModeDisplay'>clicker</span> cpm</b>)</button></div>
+	<div><button id="bcl">Buy a clicker for <span id='clickerCostDisplay'>75</span>c (<b>+<span id='clickerCpsDisplay'>1</span> cps</b>)</button></div>
+	<div><button id="bcu" id='buyCursor'>Buy a cursor for <span id='cursorCostDisplay'>750</span>c (<b>+<span id='cursorIncreaseDisplay'>1</span> cpc</b>)</button></div>
+	<div><button id="bca">Buy a clacker for <span id='clackerCostDisplay'>2000</span>c (<b>+<span id='clackerCpmDisplay'>1</span> <span id='clackerModeDisplay'>clicker</span> cpm</b>)</button></div>
 		<br>
 		<div id="achievementDisplay"></div>
 		<br>
-        <center>
+	<center>
 			<textarea id='saveDisplayArea'></textarea>
 			<br>
 			<button id="gsc">Get copyable save code</button>
@@ -56,13 +57,13 @@
 			<input type="submit" value="Save" id="ssc">
 			<button id="saveDelete">Reset Save</button>
 		</center>
-        <br>
-        <br>
-        <div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span>
-        <input type="checkbox" onchange="autoclickToggle();"></span></div>
-        <br>
-        <br>
-        <br>
-        <span id="info">Check out the <a href="http://github.com/met4000/clicker.clicker/wiki/home" target="_blank">clicker clicker wiki</a> for more info, including downloads (e.g. the <a href="http://github.com/met4000/clicker.clicker/releases/latest" target="_blank">latest version</a>).</span>
+	<br>
+	<br>
+	<div><span id='autoclickToggleDisplay' style="visibility: hidden"><span id="autoclickToggleDisplayText">Autoclick on: </span>
+	<input type="checkbox" onchange="autoclickToggle();"></span></div>
+	<br>
+	<br>
+	<br>
+	<span id="info">Check out the <a href="http://github.com/met4000/clicker.clicker/wiki/home" target="_blank">clicker clicker wiki</a> for more info, including downloads (e.g. the <a href="http://github.com/met4000/clicker.clicker/releases/latest" target="_blank">latest version</a>).</span>
     </body>
 </html>
